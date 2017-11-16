@@ -1,0 +1,89 @@
+* Stone and Sand
+/Daily life event tracker with data visualization./
+
+** Tech Stack
++ Tech Stack:
+  - MongoDB + Mongoose
+  - Express
+  - React + Axios
+  - Node
+
++ Additional technologies:
+  - Webpack
+  - Redux
+  - Chart.js
+  - Calendaring API
+
+* Project Tracking
+
+** Backlog
+
+*** Plan features and priorities.
+# MVP FEATURES
++ [ ] Create Sessions
++ [ ] Log Event
++ [ ] Create Event
++ [ ] Display Event / Tables
++ [ ] Charts
+
+# STRETCH GOALS
++ [ ] Authentication
++ [ ] Date Range
++ [ ] Calendar
+  - [ ] Planning Events
+
+*** Project Setup
++ [X] Setup Initial Documentation
+  - [X] Setup README.md / Press-Release
+  - [X] Setup scoping document.
+
++ [ ] Setup eslint style guide.
+  - [ ] Setup STYLE-GUIDE.md
++ [X] Setup github project.
+  - [X] Decide on rebase vs merge workflow
+    - [X] Setup CONTRIBUTING.md
++ [X] Setup basic server.
++ [X] Deploy server.
+
+** In-Progress
++ [ ] Get webpack working.
++ [ ] Get database up.
+
+** Pull Request / Ready-for-Review
+
+** Ready
+
+* API Endpoints
+|---------+-------------------------------+---------------------+--------------------|
+| METHOD  | URL                           | REQUEST             | RESPONSE           |
+|---------+-------------------------------+---------------------+--------------------|
+| GET     | /                             |                     | html               |
+| GET (?) | /login                        |                     | html               |
+| POST    | /login                        | {username: 'stone') | redirect           |
+| GET     | /signup                       |                     | html               |
+| POST    | /signup                       | json (username)     | redirect           |
+| GET     | /username                     |                     | html               |
+| GET     | /api/username/event           | json (username)     | (array of objects) |
+| POST    | /api/username/event           | json (event info)   | string             |
+| POST    | /api/username/createEventType | json                | string             |
+|---------+-------------------------------+---------------------+--------------------|
+
+* DB Schema
+
+* Directory Structure
++ client/
+  - public/
+    - bundle.js
+    - index.html
+    - style.css
+  - src/
+    - index.jsx
++ db/
+  - data/
+  - index.js
++ .eslintrc
++ package.json
++ server/
+  - index.js
++ webpack.config
+
