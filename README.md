@@ -1,3 +1,0 @@
-# stoneandsand
-
-Hello, world.
