@@ -27,6 +27,14 @@ app.get('/login', (req, res) => {
   res.send('LOGIN PAGE');
 });
 
+// POST login data from the username
+// {username:'stone', password:'sand'} 
+// Not sure if we will need to use this.
+app.post('/login', (req, res) => {
+  console.log('Received GET at /login');
+  res.send('LOGIN PAGE');
+});
+
 // GET the login page for the user.
 // Not sure if we will need to use this.
 app.get('/signup', (req, res) => {
@@ -65,3 +73,11 @@ app.post('/api/username/createEventType', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });
+
+// HELPERS
+
+// Function to check whether a user is logged-in.
+// Use as middleware.
+function checkLogin() {
+  
+}
