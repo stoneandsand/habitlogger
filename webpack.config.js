@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 
-const BUILD_DIR = 'client/public'; //path //dirname/src/public bundle.js directory
+const BUILD_DIR = '/client/public'; //path //dirname/src/public bundle.js directory
 const APP_DIR = '/client/src' ; // index.jsx directory (react file)
 
 module.exports = {
