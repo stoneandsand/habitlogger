@@ -1,5 +1,5 @@
 *~
 /node_modules/
 /package-lock.json
-client/public/bundle.js
+/client/public/bundle.js
 *.tern-port
