@@ -65,6 +65,9 @@ app.post('/signup', (req, res) => {
 // This is the main page the user will be interacting with.
 app.get('/:username', (req, res) => {
   console.log(`Received GET at ${req.params.username}`);
+  // CONNECTION TO DATABASE HERE
+  // db.getUserHabits(req.params.username, (habits) => {});
+  // Need to use session here eventually, for security / privacy.
   res.send(`HELLO, ${req.params.username}`);
 });
 
@@ -72,10 +75,11 @@ app.get('/:username', (req, res) => {
 // {habit: 'cigars'}
 // {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
 // This will be used to populate the user's page with data
-app.get('/api/:username/occurrences', (req, res) => {
+app.get('/api/:username/:habit', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Return habit object with unit, limit, timeframe, occurrences
-    // db.loadUserData((userdata) => {});
+  // db.getHabitData((req.params.username, req.params.habit) => {});
+  // Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
   res.send(`GETTING ${req.params.username}'s OCCURRENCES`);
 });
@@ -86,6 +90,7 @@ app.post('/api/:username/log', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Add the occurrence object to the occurrences array for that habit
   // db.logOccurrence(req.body, (result) => {})
+  // Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
@@ -96,6 +101,7 @@ app.post('/api/:username/habit', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Add the object to the occurrences array for that habit
   // db.createHabit(req.body, (result) => {})
+  // Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/habit`);
   res.send(`CREATING NEW HABIT FOR ${req.params.username}`);
 });
