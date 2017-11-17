@@ -19,9 +19,19 @@ database.once('open', function() {
 const userSchema = mongoose.Schema({
   userName: 'string',
   password: 'string',
-  habits: {
+  habits: [] // <<<---check how to nest schemas
+});
 
-  }
+const habitsSchema = mongoose.Schema({
+  habit: 'string',
+  unit: 'string',
+  timeframe: 'string',
+  occurances: [] // <<<---check how to nest schemas
+});
+
+const occurencesSchema = mongoose.Schema({
+  timestamp: 'number',
+  value: 'number'
 });
 
 // compile userSchema to a model for creating instances
@@ -60,10 +70,7 @@ retrieve = function(query, callback) {
   });
 }
 
-const me = {
-  userName: 'cpbennett4'
-}
-
+// FIRST ITERATION OF SCHEMA
 // database = {
 //   {
 //     user: String,
@@ -84,6 +91,26 @@ const me = {
 //     }
 //   }
 // };
+
+// SECOND ITERATION OF SCHEMAS
+// userSchema = {
+//   user: 'string',
+//   password: 'string',
+//   habits: [habitsSchema]
+// }
+
+// habitsSchema = {
+//   habit: 'string',
+//   unit: 'string',
+//   limit: 'number',
+//   timeframe: 'string',
+//   occurances: [occurencesSchema]
+// }
+
+// occurencesSchema = {
+//   timestamp: 'number',
+//   value: 'number'
+// }
 
 module.exports.save = save;
 module.exports.retrieve = retrieve;
