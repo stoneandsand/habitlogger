@@ -84,13 +84,20 @@ Functions server will need from database:
    - Return an object to the router with status of these operations
      - e.g., {savedNew: true, alreadyExists: false}
 
-** get user's data / db.loadUserData(username)
-   - When the user logs in, we need to present their data
+** get user's data 
+*** getUserHabits / db.getUserHabits()
+  - When the user logs in, we need to present their data
+  - called by the client automatically on load
+  - used to populate the dropdown
+  - returns an array of habit names (strings)
+
+*** getHabitData / db.getHabitData()
+  - used by default for the first habit on first load, request by client
+  - used whenever the client selects a habit from the dropdown
+  - used to populate the table and chart
    - The database will have to return user data to the router, which will then send it to the client
-   - The scope for that data is undecided, but should probably include all that users habits, occurrences
-   - We will probably have to create methods for smaller requests, so we don't return ALL the data on every render
-   - Returns an object with all the data needed for render
-     - e.g. {habit: smoking: {limit, occurrences, etc.}
+   - Returns an object with all the data needed for client to render
+     - e.g. {smoking: {limit: 5, occurrences: []}
 
 ** occurence logged by user / db.logOccurrence(occurrence)
    - When the user logs an occurrence, we need to save that occurrence to the database
