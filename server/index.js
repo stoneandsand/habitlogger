@@ -31,10 +31,17 @@ app.get('/login', (req, res) => {
 // Not sure if we will need to use this.
 app.post('/login', (req, res) => {
   console.log('Received POST at /login');
+  // CONNECTION TO DATABASE HERE
+  // db.login(req.body, (loginCheckData) => {}); 
+  // Does the username exists?
+  // Is the password correct?
+  // If both are true, redirect to userpage.
+  // Otherwise, redirect to login.
+  // Inform the user why their attempt failed.
   res.send('YOU TRIED TO LOG IN');
 });
 
-// GET the login page for the user.
+// GET the signup page for the user.
 // Not sure if we will need to use this.
 app.get('/signup', (req, res) => {
   console.log('Received GET at /signup');
@@ -46,6 +53,11 @@ app.get('/signup', (req, res) => {
 // Not sure if we will need to use this.
 app.post('/signup', (req, res) => {
   console.log('Received POST at /signup');
+  // CONNECTION TO DATABASE HERE
+  // db.signup(req.body, (signupCheck) => {});
+  // Check if the username exists
+  // If it does, redirect to login
+  // If it does not, save user data
   res.send('YOU TRIED TO SIGN UP');
 });
 
@@ -63,6 +75,7 @@ app.get('/:username', (req, res) => {
 app.get('/api/:username/occurrences', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Return habit object with unit, limit, timeframe, occurrences
+    // db.load((userdata) => {});
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
   res.send(`GETTING ${req.params.username}'s OCCURRENCES`);
 });
@@ -72,6 +85,7 @@ app.get('/api/:username/occurrences', (req, res) => {
 app.post('/api/:username/log', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Add the object to the occurrences array for that habit
+  // db.save(req.body, () => {})
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
