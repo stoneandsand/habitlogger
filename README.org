@@ -85,13 +85,13 @@ Functions server will need from database:
      - e.g., {savedNew: true, alreadyExists: false}
 
 ** get user's data 
-*** getUserHabits / db.getUserHabits()
+*** getUserHabits / db.getUserHabits(username)
   - When the user logs in, we need to present their data
   - called by the client automatically on load
   - used to populate the dropdown
   - returns an array of habit names (strings)
 
-*** getHabitData / db.getHabitData()
+*** getHabitData / db.getHabitData(habit)
   - used by default for the first habit on first load, request by client
   - used whenever the client selects a habit from the dropdown
   - used to populate the table and chart
