@@ -14,6 +14,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?/, // Specifying file type that will be transpiled
       include: APP_DIR,
+      exclude: /node_modules/,
       loader: 'babel-loader', // Tells which transpiler to use
       query: {
 	      presets: ['react', 'es2015'] // This could also be put in a .babelrc file
