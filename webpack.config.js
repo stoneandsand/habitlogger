@@ -14,7 +14,7 @@ module.exports = {
       include: APP_DIR,
       loader: 'babel-loader', // Tells which transpiler to use
       query: {
-	presets: ['react', 'es2015'] // This could also be put in a .babelrc file
+	      presets: ['react', 'es2015'] // This could also be put in a .babelrc file
       }
     }
    ]

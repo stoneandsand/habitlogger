@@ -8,7 +8,8 @@
     "react-dev": "webpack -d --watch",
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint --fix ."
+    "lint": "./node_modules/.bin/eslint --fix .",
+    "heroku-post-build": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
