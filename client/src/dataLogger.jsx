@@ -6,15 +6,13 @@ class DataLogger extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.logItem = this.logItem.bind(this);
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
 		var dataLog = document.forms.logInput;
-
+		this.props.logItem(dataLog, 'placeholder');
 	}
-
 
 
 	render() {
