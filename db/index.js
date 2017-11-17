@@ -8,67 +8,65 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/usersAccounts');
 
 // monitor connection
-var database = mongoose.connection;
+const database = mongoose.connection;
 
 database.on('error', console.error.bind(console, 'connection error: '));
-database.once('open', function() {
+database.once('open', () => {
   console.log('successfully connected to usersAccounts database');
-})
+});
 
 // create schema for a user account
 const userSchema = mongoose.Schema({
   userName: 'string',
   password: 'string',
-  habits: [] // <<<---check how to nest schemas
+  habits: [], // <<<---check how to nest schemas
 });
 
 const habitsSchema = mongoose.Schema({
   habit: 'string',
   unit: 'string',
   timeframe: 'string',
-  occurances: [] // <<<---check how to nest schemas
+  occurances: [], // <<<---check how to nest schemas
 });
 
 const occurencesSchema = mongoose.Schema({
   timestamp: 'number',
-  value: 'number'
+  value: 'number',
 });
 
 // compile userSchema to a model for creating instances
-var User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 // create function for server to save a user's info
-save = function(object) {
+save = function (object) {
   // create new instance of schema using passed object
   object = new User({
-    userName: object.userName
-  })
+    userName: object.userName,
+  });
 
   // save new User into usersAccounts database
   object.save((error, object) => {
     // if there is an error, return in console
-    if(error) {
+    if (error) {
       return console.error('error from database save:', error);
-    } else {  // if no errors, give confirmation
-      console.log(object.userName + ' saved to usersAccounts database');
-    }
-  })
-}
+    } // if no errors, give confirmation
+    console.log(`${object.userName} saved to usersAccounts database`);
+  });
+};
 
 // create function for server to retrieve user's info
-retrieve = function(query, callback) {
+retrieve = function (query, callback) {
   // build query
   User.find(query, (error, user) => {
-    if(error) {
-      return console.error('error from database retrieve: ',error);
-    } else {
-      // send user's info back via callback
-      callback(user);
-      // show confirmation of successful query
-      console.log('this user was queried: ',user)
+    if (error) {
+      return console.error('error from database retrieve: ', error);
     }
+    // send user's info back via callback
+    callback(user);
+    // show confirmation of successful query
+    console.log('this user was queried: ', user);
   });
-}
+};
 
 // FIRST ITERATION OF SCHEMA
 // database = {
