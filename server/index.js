@@ -1,4 +1,3 @@
-// TODO: FIX LINE 27 TO RESPOND TO SPECIFIC USERNAME
 // TODO: CONNECT TO DB
 const express = require('express');
 const app = express();
@@ -52,36 +51,36 @@ app.post('/signup', (req, res) => {
 
 // GET the user's landing page after they login
 // This is the main page the user will be interacting with.
-app.get('/username', (req, res) => { // <<<-------------------------------- FIX ME!!!!
-  console.log('Received GET at /username');
-  res.send('YOUR USER PAGE');
+app.get('/:username', (req, res) => {
+  console.log(`Received GET at ${req.params.username}`);
+  res.send(`HELLO, ${req.params.username}`);
 });
 
 // GET the user's occurrences for the requested habit
 // {habit: 'cigars'}
 // {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
 // This will be used to populate the user's page with data
-app.get('/api/username/occurrences', (req, res) => {
+app.get('/api/:username/occurrences', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Return habit object with unit, limit, timeframe, occurrences
-  console.log('Received GET at /api/username/occurrences');
-  res.send('GETTING YOUR OCCURRENCES');
+  console.log(`Received GET at /api/${req.params.username}/occurrences`);
+  res.send(`GETTING ${req.params.username}'s OCCURRENCES`);
 });
 
 // POST by user to log an occurrence
 // {timestamp: '2017116 2350', habit:'running', unit:'1'}
-app.post('/api/username/log', (req, res) => {
+app.post('/api/:username/log', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Add the object to the occurrences array for that habit
-  console.log('Received GET at /api/username/log');
-  res.send('LOGGED YOUR OCCURRENCE');
+  console.log(`Received GET at /api/${req.params.username}/log`);
+  res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
 
 // POST by user to create a habit
 // {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'} 
-app.post('/api/username/habit', (req, res) => {
-  console.log('Received GET at /api/username/habit');
-  res.send('CREATING YOUR HABIT');
+app.post('/api/:username/habit', (req, res) => {
+  console.log(`Received GET at /api/${req.params.username}/habit`);
+  res.send(`CREATING NEW HABIT FOR ${req.params.username}`);
 });
 
 app.listen(PORT, () => {
