@@ -31,8 +31,8 @@ app.get('/login', (req, res) => {
 // {username:'stone', password:'sand'} 
 // Not sure if we will need to use this.
 app.post('/login', (req, res) => {
-  console.log('Received GET at /login');
-  res.send('LOGIN PAGE');
+  console.log('Received POST at /login');
+  res.send('YOU TRIED TO LOG IN');
 });
 
 // GET the login page for the user.
@@ -42,32 +42,46 @@ app.get('/signup', (req, res) => {
   res.send('SIGNUP PAGE');
 });
 
+// POST the signup information for the user.
+// {username:'stone', password:'sand', email: 'stone@sandstone.com'}
+// Not sure if we will need to use this.
+app.post('/signup', (req, res) => {
+  console.log('Received POST at /signup');
+  res.send('YOU TRIED TO SIGN UP');
+});
+
 // GET the user's landing page after they login
 // This is the main page the user will be interacting with.
-app.get('/username', (req, res) => { // <<<-------- FIX ME!!!!
+app.get('/username', (req, res) => { // <<<-------------------------------- FIX ME!!!!
   console.log('Received GET at /username');
-  res.send('USER PAGE');
+  res.send('YOUR USER PAGE');
 });
 
-// GET the user's event data
+// GET the user's occurrences for the requested habit
+// {habit: 'cigars'}
+// {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
 // This will be used to populate the user's page with data
-app.get('/api/username/events', (req, res) => {
+app.get('/api/username/occurrences', (req, res) => {
   // CONNECTION TO DATABASE HERE
-  console.log('Received GET at /api/username/events');
-  res.send('GETTING YOUR EVENTS');
+  // Return habit object with unit, limit, timeframe, occurrences
+  console.log('Received GET at /api/username/occurrences');
+  res.send('GETTING YOUR OCCURRENCES');
 });
 
-// POST by user to log an event
-app.post('/api/username/logEvent', (req, res) => {
+// POST by user to log an occurrence
+// {timestamp: '2017116 2350', habit:'running', unit:'1'}
+app.post('/api/username/log', (req, res) => {
   // CONNECTION TO DATABASE HERE
-  console.log('Received GET at /api/username/logEvent');
-  res.send('LOGGING YOUR EVENT');
+  // Add the object to the occurrences array for that habit
+  console.log('Received GET at /api/username/log');
+  res.send('LOGGED YOUR OCCURRENCE');
 });
 
-// POST by user to log an event type
-app.post('/api/username/createEventType', (req, res) => {
-  console.log('Received GET at /api/username/createEventType');
-  res.send('CREATING YOUR EVENT TYPE');
+// POST by user to create a habit
+// {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'} 
+app.post('/api/username/habit', (req, res) => {
+  console.log('Received GET at /api/username/habit');
+  res.send('CREATING YOUR HABIT');
 });
 
 app.listen(PORT, () => {

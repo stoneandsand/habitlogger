@@ -54,19 +54,19 @@
 ** Ready
 
 * API Endpoints
-|---------+-------------------------------+---------------------+--------------------|
-| METHOD  | URL                           | REQUEST             | RESPONSE           |
-|---------+-------------------------------+---------------------+--------------------|
-| GET     | /                             |                     | html               |
-| GET (?) | /login                        |                     | html               |
-| POST    | /login                        | {username: 'stone') | redirect           |
-| GET     | /signup                       |                     | html               |
-| POST    | /signup                       | json (username)     | redirect           |
-| GET     | /username                     |                     | html               |
-| GET     | /api/username/event           | json (username)     | (array of objects) |
-| POST    | /api/username/event           | json (event info)   | string             |
-| POST    | /api/username/createEventType | json                | string             |
-|---------+-------------------------------+---------------------+--------------------|
+|---------+---------------------------+------------------------------------+--------------------|
+| METHOD  | URL                       | REQUEST                            | RESPONSE           |
+|---------+---------------------------+------------------------------------+--------------------|
+| GET     | /                         |                                    | html               |
+| GET (?) | /login                    |                                    | html               |
+| POST    | /login                    | JSON (user, pass)                  | redirect           |
+| GET     | /signup                   |                                    | html               |
+| POST    | /signup                   | JSON (user, pass, email?)          | redirect           |
+| GET     | /username                 |                                    | html               |
+| GET     | /api/username/occurrences | JSON (array of objects)            | (array of objects) |
+| POST    | /api/username/log         | JSON (occurrence object)           | string             |
+| POST    | /api/username/habit       | JSON (habit, unit, limit, t-frame) | string             |
+|---------+---------------------------+------------------------------------+--------------------|
 
 * DB Schema
 
