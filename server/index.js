@@ -32,7 +32,7 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   console.log('Received POST at /login');
   // CONNECTION TO DATABASE HERE
-  // db.login(req.body, (loginCheckData) => {}); 
+  // db.checkLogin(req.body, (loginCheckData) => {}); 
   // Does the username exists?
   // Is the password correct?
   // If both are true, redirect to userpage.
@@ -54,7 +54,7 @@ app.get('/signup', (req, res) => {
 app.post('/signup', (req, res) => {
   console.log('Received POST at /signup');
   // CONNECTION TO DATABASE HERE
-  // db.signup(req.body, (signupCheck) => {});
+  // db.checkSignup(req.body, (signupCheck) => {});
   // Check if the username exists
   // If it does, redirect to login
   // If it does not, save user data
@@ -75,7 +75,7 @@ app.get('/:username', (req, res) => {
 app.get('/api/:username/occurrences', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // Return habit object with unit, limit, timeframe, occurrences
-    // db.load((userdata) => {});
+    // db.loadUserData((userdata) => {});
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
   res.send(`GETTING ${req.params.username}'s OCCURRENCES`);
 });
@@ -84,8 +84,8 @@ app.get('/api/:username/occurrences', (req, res) => {
 // {timestamp: '2017116 2350', habit:'running', unit:'1'}
 app.post('/api/:username/log', (req, res) => {
   // CONNECTION TO DATABASE HERE
-  // Add the object to the occurrences array for that habit
-  // db.save(req.body, () => {})
+  // Add the occurrence object to the occurrences array for that habit
+  // db.logOccurrence(req.body, (result) => {})
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
@@ -93,6 +93,9 @@ app.post('/api/:username/log', (req, res) => {
 // POST by user to create a habit
 // {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'} 
 app.post('/api/:username/habit', (req, res) => {
+  // CONNECTION TO DATABASE HERE
+  // Add the object to the occurrences array for that habit
+  // db.createHabit(req.body, (result) => {})
   console.log(`Received GET at /api/${req.params.username}/habit`);
   res.send(`CREATING NEW HABIT FOR ${req.params.username}`);
 });
