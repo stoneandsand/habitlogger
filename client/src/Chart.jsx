@@ -46,7 +46,7 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="chart">
         <h3>Video Games Past Week</h3>
         <Line data={this.state.data} options={this._options} />
       </div>
