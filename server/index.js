@@ -51,10 +51,12 @@ app.post('/signup', (req, res) => {
 
 // GET the user's landing page after they login
 // This is the main page the user will be interacting with.
+/*
 app.get('/:username', (req, res) => {
   console.log(`Received GET at ${req.params.username}`);
   res.send(`HELLO, ${req.params.username}`);
 });
+*/
 
 // GET the user's occurrences for the requested habit
 // {habit: 'cigars'}
