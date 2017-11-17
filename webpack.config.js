@@ -1,6 +1,8 @@
 const webpack = require('webpack');
-const BUILD_DIR = __dirname + '/client/public'; //path //dirname/src/public bundle.js directory
-const APP_DIR = __dirname + '/client/src'; // index.jsx directory (react file)
+const path = require('path');
+
+const BUILD_DIR = path.resolve(__dirname, '/client/public'); //path //dirname/src/public bundle.js directory
+const APP_DIR = path.resolve(__dirname, '/client/src'); // index.jsx directory (react file)
 
 module.exports = {
   entry: `${APP_DIR}/index.jsx`, // FILE WE WILL BUNDLE FROM
