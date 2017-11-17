@@ -68,6 +68,40 @@
 | POST    | /api/username/habit       | JSON (habit, unit, limit, t-frame) | string             |
 |---------+---------------------------+------------------------------------+--------------------|
 
+* DB Methods
+Functions server will need from database:
+
+** login / db.checkLogin(req.body)
+   - Check if the username exists
+   - Check if the password is correct.
+   - Return an object to the router with the status of these operations
+     - e.g., {username: true, password: false}
+
+** signup / db.checkSignup(req.body)
+   - Check if the username exists
+   - If it does, router should redirect to login
+   - If it does not, save the userdata in database
+   - Return an object to the router with status of these operations
+     - e.g., {savedNew: true, alreadyExists: false}
+
+** get user's data / db.loadUserData(username)
+   - When the user logs in, we need to present their data
+   - The database will have to return user data to the router, which will then send it to the client
+   - The scope for that data is undecided, but should probably include all that users habits, occurrences
+   - We will probably have to create methods for smaller requests, so we don't return ALL the data on every render
+   - Returns an object with all the data needed for render
+     - e.g. {habit: smoking: {limit, occurrences, etc.}
+
+** occurence logged by user / db.logOccurrence(occurrence)
+   - When the user logs an occurrence, we need to save that occurrence to the database
+   - The database should let the router know if the operation was successful or if it failed
+   - The router will pass this status onto the client
+
+** habit created by user / db.createHabit(habit)
+   - When the user logs an occurrence, we need to save that occurrence to the database
+   - The database should let the router know if the operation was successful or if it failed
+   - The router will pass this status onto the client
+
 * DB Schema
 
 * Directory Structure
