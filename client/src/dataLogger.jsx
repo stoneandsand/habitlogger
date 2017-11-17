@@ -16,6 +16,7 @@ class DataLogger extends React.Component {
 
 
 	render() {
+		
 		return(
 			<div>			
 				<form name="logInput">
