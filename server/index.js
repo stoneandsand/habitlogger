@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 const PORT = process.env.PORT || 3000;
 
+// Use express.static to serve static public files
+app.use(express.static(`${__dirname}/../client/public/`));
 // Parse urlencoded bodies (into JSONs).
 // We may be communicating nested objects, so set extended to true.
 app.use(bodyParser.urlencoded({extended: true}));
 // Parse JSONs into objects.
 // This is the only data-type we use for client-server communication.
 app.use(bodyParser.json());
-// Use express.static to serve static public files
-app.use(express.static(`${__dirname}/../client/public/`));
 
 app.get('/', (req, res) => {
   console.log('Received GET at /');
