@@ -68,7 +68,8 @@ app.get('/:username', (req, res) => {
   // CONNECTION TO DATABASE HERE
   // db.getUserHabits(req.params.username, (habits) => {});
   // Need to use session here eventually, for security / privacy.
-  res.send(`HELLO, ${req.params.username}`);
+  let testHabitList = ['smoking', 'video-games', 'running'];
+  res.send(testHabitList);
 });
 
 // GET the user's occurrences for the requested habit
@@ -81,7 +82,15 @@ app.get('/api/:username/:habit', (req, res) => {
   // db.getHabitData((req.params.username, req.params.habit) => {});
   // Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
-  res.send(`GETTING ${req.params.username}'s OCCURRENCES`);
+
+  let testHabitData = {
+    unit: 'packs',
+    limit: 2,
+    timeframe: 'day',
+    occurrences: [{ timestamp: new Date(), value: 1}]
+  };
+  
+  res.send(testHabitData);
 });
 
 // POST by user to log an occurrence
