@@ -4,13 +4,22 @@ import {Line} from 'react-chartjs-2';
 class Chart extends React.Component {
   constructor(props) {
     super(props);
+    this._options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
     this.state = {
       data:
         {
           labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           datasets: [
             {
-              label: 'Line Test',
+              label: 'Hours Played',
               fill: false,
               lineTension: 0.1,
               backgroundColor: 'rgba(75,192,192,0.4)',
@@ -31,7 +40,7 @@ class Chart extends React.Component {
               data: [4, 8, 2, 6, 7, 1, 3]
             }
           ]
-        }
+        },
     }
   }
 
@@ -39,7 +48,7 @@ class Chart extends React.Component {
     return (
       <div>
         <h3>Video Games Past Week</h3>
-        <Line data={this.state.data} />
+        <Line data={this.state.data} options={this._options} />
       </div>
     )
   }
