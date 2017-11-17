@@ -17,35 +17,35 @@ database.once('open', () => {
 
 // create schema for a user account
 const userSchema = mongoose.Schema({
-  userName: 'string',
-  password: 'string',
+  userName: String,
+  password: String,
   habits: [], // <<<---check how to nest schemas
 });
 
 const habitsSchema = mongoose.Schema({
-  habit: 'string',
-  unit: 'string',
-  timeframe: 'string',
-  occurances: [], // <<<---check how to nest schemas
+  habit: String,
+  unit: String,
+  timeframe: String,
+  occurrences: [{timestamp: 'number', value: 'number'}], // <<<---check how to nest schemas
 });
 
-const occurencesSchema = mongoose.Schema({
-  timestamp: 'number',
-  value: 'number',
+const occurrencesSchema = mongoose.Schema({
+  timestamp: Number,
+  value: Number,
 });
 
 // compile userSchema to a model for creating instances
 const User = mongoose.model('User', userSchema);
 
 // create function for server to save a user's info
-save = function (object) {
+const save = (object) => {
   // create new instance of schema using passed object
-  object = new User({
+  let newUser = new User({
     userName: object.userName,
   });
 
   // save new User into usersAccounts database
-  object.save((error, object) => {
+  newUser.save((error, object) => {
     // if there is an error, return in console
     if (error) {
       return console.error('error from database save:', error);
@@ -55,7 +55,7 @@ save = function (object) {
 };
 
 // create function for server to retrieve user's info
-retrieve = function (query, callback) {
+const retrieve = (query, callback) => {
   // build query
   User.find(query, (error, user) => {
     if (error) {
@@ -68,47 +68,31 @@ retrieve = function (query, callback) {
   });
 };
 
-// FIRST ITERATION OF SCHEMA
-// database = {
-//   {
-//     user: String,
-//     password: String,
-//     habits: {
-//       smoking: {
-//         unit: 'packs',
-//         limit: 5,
-//         timeframe: 'day',
-//         occurrences: [{ timestamp: '20171114', value: 3}]
-//       },
-//       videogames: {
-//         unit: 'hours',
-//         limit: 8,
-//         timeframe: 'week',
-//         occurrences: [{ timestamp: '20171114', value: 3}]
-//       }
-//     }
-//   }
-// };
+const logOccurrence = (occurrence) => {
 
-// SECOND ITERATION OF SCHEMAS
-// userSchema = {
-//   user: 'string',
-//   password: 'string',
-//   habits: [habitsSchema]
-// }
+};
 
-// habitsSchema = {
-//   habit: 'string',
-//   unit: 'string',
-//   limit: 'number',
-//   timeframe: 'string',
-//   occurances: [occurencesSchema]
-// }
+const createHabit = (habit) => {
 
-// occurencesSchema = {
-//   timestamp: 'number',
-//   value: 'number'
-// }
+};
 
-module.exports.save = save;
-module.exports.retrieve = retrieve;
+const getHabitData = (habit) => {
+
+};
+
+const getUserHabits = (username) => {
+  User.find({userName: username}, (err, user) => {
+    if (err) {
+      return console.error('db error', err);
+    }
+    console.log(user.habits);
+    //callback(user.habits);
+  });
+};
+
+exports.save = save;
+exports.retrieve = retrieve;
+exports.logOccurrence = logOccurrence;
+exports.createHabit = createHabit;
+exports.getHabitData = getHabitData;
+exports.getUserHabits = getUserHabits;
