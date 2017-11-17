@@ -24,18 +24,18 @@ class DataLogger extends React.Component {
 
 	render() {
 		return (
-  <div>
-  <Select
-  name="form-field-name"
-  label="butterfly"
+      <div>
+        <Select
+          name="form-field-name"
+          label="butterfly"
 					options={this.state.eventList}
 					onChange={this.logChange}
 				/>
-  <p>{this.state.currentEvent}</p>
-  <hr />
-  <form name="logInput">
-  <input type="number" name="units" />
-  <button>Enter unit for Event</button>
+        <p>{this.state.currentEvent}</p>
+        <hr />
+        <form name="logInput">
+          <input type="number" name="units" />
+          <button>Enter unit for Event</button>
 				</form>
 			</div>
 		);
