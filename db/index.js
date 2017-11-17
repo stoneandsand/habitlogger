@@ -1,6 +1,9 @@
 // require mongoose in order to use it
 const mongoose = require('mongoose');
 
+// set mongoose's promise library to bluebird
+mongoose.Promise = require('bluebird');
+
 // create connection with usersAccounts database
 mongoose.connect('mongodb://localhost/usersAccounts');
 
@@ -14,14 +17,18 @@ database.once('open', function() {
 
 // create schema for a user account
 const userSchema = mongoose.Schema({
-  userName: {type: 'string', unique: true}
+  userName: 'string',
+  password: 'string',
+  habits: {
+
+  }
 });
 
 // compile userSchema to a model for creating instances
 var User = mongoose.model('User', userSchema);
 
 // create function for server to save a user's info
-module.exports.save = function(object) {
+save = function(object) {
   // create new instance of schema using passed object
   object = new User({
     userName: object.userName
@@ -39,7 +46,7 @@ module.exports.save = function(object) {
 }
 
 // create function for server to retrieve user's info
-module.exports.retrieve = function(query, callback) {
+retrieve = function(query, callback) {
   // build query
   User.find(query, (error, user) => {
     if(error) {
@@ -56,8 +63,6 @@ module.exports.retrieve = function(query, callback) {
 const me = {
   userName: 'cpbennett4'
 }
-
-module.exports.save(me);
 
 // database = {
 //   {
@@ -79,3 +84,6 @@ module.exports.save(me);
 //     }
 //   }
 // };
+
+module.exports.save = save;
+module.exports.retrieve = retrieve;
