@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiTable from './Table.jsx';
 import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
+import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -22,10 +23,14 @@ class App extends React.Component {
   //     console.log(err);
   //   });
   // }
+  componentWillMount() {
+    this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
+  }
 
   render() {
     return (
       <div>
+        <Auth lock={this.lock} />
         <DataLogger />
         <MuiTable />
         <Chart />
