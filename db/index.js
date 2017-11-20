@@ -29,7 +29,7 @@ const habitSchema = new Schema({
   habit: String, // e.g., smoking.
   unit: String, // e.g., cigars.
   timeframe: String, // e.g., day / week / month
-  occurrences: [Occurrence], // Emeded subdocument.
+  occurrences: [occurrenceSchema], // Emeded subdocument.
 });
 
 // Schema for a users.
@@ -37,7 +37,7 @@ const userSchema = new Schema({
   username: String,
   password: String,
   habitList: Array, // Array of strings, e.g., ['smoking', 'running']
-  habits: [Habit],  // Embeded subdocument.
+  habits: [habitSchema],  // Embeded subdocument.
 }); 
 const User = mongoose.model('User', userSchema);
 
@@ -134,9 +134,9 @@ const retrieve = (query, callback) => {
 };
 
 // EXPORTS
-exports.save = save;
-exports.retrieve = retrieve;
-exports.logOccurrence = logOccurrence;
-exports.createHabit = createHabit;
-exports.getHabitData = getHabitData;
+exports.signup = signup;
+exports.checkLogin = checkLogin;
 exports.getUserHabits = getUserHabits;
+exports.getHabitData = getHabitData;
+exports.createHabit = createHabit;
+exports.logOccurrence = logOccurrence;
