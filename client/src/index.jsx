@@ -5,7 +5,7 @@ import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
 import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
-import EventCreater from './EventCreater.jsx'
+import EventCreator from './EventCreator.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +16,12 @@ class App extends React.Component {
       habits: [],
     }
     this.getUserData = this.getUserData.bind(this);
-    this.getHabitsInfo = this.getHabitsInfo.bind(this);
   }
 
 
   componentDidMount() {
-    // this.getUserData();
-    // this.getHabitsInfo();
+    this.getUserData();
+    //this.getHabitsInfo();
   }
 
   getUserData() {
@@ -39,15 +38,21 @@ class App extends React.Component {
       });
   }
 
-  getHabitsInfo() {
+  getHabitsInfo(habit) { //run this function when a habit is selected
     let username = 'george';
-    let habit = 'running';
+    let selected = habit || 'running'; //using running as this is test data's habit
+    this.setState({
+      selectedHabit: selected,
+    })
     axios.get(`/api/${username}/${habit}`)
       .then((res) => {
         console.log(res.data);
         this.setState({
-
-        })
+          timeframe: res.data.timeframe,
+          unit: res.data.unit,
+          limit: res.data.limit,
+          occurrences: res.data.occurrences,
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -74,10 +79,10 @@ class App extends React.Component {
     return (
       <div>
         <Auth lock={this.lock} />
-        <EventCreater />
-        <DataLogger habits={this.state.habits} />
-        <MuiTable />
-        <Chart />
+        <EventCreator />
+        <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)}/>
+        <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
+        <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
       </div>
     )
   }
