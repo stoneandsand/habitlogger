@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 
 class EventCreater extends React.Component{
   constructor(){

@@ -5,6 +5,7 @@ import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
 import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
+import EventCreater from './EventCreater.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class App extends React.Component {
     return (
       <div>
         <Auth lock={this.lock} />
+        <EventCreater />
         <DataLogger />
         <MuiTable />
         <Chart />
