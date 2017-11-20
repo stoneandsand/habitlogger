@@ -4,7 +4,7 @@ const DB_URI = process.env.MONGO_URI || 'mongodb://localhost/stoneandsand';
 mongoose.Promise = require('bluebird');
 mongoose.connect(DB_URI);
 
-// Monitor connection
+// Monitor the connection.
 const database = mongoose.connection;
 database.on('error', console.error.bind(console, 'Connection error: '));
 database.once('open', () => {
@@ -12,34 +12,38 @@ database.once('open', () => {
 });
 
 // SCHEMAS
+// A user has many habits, and a habit has many occurrences.
+// A user should only be able to access their own habit.
+// A habit should only ever be able to access its own occurrences.
+// We have decided to use embeded subdocuments to capture this data model.
+// It should simplify querying.
+// However, it may be worth considering using references instead,
+// especially for the users<-->habit relationship.
+
 const occurrenceSchema = new Schema({
   timestamp: Date,
   value: Number, // Number of units, e.g., 3 cigars.
 });
-const Occurrence = mongoose.model('Occurrence', habitSchema);
 
 const habitSchema = new Schema({
-  habit: String, // Eg, smoking.
-  unit: String, //
-  timeframe: String,
-  occurrences: [Occurrence], // <<<---check how to nest schemas
+  habit: String, // e.g., smoking.
+  unit: String, // e.g., cigars.
+  timeframe: String, // e.g., day / week / month
+  occurrences: [Occurrence], // Emeded subdocument.
 });
-const Habit = mongoose.model('Habit', habitSchema);
 
 // Schema for a users.
 const userSchema = new Schema({
-  userName: String,
+  username: String,
   password: String,
-  habitList: Array, // Array of strings.
-  habits: [Habit],
-}); // <<<---check how to nest schemas
+  habitList: Array, // Array of strings, e.g., ['smoking', 'running']
+  habits: [Habit],  // Embeded subdocument.
+}); 
 const User = mongoose.model('User', userSchema);
-
 
 // METHODS
 const signup = (user, cb) => {
   // TODO: Check if the user already exists in the database.
-  
   let newUser = new User({
     username: user.username,
     password: user.password,
