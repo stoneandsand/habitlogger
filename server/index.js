@@ -83,20 +83,20 @@ app.get('/:username', (req, res) => {
 // {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
 // This will be used to populate the user's page with data
 app.get('/api/:username/:habit', (req, res) => {
-  // CONNECTION TO DATABASE HERE
   // Return habit object with unit, limit, timeframe, occurrences
-  // db.getHabitData((req.params.username, req.params.habit) => {});
-  // Need to use session here eventually, for security / privacy.
+  // TODO: Need to use session here eventually, for security / privacy.
+  db.getHabitData(req.params.username, req.params.habit, (habitData) => {
+    // res.send(habitData);
+    let testHabitData = {
+      unit: 'packs',
+      limit: 2,
+      timeframe: 'day',
+      occurrences: [{ timestamp: new Date(), value: 1}]
+    };
+    
+    res.send(testHabitData);
+  });
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
-
-  let testHabitData = {
-    unit: 'packs',
-    limit: 2,
-    timeframe: 'day',
-    occurrences: [{ timestamp: new Date(), value: 1}]
-  };
-  
-  res.send(testHabitData);
 });
 
 // POST by user to create a habit

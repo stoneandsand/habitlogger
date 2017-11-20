@@ -95,12 +95,18 @@ const getUserHabits = (user, cb) => {
 };
 
 const getHabitData = (user, habit, cb) => {
-  User.findOne({username: user.username}, (err, user) => {
+  User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
-    // Retrieve habit
-    // cb(habit);
+    // Iterate over the user's habits and return the target habit.
+    let targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
+    
+    if (targetHabit) {
+      cb(targetHabit);
+    } else {
+      cb(null);
+    }
   });
 };
 
