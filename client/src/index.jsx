@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Table from './Table.jsx';
+import MuiTable from './Table.jsx';
 import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
 import axios from 'axios';
@@ -20,14 +20,14 @@ class App extends React.Component {
   //   })
   //   .catch((err) => {
   //     console.log(err);
-  //   });   
+  //   });
   // }
 
   render() {
     return (
       <div>
         <DataLogger />
-        <Table />
+        <MuiTable />
         <Chart />
       </div>
     )

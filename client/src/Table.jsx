@@ -4,7 +4,7 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableHeaderCoumn,
+  TableHeaderColumn,
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
@@ -35,7 +35,7 @@ const MuiTable = (props) => {
   )
 };
 
-export default Table;
+export default MuiTable;
 
 
 /*
