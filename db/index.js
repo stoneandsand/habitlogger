@@ -5,36 +5,36 @@ mongoose.connect(DB_URI);
 
 // Monitor connection
 const database = mongoose.connection;
-
 database.on('error', console.error.bind(console, 'Connection error: '));
 database.once('open', () => {
   console.log('Successfully connected to database.');
 });
 
-// create schema for a user account
+// Schema for a users.
 const userSchema = mongoose.Schema({
   userName: String,
   password: String,
   habits: [], // <<<---check how to nest schemas
 });
-
-const habitsSchema = mongoose.Schema({
-  habit: String,
-  unit: String,
-  timeframe: String,
-  occurrences: [{timestamp: 'number', value: 'number'}], // <<<---check how to nest schemas
-});
-
-const occurrencesSchema = mongoose.Schema({
-  timestamp: Number,
-  value: Number,
-});
-
-// compile userSchema to a model for creating instances
+// Compile userSchema to a model for creating instances
 const User = mongoose.model('User', userSchema);
 
+const habitSchema = mongoose.Schema({
+  habit: String, // Eg, smoking.
+  unit: String, //
+  timeframe: String,
+  occurrences: [], // <<<---check how to nest schemas
+});
+const Habit = mongoose.model('Habit', habitSchema);
+
+const occurrenceSchema = mongoose.Schema({
+  timestamp: Date,
+  value: Number, // Number of units, e.g., 3 cigars.
+});
+const Occurrence = mongoose.model('Occurrence', habitSchema);
+
 // create function for server to save a user's info
-const save = (object) => {
+const signup = (object) => {
   // create new instance of schema using passed object
   let newUser = new User({
     userName: object.userName,
