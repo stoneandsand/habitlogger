@@ -57,7 +57,6 @@ const signup = (user, cb) => {
         username: user.username,
         password: user.password,
       });
-      
       newUser.save((err, newUserEntry) => {
         if (err) {
           console.error(`Error saving user to database: ${err}`);
@@ -75,7 +74,6 @@ const checkLogin = (user, cb) => {
   // TODO: Check if the user is logged in / has a session.
   // If they exist, cb(true);
   // If not, cb(false);
-
   User.findOne({
     username: user.username
   }).exec((err, user) => {
@@ -114,49 +112,34 @@ const getHabitData = (user, habit, cb) => {
 };
 
 const createHabit = (user, habit, cb) => {
-  User.find({username: user.username}, (err, user) => {
+  User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}.`);
-    }
-
-    User.findOne({username: user.username}, (err, userEntry) => {
-      if (err) {
-      console.error(`Error getting ${user}'s habits.`);
     }  else {
       userEntry.habitList.push(habit);
-      userEntry.save((error, updatedUserEntry) => {
+      userEntry.save((err, updatedUserEntry) => {
+        if (err) {
+          console.error(`Error getting ${user}'s habits.`);
+        }
         cb(updatedUserEntry.habitList);
       });
     }
-    });
-  });  
+  });
 };
 
 const logOccurrence = (user, habit, occurrence, cb) => {
-  User.find({username: user.username}, (err, user) => {
+  User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}.`);
+    }  else {
+      userEntry.habits[habit].occurrences.push(occurrence);
+      userEntry.save((err, updatedUserEntry) => {
+        if (err) {
+          console.error(`Error getting ${user}.`);
+        }
+        cb(updatedUserEntry.habits[habit].occurrences.slice(-1)[0]);
+      });
     }
-    // Retrieve user
-    // Retrieve habit
-    // Retrieve occurrence for habits
-    // Push occurrence onto occurrence for habits
-    //cb(user.habitList);
-  });  
-};
-
-
-// create function for server to retrieve user's info
-const retrieve = (query, callback) => {
-  // build query
-  User.find(query, (err, user) => {
-    if (err) {
-      return console.error('error from database retrieve: ', error);
-    }
-    // send user's info back via callback
-    callback(user);
-    // show confirmation of successful query
-    console.log('this user was queried: ', user);
   });
 };
 
