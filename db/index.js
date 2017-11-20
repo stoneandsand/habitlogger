@@ -63,7 +63,7 @@ const signup = (user, cb) => {
           console.error(`Error saving user to database: ${err}`);
         }
         console.log(`${newUserEntry.username} saved to database.`);
-        cb(true); 
+        cb(newUserEntry.username); 
       });
     } else { // The user already exists in the database.
       cb(false);
@@ -89,8 +89,11 @@ const getUserHabits = (user, cb) => {
   User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
-    } // Logic to handle no username found ?
-    cb(userEntry.habitList);
+    } else if (!userEntry) {
+      cb([]); // If no user habits found, return empty array.
+    } else {
+      cb(userEntry.habitList);
+    }
   });
 };
 
@@ -101,7 +104,7 @@ const getHabitData = (user, habit, cb) => {
     }
     // Iterate over the user's habits and return the target habit.
     let targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
-    
+
     if (targetHabit) {
       cb(targetHabit);
     } else {
@@ -115,10 +118,17 @@ const createHabit = (user, habit, cb) => {
     if (err) {
       console.error(`Error getting ${user}.`);
     }
-    // Retrieve user.
-    // Add habit to habitlist
-    // Add habit object to habits array
-    //cb(user.habitList);
+
+    User.findOne({username: user.username}, (err, userEntry) => {
+      if (err) {
+      console.error(`Error getting ${user}'s habits.`);
+    }  else {
+      userEntry.habitList.push(habit);
+      userEntry.save((error, updatedUserEntry) => {
+        cb(updatedUserEntry.habitList);
+      });
+    }
+    });
   });  
 };
 

@@ -1,9 +1,9 @@
-// TODO: CONNECT TO DB
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 const PORT = process.env.PORT || 3000;
+
 
 // Use express.static to serve static public files
 app.use(express.static(`${__dirname}/../client/public/`));
@@ -53,17 +53,13 @@ app.get('/signup', (req, res) => {
 // Not sure if we will need to use this.
 app.post('/signup', (req, res) => {
   console.log('Received POST at /signup');
-  db.signup(req.body, (signupCheck) => {
-    if (signupCheck){ // User signed up.
-      
-    } else { // User already exists, redirect.
-
+  db.signup(req.body, (newUser) => {
+    if (newUser){ // User signed up.
+      res.redirect(`/${newUser.username}`);
+    } else { // User already exists, redirect to login.
+      res.redirect('/login');
     }
   });
-  // Check if the username exists
-  // If it does, redirect to login
-  // If it does not, save user data
-  res.send('YOU TRIED TO SIGN UP');
 });
 
 // GET the user's landing page after they login
@@ -102,12 +98,11 @@ app.get('/api/:username/:habit', (req, res) => {
 // POST by user to create a habit
 // {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'} 
 app.post('/api/:username/habit', (req, res) => {
-  // CONNECTION TO DATABASE HERE
-  // Add the object to the occurrences array for that habit
-  // db.createHabit(req.body, (result) => {})
-  // Need to use session here eventually, for security / privacy.
+  // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/habit`);
-  res.send(`CREATING NEW HABIT FOR ${req.params.username}`);
+  db.createHabit(req.body, (updatedHabitList) => {
+    res.send(updatedHabitList);
+  });
 });
 
 // POST by user to log an occurrence
