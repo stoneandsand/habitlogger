@@ -74,12 +74,12 @@ app.get('/:username', (req, res) => {
   });
 });
 
-// GET the user's occurrences for the requested habit
-// {habit: 'cigars'}
-// {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
-// This will be used to populate the user's page with data
+// GET the user's occurrences for the requested habit.
+// Eg, {habit: 'cigars'}
+// RESPOND a habit object with unit, limit, timeframe, occurrences.
+// Eg, {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
+// This is used to populate the user's page with data
 app.get('/api/:username/:habit', (req, res) => {
-  // Return habit object with unit, limit, timeframe, occurrences
   // TODO: Need to use session here eventually, for security / privacy.
   db.getHabitData(req.params.username, req.params.habit, (habitData) => {
     // res.send(habitData);
