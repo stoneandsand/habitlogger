@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 const PORT = process.env.PORT || 3000;
 
-
 // Use express.static to serve static public files
 app.use(express.static(`${__dirname}/../client/public/`));
 // Parse urlencoded bodies (into JSONs).
@@ -89,7 +88,6 @@ app.get('/api/:username/:habit', (req, res) => {
       timeframe: 'day',
       occurrences: [{ timestamp: new Date(), value: 1}]
     };
-    
     res.send(testHabitData);
   });
   console.log(`Received GET at /api/${req.params.username}/occurrences`);
@@ -101,17 +99,18 @@ app.post('/api/:username/habit', (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/habit`);
   db.createHabit(req.body, (updatedHabitList) => {
-    res.send(updatedHabitList);
+      res.send(updatedHabitList);
   });
 });
 
 // POST by user to log an occurrence
 // {timestamp: '2017116 2350', habit:'running', unit:'1'}
+// Add the occurrence object to the occurrences array for that habit
 app.post('/api/:username/log', (req, res) => {
-  // CONNECTION TO DATABASE HERE
-  // Add the occurrence object to the occurrences array for that habit
-  // db.logOccurrence(req.body, (result) => {})
-  // Need to use session here eventually, for security / privacy.
+  // TODO: Need to use session here eventually, for security / privacy.
+  db.logOccurrence(req.body, (occurrence) => {
+      res.send(occurrence);    
+  });
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
