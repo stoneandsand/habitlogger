@@ -1,18 +1,14 @@
-// require mongoose in order to use it
 const mongoose = require('mongoose');
-
-// set mongoose's promise library to bluebird
+const DB_URI = process.env.MONGO_URI || 'mongodb://localhost/stoneandsand';
 mongoose.Promise = require('bluebird');
+mongoose.connect(DB_URI);
 
-// create connection with usersAccounts database
-mongoose.connect('mongodb://localhost/usersAccounts');
-
-// monitor connection
+// Monitor connection
 const database = mongoose.connection;
 
-database.on('error', console.error.bind(console, 'connection error: '));
+database.on('error', console.error.bind(console, 'Connection error: '));
 database.once('open', () => {
-  console.log('successfully connected to usersAccounts database');
+  console.log('Successfully connected to database.');
 });
 
 // create schema for a user account
