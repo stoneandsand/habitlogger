@@ -31,6 +31,7 @@ const habitSchema = new Schema({
   // If the habit exists in the habitList array,
   // don't allow the user to create a new habit.
   habit: {type: String, unique: true}, // e.g., smoking.
+  limit: Number,
   unit: String, // e.g., cigars.
   timeframe: String, // e.g., day / week / month
   occurrences: [occurrenceSchema], // Emeded subdocument.
