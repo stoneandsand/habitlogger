@@ -89,7 +89,7 @@ const getUserHabits = (user, cb) => {
   User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
-    }
+    } // Logic to handle no username found ?
     cb(userEntry.habitList);
   });
 };
