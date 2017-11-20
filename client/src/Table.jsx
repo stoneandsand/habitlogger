@@ -11,30 +11,33 @@ import {
 
 const MuiTable = (props) => {
   return (
-    <MuiThemeProvider>
-      <Table>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow>
-            <TableHeaderColumn>Time</TableHeaderColumn>
-            <TableHeaderColumn>Quantity</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
-          <TableRow>
-            <TableRowColumn>Dec 10</TableRowColumn>
-            <TableRowColumn>4 hours</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Dec 11</TableRowColumn>
-            <TableRowColumn>5 hours</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Dec 12</TableRowColumn>
-            <TableRowColumn>6 hours</TableRowColumn>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </MuiThemeProvider>
+    <div>
+      <h1 className="tableName">Event</h1>
+      <MuiThemeProvider>
+        <Table>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Time</TableHeaderColumn>
+              <TableHeaderColumn>Quantity</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            <TableRow>
+              <TableRowColumn>Dec 10</TableRowColumn>
+              <TableRowColumn>4 hours</TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>Dec 11</TableRowColumn>
+              <TableRowColumn>5 hours</TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>Dec 12</TableRowColumn>
+              <TableRowColumn>6 hours</TableRowColumn>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </MuiThemeProvider>
+    </div>
   )
 };
 
