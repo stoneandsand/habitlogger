@@ -1,9 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
 
-class EventCreater extends React.Component{
-  constructor(){
-    super()
+class EventCreator extends React.Component{
+  constructor(props){
+    super(props)
     this.state = {
       timeFrames: [{ label: 'day', value: 'day' }, { label: 'week', value: 'week' }, { label: 'month', value: 'month' }],
       selectedTimeFrame : 'day'
@@ -35,4 +35,4 @@ class EventCreater extends React.Component{
   }
 }
 
-export default EventCreater;
+export default EventCreator;
