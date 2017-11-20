@@ -12,25 +12,22 @@ import {
 const MuiTable = (props) => {
   return (
     <MuiThemeProvider>
-      <div>
-        <h3>Event Table</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Event</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Dec 10</td>
-              <td>Video Games</td>
-              <td>12 hours</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderColumn>Time</TableHeaderColumn>
+            <TableHeaderColumn>Event</TableHeaderColumn>
+            <TableHeaderColumn>Quantity</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+          <TableRowColumn>Dec 10</TableRowColumn>
+          <TableRowColumn>Video Games</TableRowColumn>
+          <TableRowColumn>4 hours</TableRowColumn>
+          </TableRow>
+        </TableBody>
+      </Table>
     </MuiThemeProvider>
   )
 };
