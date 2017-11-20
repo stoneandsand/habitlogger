@@ -11,6 +11,47 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     // this.logItem = this.logItem.bind(this);
+
+    this.state = {
+      habits: [],
+    }
+    this.getUserData = this.getUserData.bind(this);
+    this.getHabitsInfo = this.getHabitsInfo.bind(this);
+  }
+
+
+  componentDidMount() {
+    // this.getUserData();
+    // this.getHabitsInfo();
+  }
+
+  getUserData() {
+    let username = 'test123'
+    axios.get(`/${username}`)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          habits: res.data,
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getHabitsInfo() {
+    let username = 'george';
+    let habit = 'running';
+    axios.get(`/api/${username}/${habit}`)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   // logItem(entry, habit) {
@@ -34,7 +75,7 @@ class App extends React.Component {
       <div>
         <Auth lock={this.lock} />
         <EventCreater />
-        <DataLogger />
+        <DataLogger habits={this.state.habits} />
         <MuiTable />
         <Chart />
       </div>
