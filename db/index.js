@@ -137,7 +137,9 @@ const logOccurrence = (user, habit, occurrence, cb) => {
         if (err) {
           console.error(`Error getting ${user}.`);
         }
-        cb(updatedUserEntry.habits[habit].occurrences.slice(-1)[0]);
+        // Return the inputted occurence.
+        // It is now the last item in its habit's occurrences array.
+        cb(updatedUserEntry.habits[habit].occurrences.slice(-1)[0]); 
       });
     }
   });
