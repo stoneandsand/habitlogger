@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Select from 'react-select';
 
@@ -7,17 +8,26 @@ class DataLogger extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       eventList: [{ label: 'butterfly' }, { label: 'coke' }, { label: 'pegions' }],
-      currentEvent: 'No events Selected',
+      currentEvent: 'N/A',
+      currentUser: 'placeholder'
     };
     this.logChange = this.logChange.bind(this);
   }
 
   logChange(e) {
-    this.setState({ currentEvent: `Current Event ${e.label}` });
+    this.setState({ currentEvent: `${e.label}` });
   }
+
   // handleSubmit(e) {
   // e.preventDefault();
   // var dataLog = document.forms.logInput;
+
+  // let num = dataLog.units.value
+  // let user = this.state.currentUser
+  // let event = this.state.currentEvent
+
+
+  // var logItem = {}
   // this.props.logItem(dataLog, 'placeholder');
   // onClick = {this.handleSubmit}
   // }
@@ -31,7 +41,7 @@ class DataLogger extends React.Component {
           options={this.state.eventList}
           onChange={this.logChange}
         />
-        <p>{this.state.currentEvent}</p>
+        <p>Selected Event : {this.state.currentEvent}</p>
         <hr />
         <form name="logInput">
           <input type="number" name="units" />
