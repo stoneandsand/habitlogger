@@ -1,27 +1,37 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderCoumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
-const Table = (props) => {
+const MuiTable = (props) => {
   return (
-    <div>
-      <h3>Event Table</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Event</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Dec 10</td>
-            <td>Video Games</td>
-            <td>12 hours</td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
+    <MuiThemeProvider>
+      <div>
+        <h3>Event Table</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Event</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dec 10</td>
+              <td>Video Games</td>
+              <td>12 hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </MuiThemeProvider>
   )
 };
 
