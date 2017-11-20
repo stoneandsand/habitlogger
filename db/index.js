@@ -26,7 +26,11 @@ const occurrenceSchema = new Schema({
 });
 
 const habitSchema = new Schema({
-  habit: String, // e.g., smoking.
+  // Is unique habit going to be a problem?
+  // If it is a problem, consider using the habitList array.
+  // If the habit exists in the habitList array,
+  // don't allow the user to create a new habit.
+  habit: {type: String, unique: true}, // e.g., smoking.
   unit: String, // e.g., cigars.
   timeframe: String, // e.g., day / week / month
   occurrences: [occurrenceSchema], // Emeded subdocument.
@@ -34,7 +38,7 @@ const habitSchema = new Schema({
 
 // Schema for a users.
 const userSchema = new Schema({
-  username: String,
+  username: {type: String, unique: true},
   password: String,
   habitList: Array, // Array of strings, e.g., ['smoking', 'running']
   habits: [habitSchema],  // Embeded subdocument.
