@@ -53,8 +53,13 @@ app.get('/signup', (req, res) => {
 // Not sure if we will need to use this.
 app.post('/signup', (req, res) => {
   console.log('Received POST at /signup');
-  // CONNECTION TO DATABASE HERE
-  // db.checkSignup(req.body, (signupCheck) => {});
+  db.signup(req.body, (signupCheck) => {
+    if (signupCheck){ // User signed up.
+      
+    } else { // User already exists, redirect.
+
+    }
+  });
   // Check if the username exists
   // If it does, redirect to login
   // If it does not, save user data
@@ -64,12 +69,13 @@ app.post('/signup', (req, res) => {
 // GET the user's landing page after they login
 // This is the main page the user will be interacting with.
 app.get('/:username', (req, res) => {
+  // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at ${req.params.username}`);
-  // CONNECTION TO DATABASE HERE
-  // db.getUserHabits(req.params.username, (habits) => {});
-  // Need to use session here eventually, for security / privacy.
-  let testHabitList = ['smoking', 'video-games', 'running'];
-  res.send(testHabitList);
+  db.getUserHabits(req.params.username, (habitList) => {
+    // res.send(habitList);
+    let testHabitList = ['smoking', 'video-games', 'running'];
+    res.send(testHabitList);
+  });
 });
 
 // GET the user's occurrences for the requested habit

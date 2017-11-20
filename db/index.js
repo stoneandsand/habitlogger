@@ -43,26 +43,35 @@ const User = mongoose.model('User', userSchema);
 
 // METHODS
 const signup = (user, cb) => {
-  // TODO: Check if the user already exists in the database.
-  let newUser = new User({
-    username: user.username,
-    password: user.password,
-  });
-
-  newUser.save((err, userEntry) => {
+  // Check if the user exists in the database.
+  User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
-      console.error(`Error saving user to database: ${err}`);
+      console.error(err);
+    } else if (!userEntry) { // The user does not exist in the database.
+      let newUser = new User({
+        username: user.username,
+        password: user.password,
+      });
+      
+      newUser.save((err, newUserEntry) => {
+        if (err) {
+          console.error(`Error saving user to database: ${err}`);
+        }
+        console.log(`${newUserEntry.username} saved to database.`);
+        cb(true); 
+      });
+    } else { // The user already exists in the database.
+      cb(false);
     }
-    console.log(`${userEntry.username} saved to database.`);
   });
 };
 
 const checkLogin = (user, cb) => {
-  // TODO: Check if the user is logged in.
+  // TODO: Check if the user is logged in / has a session.
   // If they exist, cb(true);
   // If not, cb(false);
 
-  User.find({
+  User.findOne({
     username: user.username
   }).exec((err, user) => {
     if (err) {
@@ -72,19 +81,16 @@ const checkLogin = (user, cb) => {
 };
 
 const getUserHabits = (user, cb) => {
-  User.find({username: user.username}, (err, user) => {
+  User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
-    //cb(user.habitList);
+    cb(userEntry.habitList);
   });
 };
 
 const getHabitData = (user, habit, cb) => {
-  // user.habits[habit]
-  // user.habits[habit].occurrences.push()
-  
-  User.find({username: user.username}, (err, user) => {
+  User.findOne({username: user.username}, (err, user) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
