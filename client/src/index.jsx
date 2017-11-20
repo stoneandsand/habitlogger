@@ -23,6 +23,7 @@ class App extends React.Component {
   //     console.log(err);
   //   });
   // }
+
   componentWillMount() {
     this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
   }
