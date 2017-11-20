@@ -13,18 +13,28 @@ const MuiTable = (props) => {
   return (
     <MuiThemeProvider>
       <Table>
-        <TableHeader>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Time</TableHeaderColumn>
             <TableHeaderColumn>Event</TableHeaderColumn>
             <TableHeaderColumn>Quantity</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody displayRowCheckbox={false}>
           <TableRow>
-          <TableRowColumn>Dec 10</TableRowColumn>
-          <TableRowColumn>Video Games</TableRowColumn>
-          <TableRowColumn>4 hours</TableRowColumn>
+            <TableRowColumn>Dec 10</TableRowColumn>
+            <TableRowColumn>Video Games</TableRowColumn>
+            <TableRowColumn>4 hours</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Dec 11</TableRowColumn>
+            <TableRowColumn>Video Games</TableRowColumn>
+            <TableRowColumn>5 hours</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Dec 12</TableRowColumn>
+            <TableRowColumn>Video Games</TableRowColumn>
+            <TableRowColumn>6 hours</TableRowColumn>
           </TableRow>
         </TableBody>
       </Table>
