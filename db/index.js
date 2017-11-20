@@ -14,6 +14,7 @@ database.once('open', () => {
 const userSchema = mongoose.Schema({
   userName: String,
   password: String,
+  habitList: [], // <<<---ARRAY OF HABIT STRINGS
   habits: [], // <<<---check how to nest schemas
 });
 // Compile userSchema to a model for creating instances
@@ -33,28 +34,51 @@ const occurrenceSchema = mongoose.Schema({
 });
 const Occurrence = mongoose.model('Occurrence', habitSchema);
 
-// create function for server to save a user's info
-const signup = (object) => {
-  // create new instance of schema using passed object
+const signup = (user, cb) => {
+  // TODO: Check if the user already exists in the database.
+  
   let newUser = new User({
-    userName: object.userName,
+    username: user.username,
+    password: user.password,
   });
 
-  // save new User into usersAccounts database
-  newUser.save((error, object) => {
-    // if there is an error, return in console
-    if (error) {
-      return console.error('error from database save:', error);
-    } // if no errors, give confirmation
-    console.log(`${object.userName} saved to usersAccounts database`);
+  newUser.save((err, userEntry) => {
+    if (err) {
+      console.error(`Error saving user to database: ${err}`);
+    }
+    console.log(`${userEntry.username} saved to database.`);
+  });
+};
+
+const getUserHabits = (username) => {
+  User.find({userName: username}, (err, user) => {
+    if (err) {
+      return console.error('db error', err);
+    }
+    console.log(user.habits);
+    //callback(user.habits);
+  });
+};
+
+const checkLogin = (user, cb) => {
+  // TODO: Check if the user is logged in.
+  // If they exist, cb(true);
+  // If not, cb(false);
+
+  User.find({
+    username: user.username
+  }).exec((err, user) => {
+    if (err) {
+      console.error(err);
+    }
   });
 };
 
 // create function for server to retrieve user's info
 const retrieve = (query, callback) => {
   // build query
-  User.find(query, (error, user) => {
-    if (error) {
+  User.find(query, (err, user) => {
+    if (err) {
       return console.error('error from database retrieve: ', error);
     }
     // send user's info back via callback
@@ -74,16 +98,6 @@ const createHabit = (habit) => {
 
 const getHabitData = (habit) => {
 
-};
-
-const getUserHabits = (username) => {
-  User.find({userName: username}, (err, user) => {
-    if (err) {
-      return console.error('db error', err);
-    }
-    console.log(user.habits);
-    //callback(user.habits);
-  });
 };
 
 exports.save = save;
