@@ -16,24 +16,20 @@ const MuiTable = (props) => {
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Time</TableHeaderColumn>
-            <TableHeaderColumn>Event</TableHeaderColumn>
             <TableHeaderColumn>Quantity</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           <TableRow>
             <TableRowColumn>Dec 10</TableRowColumn>
-            <TableRowColumn>Video Games</TableRowColumn>
             <TableRowColumn>4 hours</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Dec 11</TableRowColumn>
-            <TableRowColumn>Video Games</TableRowColumn>
             <TableRowColumn>5 hours</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Dec 12</TableRowColumn>
-            <TableRowColumn>Video Games</TableRowColumn>
             <TableRowColumn>6 hours</TableRowColumn>
           </TableRow>
         </TableBody>
@@ -46,11 +42,11 @@ export default MuiTable;
 
 
 /*
-          {this.props.events.map((event, index) =>
-            <tr key={event._id}>
-              <td>{event.time}</td>
-              <td>{event.name}</td>
-              <td>{event.quantity} {event.unit}</td>
-            </tr>
-          )}
+  {this.props.events.map((event, index) =>
+    <tr key={event._id}>
+      <td>{event.time}</td>
+      <td>{event.name}</td>
+      <td>{event.quantity} {event.unit}</td>
+    </tr>
+  )}
 */
