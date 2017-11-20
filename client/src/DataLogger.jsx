@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Select from 'react-select';
+import Datepicker from 'material-ui/DatePicker';
 
 class DataLogger extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class DataLogger extends React.Component {
     this.state = {
       eventList: [{ label: 'butterfly' }, { label: 'coke' }, { label: 'pegions' }],
       currentEvent: 'N/A',
-      currentUser: 'placeholder'
+      currentUser: 'placeholder',
+      eventTime: new Date()
     };
     this.logChange = this.logChange.bind(this);
   }
@@ -43,6 +45,7 @@ class DataLogger extends React.Component {
         />
         <p>Selected Event : {this.state.currentEvent}</p>
         <hr />
+        <DatePicker hintText="Enter day of Event" container="inline" mode="landscape" />
         <form name="logInput">
           <input type="number" name="units" />
           <button>Enter unit for Event</button>
