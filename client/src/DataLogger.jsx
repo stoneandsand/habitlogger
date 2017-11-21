@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import moment from 'moment';
 
 class DataLogger extends React.Component {
   constructor(props) {
@@ -11,19 +12,30 @@ class DataLogger extends React.Component {
       eventList: [{ label: 'butterfly' }, { label: 'coke' }, { label: 'pegions' }],
       currentEvent: 'N/A',
       currentUser: 'placeholder',
-      eventTime: new Date()
+      eventTime: '',
+      quantity: '',
     };
     this.logChange = this.logChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   logChange(e) {
-    this.setState({ currentEvent: `${e.label}` });
+    this.setState({
+      currentEvent: `${e.label}`
+    });
   }
 
-  handleDateChange(e,date) {
-    this.setState({eventTime:date})
+  handleDateChange(e, date) {
     console.log('date changed to ' + date)
+    let momentDate = moment(date).format('MMM Do YYYY');
+    this.setState({eventTime: momentDate});
+  }
+
+  handleQuantityChange(e) {
+    this.setState({
+      quantity: e.target.value,
+    });
   }
 
   // handleSubmit(e) {
@@ -42,23 +54,26 @@ class DataLogger extends React.Component {
   render() {
     return (
       <div>
+      <h4>Data Logger</h4>
+        <label>Select Event:</label>
         <Select
-          name="form-field-name"
-          label="butterfly"
+          value={this.state.currentEvent}
           options={this.state.eventList}
           onChange={this.logChange}
+          className="dropdown"
         />
-        <p>Selected Event : {this.state.currentEvent}</p>
-        <hr />
 
+        <label>Select Date: </label>
         <MuiThemeProvider>
         <DatePicker hintText="Enter day of Event" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
         </MuiThemeProvider>
-
-        <form name="logInput">
-          <input type="number" name="units" />
-          <button>Enter unit for Event</button>
-        </form>
+        <p>
+          Selected Event: {this.state.currentEvent}<br/>
+          Selected Date: {this.state.eventTime}
+        </p>
+          <input type="number" onChange={this.handleQuantityChange} />
+          <button onClick={this.props.logEvent.bind(this, this.state.currentEvent, this.state.eventTime, this.state.quantity)} >Log Event</button>
+        <hr />
       </div>
     )
   }
