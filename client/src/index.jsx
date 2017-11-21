@@ -10,12 +10,14 @@ import EventCreator from './EventCreator.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.logItem = this.logItem.bind(this);
 
     this.state = {
       habits: [],
+      username: 'george',
     }
     this.getUserData = this.getUserData.bind(this);
+    this.getHabitsInfo = this.getHabitsInfo.bind(this);
+    this.logEvent = this.logEvent.bind(this);
   }
 
 
@@ -59,17 +61,38 @@ class App extends React.Component {
       });
   }
 
-  // logItem(entry, habit) {
-  //   axios.post('/api/' + {this.props.username} + '/log', {
-  //     timestamp: new Date() , habit:'placeholder', unit:entry
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }
+  logEvent(event, time, quantity) {
+    let occurrence = {
+      habit: event,
+      timestamp: time,
+      amount: quantity,
+    };
+    console.log(occurrence);
+    axios.post(`/api/${this.state.username}/log`, occurrence)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  createEvent(name, units, limit, timeframe) {
+    let event = {
+      name: name,
+      units: units,
+      limit: limit,
+      timeframe: timeframe,
+    };
+    console.log(event);
+    axios.post(`/api/${this.state.username}/habit`, event)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   componentWillMount() {
     this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
@@ -77,10 +100,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <Auth lock={this.lock} />
-        <EventCreator />
-        <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)}/>
+        <EventCreator createEvent={this.createEvent} />
+        <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logEvent={this.logEvent} />
         <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
         <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
       </div>
