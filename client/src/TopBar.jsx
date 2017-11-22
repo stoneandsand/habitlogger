@@ -4,7 +4,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class TopBar extends React.Component {
   constructor(props) {
@@ -41,9 +40,7 @@ class DefaultMenu extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
       <FlatButton style={{color: 'white'}} label="Signout" />
-      </MuiThemeProvider>
     );
   }
 }
@@ -56,9 +53,10 @@ class LoginMenu extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-      <FlatButton style={{color: 'white'}} label="Login" />
-      </MuiThemeProvider>
+      <div>
+        <FlatButton style={{color: 'white'}} label="Sign Up" />
+        <FlatButton style={{color: 'white'}} label="Login" />
+      </div>
     );
   }
 }
