@@ -38,7 +38,8 @@ app.post('/login', (req, res) => {
   // If both are true, redirect to userpage.
   // Otherwise, redirect to login.
   // Inform the user why their attempt failed.
-  res.send('YOU TRIED TO LOG IN');
+  req.session.user = req.body.username;
+  res.send(`${req.session.user} TRIED TO LOG IN`);
 });
 
 // GET the signup page for the user.
