@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MuiTable from './Table.jsx';
 import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
 import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
-import EventCreator from './EventCreator.jsx'
+import EventCreator from './EventCreator.jsx';
+import EventSelector from './EventSelector.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,11 +15,12 @@ class App extends React.Component {
 
     this.state = {
       habits: [],
-      username: 'george',
+      username: 'Stone',
     }
     this.getUserData = this.getUserData.bind(this);
     this.getHabitsInfo = this.getHabitsInfo.bind(this);
     this.logEvent = this.logEvent.bind(this);
+    this.createEvent = this.createEvent.bind(this);
   }
 
 
@@ -65,7 +68,7 @@ class App extends React.Component {
     let occurrence = {
       habit: event,
       timestamp: time,
-      amount: quantity,
+      value: quantity,
     };
     console.log(occurrence);
     axios.post(`/api/${this.state.username}/log`, occurrence)
@@ -77,17 +80,19 @@ class App extends React.Component {
     });
   }
 
-  createEvent(name, units, limit, timeframe) {
+  createEvent(name, unit, limit, timeframe) {
     let event = {
-      name: name,
-      units: units,
+      username: this.state.username,
+      habit: name,
       limit: limit,
+      unit: unit,
       timeframe: timeframe,
     };
     console.log(event);
     axios.post(`/api/${this.state.username}/habit`, event)
     .then((res) => {
       console.log(res);
+      this.getUserData();
     })
     .catch((err) => {
       console.log(err);
@@ -101,11 +106,22 @@ class App extends React.Component {
   render() {
     return (
       <div className="main">
+
         <Auth lock={this.lock} />
-        <EventCreator createEvent={this.createEvent} />
-        <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logEvent={this.logEvent} />
-        <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
+        <MuiThemeProvider>
+          <EventCreator createEvent={this.createEvent} />
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logEvent={this.logEvent} />
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <EventSelector habits={this.state.habits} />
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
+        </MuiThemeProvider>
         <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
+
       </div>
     )
   }
