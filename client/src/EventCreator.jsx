@@ -6,6 +6,7 @@ class EventCreator extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      timeframes: ['Day', 'Week', 'Month'],
       currentTimeframe : '',
       event: '',
       units: '',
@@ -41,12 +42,11 @@ class EventCreator extends React.Component{
     });
   }
 
-  handleChange(e, index, value) {
+  handleChange(e, index) {
     this.setState({
       value: index,
-      currentTimeframe: e.target.value,
+      currentTimeframe: this.state.timeframes[index],
     });
-    this.setState({value});
   }
 
   render() {
@@ -62,21 +62,21 @@ class EventCreator extends React.Component{
           <input type="number" onChange={this.limitChange} placeholder="Goal/Limit" />
         </form>
         <label>Select Timeframe: </label>
-        <br/>
+        <br />
         <SelectField
           floatingLabelText="Choose Timeframe"
           value={this.state.value}
           onChange={this.handleChange}
         >
-          <MenuItem value={1} primaryText="Day" />
-          <MenuItem value={2} primaryText="Week" />
-          <MenuItem value={3} primaryText="Month" />
+        {this.state.timeframes.map((timeframe, index) =>
+
+          <MenuItem value={index} primaryText={timeframe} />
+        )}
+
         </SelectField>
-        <p>
-        Current Timeframe: {this.state.currentTimeframe}
-        </p>
+        <br />
         <button
-          onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.selectedTimeframe) }>
+          onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.currentTimeframe) }>
           Create Habit
         </button>
         <hr />

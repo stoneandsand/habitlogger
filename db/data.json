@@ -2,7 +2,7 @@
   {
     "username":"Stone",
     "password":"sandstone",
-    "habitList":["rolling"],
+    "habitList":["rolling","smoking","Video Games"],
     "habits":[
       {
         "habit":"rolling",
@@ -13,7 +13,125 @@
           "timestamp":"2017-11-22T14:34:15.075Z",
           "value":"1"
         }]
+      },
+      {
+        "habit":"smoking",
+        "limit":5,
+        "unit":"packs",
+        "timeframe":"day",
+        "occurrences":
+        [
+          {
+            "timestamp":"2017-10-22T14:34:15.075Z",
+            "value":"1"
+          },
+          {
+            "timestamp":"2017-11-23T14:34:15.075Z",
+            "value":"3"
+          },
+          {
+            "timestamp":"2017-12-22T14:34:15.075Z",
+            "value":"4"
+          }
+        ]
+      },
+      {
+        "habit":"Video Games",
+        "limit":25,
+        "unit":"hours",
+        "timeframe":"week",
+        "occurrences":
+        [
+          {
+            "timestamp":"2017-08-22T11:34:15.075Z",
+            "value":"6"
+          },
+          {
+            "timestamp":"2017-08-24T14:37:15.075Z",
+            "value":"7"
+          },
+          {
+            "timestamp":"2017-08-27T17:42:15.075Z",
+            "value":"9"
+          },
+          {
+            "timestamp":"2017-08-30T14:34:15.075Z",
+            "value":"12"
+          },
+          {
+            "timestamp":"2017-09-02T13:34:15.075Z",
+            "value":"4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username":"Sand",
+    "password":"zen",
+    "habitList":["zen","studying","reading"],
+    "habits":[
+      {
+        "habit":"zen",
+        "limit":3,
+        "unit":"enlightenment",
+        "timeframe":"week",
+        "occurrences":[{
+          "timestamp":"2017-12-31T14:34:15.075Z",
+          "value":"2"
+        }]
+      },
+      {
+        "habit":"studying",
+        "limit":5,
+        "unit":"hours",
+        "timeframe":"day",
+        "occurrences":
+        [
+          {
+            "timestamp":"2017-01-22T14:34:15.075Z",
+            "value":"1"
+          },
+          {
+            "timestamp":"2017-01-23T14:34:15.075Z",
+            "value":"3"
+          },
+          {
+            "timestamp":"2017-01-22T14:34:15.075Z",
+            "value":"4"
+          }
+        ]
+      },
+      {
+        "habit":"reading",
+        "limit":12,
+        "unit":"readings",
+        "timeframe":"Month",
+        "occurrences":
+        [
+          {
+            "timestamp":"2017-03-22T11:34:15.075Z",
+            "value":"6"
+          },
+          {
+            "timestamp":"2017-06-24T14:37:15.075Z",
+            "value":"7"
+          },
+          {
+            "timestamp":"2017-07-12T17:42:15.075Z",
+            "value":"1"
+          },
+          {
+            "timestamp":"2017-07-14T14:34:15.075Z",
+            "value":"2"
+          },
+          {
+            "timestamp":"2017-08-22T13:34:15.075Z",
+            "value":"3"
+          }
+        ]
       }
     ]
   }
 ]
+
