@@ -102,7 +102,7 @@ app.get('/api/:username/:habit', checkLogin, (req, res) => {
 // {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'}
 app.post('/api/:username/habit', checkLogin, (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
-  console.log(`Received GET at /api/${req.params.username}/habit`);
+  console.log(`Received POST at /api/${req.params.username}/habit`);
   db.createHabit(req.body, (updatedHabitList) => {
       res.send(updatedHabitList);
   });

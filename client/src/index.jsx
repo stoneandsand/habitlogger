@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TopBar from './TopBar.jsx';
 import MuiTable from './Table.jsx';
 import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
@@ -126,25 +127,31 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="main">
+      <div>
         <MuiThemeProvider>
-          <EventCreator createHabit={this.createHabit} />
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+          <TopBar />
         </MuiThemeProvider>
 
-        <MuiThemeProvider>
-          <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-        </MuiThemeProvider>
-        {this.state.viewData ? `show charts for ${this.state.viewHabit}` : null}
+        <div className="main">
+          <MuiThemeProvider>
+            <EventCreator createHabit={this.createHabit} />
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+          </MuiThemeProvider>
 
-        <MuiThemeProvider>
-        {this.state.viewData ?
-          <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-        </MuiThemeProvider>
-        {this.state.viewData ?
-          <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+          <MuiThemeProvider>
+            <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+          </MuiThemeProvider>
+          {this.state.viewData ? `show charts for ${this.state.viewHabit}` : null}
+
+          <MuiThemeProvider>
+          {this.state.viewData ?
+            <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+          </MuiThemeProvider>
+          {this.state.viewData ?
+            <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+        </div>
       </div>
     )
   }

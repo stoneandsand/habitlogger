@@ -80,7 +80,7 @@ const getHabitData = (user, habit, cb) => {
 const createHabit = (habitData, cb) => {
   User.findOne({username: habitData.username}, (err, userEntry) => {
     if (err) {
-      console.error(`Error getting ${user}.`);
+      console.error(`Error getting ${habitData.username}.`);
     }  else {
       userEntry.habitList.push(habitData.habit);
       userEntry.habits.push({
@@ -91,7 +91,7 @@ const createHabit = (habitData, cb) => {
       });
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
-          console.error(`Error getting ${user}'s habits.`);
+          console.error(`Error getting ${habitData.username}'s habits.`);
         }
         cb(updatedUserEntry.habitList);
       });
