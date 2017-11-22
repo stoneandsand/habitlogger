@@ -1,5 +1,4 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
@@ -35,7 +34,6 @@ class MuiTable extends React.Component {
       <div>
         <h1 className="tableName">{this.state.habit}</h1>
         <h2 className="limitInfo">You set your limit to {this.state.limit} {this.state.unit}/{this.state.timeframe}</h2>
-        <MuiThemeProvider>
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
@@ -57,7 +55,6 @@ class MuiTable extends React.Component {
               }
             </TableBody>
           </Table>
-        </MuiThemeProvider>
       </div>
     )
   }
