@@ -77,6 +77,7 @@ class App extends React.Component {
 
   logHabit(event, time, quantity) {
     let occurrence = {
+      username: this.state.username,
       habit: event,
       timestamp: time,
       value: quantity,
@@ -99,7 +100,7 @@ class App extends React.Component {
       unit: unit,
       timeframe: timeframe,
     };
-    console.log(event);
+    console.log(habit);
     axios.post(`/api/${this.state.username}/habit`, habit)
     .then((res) => {
       console.log(res);

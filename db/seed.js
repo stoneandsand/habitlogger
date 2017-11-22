@@ -1,8 +1,13 @@
 // TODO: Use promises.
 // TODO: Create a separate file to test getUserHabits and getHabitData.
+const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const db = require('./index.js');
+
+mongoose.connect('mongodb://localhost/stoneandsand', {useMongoClient: true}, () => {
+  mongoose.connection.db.dropDatabase();
+});
 
 fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
   if (err) {
@@ -29,7 +34,7 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
             unit: dummyHabit.unit,
             timeframe: dummyHabit.timeframe,
           };
-          
+
           db.createHabit(habitData, (confirmList)=> {
             console.log(`${confirmUser}'s habit list is now ${confirmList}.`);
 
