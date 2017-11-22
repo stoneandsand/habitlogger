@@ -28,12 +28,19 @@ class App extends React.Component {
 
 
   componentDidMount() {
+    axios.post('/login', {username: 'Stone', password: 'sandstone'})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     this.getUserData();
     //this.getHabitsInfo();
   }
 
   getUserData() {
-    let username = 'test123'
+    let username = 'Stone';
     axios.get(`/${username}`)
       .then((res) => {
         console.log(res.data);
@@ -125,6 +132,7 @@ class App extends React.Component {
         <MuiThemeProvider>
           <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
         </MuiThemeProvider>
+
         <MuiThemeProvider>
           <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
         </MuiThemeProvider>
@@ -140,5 +148,6 @@ class App extends React.Component {
     )
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
