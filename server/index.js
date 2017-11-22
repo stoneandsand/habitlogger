@@ -21,10 +21,10 @@ app.get('/', (req, res) => {
 
 // GET the login page for the user.
 // Not sure if we will need to use this.
-app.get('/login', (req, res) => {
-  console.log('Received GET at /login');
-  res.send('LOGIN PAGE');
-});
+// app.get('/login', (req, res) => {
+//   console.log('Received GET at /login');
+//   res.send('LOGIN PAGE');
+// });
 
 // POST login data from the username
 // {username:'stone', password:'sand'}
@@ -58,7 +58,7 @@ app.post('/signup', (req, res) => {
     if (newUser){ // User signed up.
       res.redirect(`/${newUser.username}`);
     } else { // User already exists, redirect to login.
-      res.redirect('/login');
+      res.redirect('/');
     }
   });
 });
@@ -68,11 +68,16 @@ app.post('/signup', (req, res) => {
 app.get('/:username', (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at ${req.params.username}`);
-  db.getUserHabits(req.params.username, (habitList) => {
-    // res.send(habitList);
-    let testHabitList = ['smoking', 'video-games', 'running'];
-    res.send(testHabitList);
-  });
+  if (req.session.user === req.params.username) {
+    console.log(`${req.session.user} accessed their page`);
+    db.getUserHabits(req.params.username, (habitList) => {
+      // res.send(habitList);
+      let testHabitList = ['smoking', 'video-games', 'running'];
+      res.send(testHabitList);
+    });
+  } else {
+    res.redirect('/');
+  }
 });
 
 // GET the user's occurrences for the requested habit.
