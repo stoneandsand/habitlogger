@@ -22,7 +22,7 @@ class App extends React.Component {
     this.getUserData = this.getUserData.bind(this);
     this.getHabitsInfo = this.getHabitsInfo.bind(this);
     this.logHabit = this.logHabit.bind(this);
-    this.createEvent = this.createEvent.bind(this);
+    this.createHabit = this.createHabit.bind(this);
     this.selectHabit = this.selectHabit.bind(this);
   }
 
@@ -47,20 +47,20 @@ class App extends React.Component {
   }
 
   getHabitsInfo(habit) { //run this function when a habit is selected
-    let username = 'george';
-    let selected = habit || 'running'; //using running as this is test data's habit
+    let username = 'Stone';
+    let selected = 'rolling'; //using running as this is test data's habit
     this.setState({
       selectedHabit: selected,
     })
-    axios.get(`/api/${username}/${habit}`)
+    axios.get(`/api/${username}/${selected}`)
       .then((res) => {
         console.log(res.data);
-        this.setState({
-          timeframe: res.data.timeframe,
-          unit: res.data.unit,
-          limit: res.data.limit,
-          occurrences: res.data.occurrences,
-        });
+        // this.setState({
+        //   timeframe: res.data.timeframe,
+        //   unit: res.data.unit,
+        //   limit: res.data.limit,
+        //   occurrences: res.data.occurrences,
+        // });
       })
       .catch((err) => {
         console.error(err);
@@ -83,8 +83,8 @@ class App extends React.Component {
     });
   }
 
-  createEvent(name, unit, limit, timeframe) {
-    let event = {
+  createHabit(name, unit, limit, timeframe) {
+    let habit = {
       username: this.state.username,
       habit: name,
       limit: limit,
@@ -92,7 +92,7 @@ class App extends React.Component {
       timeframe: timeframe,
     };
     console.log(event);
-    axios.post(`/api/${this.state.username}/habit`, event)
+    axios.post(`/api/${this.state.username}/habit`, habit)
     .then((res) => {
       console.log(res);
       this.getUserData();
@@ -104,23 +104,23 @@ class App extends React.Component {
 
   selectHabit(name) {
     console.log(name);
-    // this.setState({
-    //   viewData: true,
-    //   viewHabit: name,
-    // });
+    this.setState({
+      viewData: true,
+      viewHabit: name,
+    });
+    this.getHabitsInfo(name);
   }
 
-  componentWillMount() {
-    this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
-  }
+  // componentWillMount() {
+  //   this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
+  // <Auth lock={this.lock} />
+  // }
 
   render() {
     return (
       <div className="main">
-
-        <Auth lock={this.lock} />
         <MuiThemeProvider>
-          <EventCreator createEvent={this.createEvent} />
+          <EventCreator createHabit={this.createHabit} />
         </MuiThemeProvider>
         <MuiThemeProvider>
           <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
@@ -128,11 +128,14 @@ class App extends React.Component {
         <MuiThemeProvider>
           <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
         </MuiThemeProvider>
-        <MuiThemeProvider>
-          <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
-        </MuiThemeProvider>
-        <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
+        {this.state.viewData ? `show charts for ${this.state.viewHabit}` : null}
 
+        <MuiThemeProvider>
+        {this.state.viewData ?
+          <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+        </MuiThemeProvider>
+        {this.state.viewData ?
+          <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
       </div>
     )
   }
