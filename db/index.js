@@ -28,7 +28,7 @@ const signup = (user, cb) => {
           console.error(`Error saving user to database: ${err}`);
         }
         console.log(`${newUserEntry.username} saved to database.`);
-        cb(newUserEntry.username); 
+        cb(newUserEntry.username);
       });
     } else { // The user already exists in the database.
       cb(false);
@@ -62,7 +62,7 @@ const getUserHabits = (user, cb) => {
 };
 
 const getHabitData = (user, habit, cb) => {
-  User.findOne({username: user.username}, (err, userEntry) => {
+  User.findOne({username: user}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
