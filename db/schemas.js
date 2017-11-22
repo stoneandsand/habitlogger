@@ -9,6 +9,7 @@ const Schema = mongoose.Schema;
 // It should simplify querying.
 // However, it may be worth considering using references instead,
 // especially for the users<-->habit relationship.
+// As it is, habits is an array, which may make lookup complicated.
 const occurrenceSchema = new Schema({
   timestamp: Date,
   value: Number, // Number of units, e.g., 3 cigars.
