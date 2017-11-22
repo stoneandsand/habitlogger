@@ -16,27 +16,27 @@ class DataLogger extends React.Component {
     super(props);
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      eventList: ['butterfly','coke', 'pegions'],
-      currentEvent: 'N/A',
+      habitList: ['butterfly','coke', 'pegions'],
+      currentHabit: 'N/A',
       currentUser: 'placeholder',
       eventTime: '',
       quantity: '',
     };
     this.logChange = this.logChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    // this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   logChange(e, index, value) {
     this.setState({
-      currentEvent: e
+      currentEvent: this.state.habitList[value]
     });
   }
 
   handleDateChange(e, date) {
     console.log('date changed to ' + date)
     let momentDate = moment(date).format('MMM Do YYYY');
-    this.setState({eventTime: momentDate});
+    this.setState({habitTime: momentDate});
   }
 
   handleQuantityChange(e) {
@@ -45,42 +45,29 @@ class DataLogger extends React.Component {
     });
   }
 
-  // handleSubmit(e) {
-  // e.preventDefault();
-  // var dataLog = document.forms.logInput;
-
-  // let num = dataLog.units.value
-  // let user = this.state.currentUser
-  // let event = this.state.currentEvent
-
-  // var logItem = {}
-  // this.props.logItem(dataLog, 'placeholder');
-  // onClick = {this.handleSubmit}
-  // }
-
   render() {
     return (
       <div>
       <h4>Data Logger</h4>
         <SelectField
-          floatingLabelText="Select Event"
-          value=0
+          floatingLabelText="Select Habit"
+          value={0}
           onChange={this.logChange}
         >
-          {this.state.eventList.map((event, index)=>{
-            return <MenuItem value={index} primaryText=event />
+          {this.state.habitList.map((event, index)=>{
+            return <MenuItem value={index} primaryText={event} />
           })}
         </SelectField>
         <label>Select Date: </label>
 
-        <DatePicker hintText="Enter day of Event" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
+        <DatePicker hintText="Enter day of Habit" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
 
         <p>
-          Selected Event: {this.state.currentEvent}<br/>
+          Selected Habit: {this.state.currentHabit}<br/>
           Selected Date: {this.state.eventTime}
         </p>
           <input type="number" onChange={this.handleQuantityChange} />
-          <button onClick={this.props.logEvent.bind(this, this.state.currentEvent, this.state.eventTime, this.state.quantity)} >Log Event</button>
+          <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
         <hr />
       </div>
     )
