@@ -112,9 +112,9 @@ const logOccurrence = (user, habit, occurrence, cb) => {
 };
 
 // EXPORTS
-exports.signup = signup;
-exports.checkLogin = checkLogin;
-exports.getUserHabits = getUserHabits;
-exports.getHabitData = getHabitData;
-exports.createHabit = createHabit;
-exports.logOccurrence = logOccurrence;
+module.exports.signup = signup;
+module.exports.checkLogin = checkLogin;
+module.exports.getUserHabits = getUserHabits;
+module.exports.getHabitData = getHabitData;
+module.exports.createHabit = createHabit;
+module.exports.logOccurrence = logOccurrence;
