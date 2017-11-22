@@ -62,12 +62,13 @@ class App extends React.Component {
     axios.get(`/api/${username}/${selected}`)
       .then((res) => {
         console.log(res.data);
-        // this.setState({
-        //   timeframe: res.data.timeframe,
-        //   unit: res.data.unit,
-        //   limit: res.data.limit,
-        //   occurrences: res.data.occurrences,
-        // });
+        this.setState({
+          timeframe: res.data.timeframe,
+          unit: res.data.unit,
+          limit: res.data.limit,
+          occurrences: res.data.occurrences,
+          viewData: true,
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -112,7 +113,6 @@ class App extends React.Component {
   selectHabit(name) {
     console.log(name);
     this.setState({
-      viewData: true,
       viewHabit: name,
     });
     this.getHabitsInfo(name);
@@ -140,7 +140,7 @@ class App extends React.Component {
 
         <MuiThemeProvider>
         {this.state.viewData ?
-          <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+          <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
         </MuiThemeProvider>
         {this.state.viewData ?
           <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
