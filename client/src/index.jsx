@@ -16,11 +16,14 @@ class App extends React.Component {
     this.state = {
       habits: [],
       username: 'Stone',
+      viewData: false,
+      viewHabit: '',
     }
     this.getUserData = this.getUserData.bind(this);
     this.getHabitsInfo = this.getHabitsInfo.bind(this);
-    this.logEvent = this.logEvent.bind(this);
+    this.logHabit = this.logHabit.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.selectHabit = this.selectHabit.bind(this);
   }
 
 
@@ -64,7 +67,7 @@ class App extends React.Component {
       });
   }
 
-  logEvent(event, time, quantity) {
+  logHabit(event, time, quantity) {
     let occurrence = {
       habit: event,
       timestamp: time,
@@ -99,6 +102,14 @@ class App extends React.Component {
     });
   }
 
+  selectHabit(name) {
+    console.log(name);
+    // this.setState({
+    //   viewData: true,
+    //   viewHabit: name,
+    // });
+  }
+
   componentWillMount() {
     this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
   }
@@ -112,10 +123,10 @@ class App extends React.Component {
           <EventCreator createEvent={this.createEvent} />
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logEvent={this.logEvent} />
+          <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <EventSelector habits={this.state.habits} />
+          <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
         </MuiThemeProvider>
         <MuiThemeProvider>
           <MuiTable timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} />
