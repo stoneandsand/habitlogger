@@ -1,20 +1,22 @@
 import React from 'react';
-import Select from 'react-select';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 class EventCreator extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      timeFrames: [{ label: 'day', value: 'day' }, { label: 'week', value: 'week' }, { label: 'month', value: 'month' }],
-      selectedTimeframe : 'day',
+      currentTimeframe : '',
       event: '',
       units: '',
       limit: '',
+      value: 0,
     }
     this.timeFrameChange = this.timeFrameChange.bind(this);
     this.eventChange = this.eventChange.bind(this);
     this.unitsChange = this.unitsChange.bind(this);
     this.limitChange = this.limitChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   timeFrameChange(e) {
@@ -39,6 +41,14 @@ class EventCreator extends React.Component{
     });
   }
 
+  handleChange(e, index, value) {
+    this.setState({
+      value: index,
+      currentTimeframe: e.target.value,
+    });
+    this.setState({value});
+  }
+
   render() {
     return (
       <div>
@@ -51,15 +61,20 @@ class EventCreator extends React.Component{
           <label>Goal/Limit for Event</label>
           <input type="number" onChange={this.limitChange} placeholder="Goal/Limit" />
         </form>
-        <label>Timeframe: </label>
-        <Select
-          name="form-field-name"
-          label="day"
-          options={this.state.timeFrames}
-          onChange={this.logChange}
-          className="dropdown"
-        />
-        <p>Select timeframe of data logging</p>
+        <label>Select Timeframe: </label>
+        <br/>
+        <SelectField
+          floatingLabelText="Choose Timeframe"
+          value={this.state.value}
+          onChange={this.handleChange}
+        >
+          <MenuItem value={1} primaryText="Day" />
+          <MenuItem value={2} primaryText="Week" />
+          <MenuItem value={3} primaryText="Month" />
+        </SelectField>
+        <p>
+        Current Timeframe: {this.state.currentTimeframe}
+        </p>
         <button
           onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.selectedTimeframe) }>
           Create Habit
