@@ -3,15 +3,16 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 const PORT = process.env.PORT || 3000;
+const session = require('express-session');
 
-// Use express.static to serve static public files
 app.use(express.static(`${__dirname}/../client/public/`));
-// Parse urlencoded bodies (into JSONs).
-// We may be communicating nested objects, so set extended to true.
 app.use(bodyParser.urlencoded({extended: true}));
-// Parse JSONs into objects.
-// This is the only data-type we use for client-server communication.
 app.use(bodyParser.json());
+app.use(session({
+  secret: 'lss*739md9d@#ksz0)',
+  saveUnitialized: false,
+  resave: false,
+}));
 
 app.get('/', (req, res) => {
   console.log('Received GET at /');
@@ -26,12 +27,12 @@ app.get('/login', (req, res) => {
 });
 
 // POST login data from the username
-// {username:'stone', password:'sand'} 
+// {username:'stone', password:'sand'}
 // Not sure if we will need to use this.
 app.post('/login', (req, res) => {
   console.log('Received POST at /login');
   // CONNECTION TO DATABASE HERE
-  // db.checkLogin(req.body, (loginCheckData) => {}); 
+  // db.checkLogin(req.body, (loginCheckData) => {});
   // Does the username exists?
   // Is the password correct?
   // If both are true, redirect to userpage.
@@ -94,7 +95,7 @@ app.get('/api/:username/:habit', (req, res) => {
 });
 
 // POST by user to create a habit
-// {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'} 
+// {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'}
 app.post('/api/:username/habit', (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at /api/${req.params.username}/habit`);
@@ -109,7 +110,7 @@ app.post('/api/:username/habit', (req, res) => {
 app.post('/api/:username/log', (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   db.logOccurrence(req.body, (occurrence) => {
-      res.send(occurrence);    
+      res.send(occurrence);
   });
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
