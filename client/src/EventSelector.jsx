@@ -7,17 +7,17 @@ class EventSelector extends React.Component {
     super(props);
     this.state = {
       value: 0,
-      selected: '',
+      currentHabit: '',
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, index, value) {
-    this.setState({value});
+  handleChange(e, index) {
     this.setState({
-      selected: this.props.habits[value],
+      currentHabit: this.props.habits[index],
+      value: index,
     });
-    this.props.selectHabit(this.props.habits[value]);
+    this.props.selectHabit(this.props.habits[index]);
   }
 
   render() {
@@ -29,10 +29,10 @@ class EventSelector extends React.Component {
           onChange={this.handleChange}
         >
             {this.props.habits.map((habit, index) =>
-              <MenuItem key={index} value={index}>{habit}</MenuItem>
+              <MenuItem key={index} value={index} primaryText={habit} />
             )}
         </SelectField>
-        <p>Habit: {this.state.selected}</p>
+        <p>Habit: {this.state.currentHabit}</p>
       </div>
     )
   }
