@@ -1,6 +1,9 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 
 class EventCreator extends React.Component{
   constructor(props){
@@ -50,17 +53,20 @@ class EventCreator extends React.Component{
   }
 
   render() {
+    const style = {
+      marginLeft: 20,
+    };
     return (
       <div>
       <h4>Event Creator</h4>
-        <form name="eventCreation" className="creator">
-          <label>Event Name:</label>
-          <input type="text" onChange={this.eventChange} placeholder="Event Name" />
-          <label>Event's Units:</label>
-          <input type="text" onChange={this.unitsChange} placeholder="Units" />
-          <label>Goal/Limit for Event</label>
-          <input type="number" onChange={this.limitChange} placeholder="Goal/Limit" />
-        </form>
+      <Paper zDepth={1} style={{width: '50%'}}>
+        <TextField hintText="Event name" style={style} underlineShow={false} onChange={this.eventChange} />
+        <Divider />
+        <TextField hintText="Event units" style={style} underlineShow={false} onChange={this.unitsChange} />
+        <Divider />
+        <TextField hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
+        <Divider />
+      </Paper>
         <label>Select Timeframe: </label>
         <br />
         <SelectField
@@ -75,6 +81,7 @@ class EventCreator extends React.Component{
 
         </SelectField>
         <br />
+        <br />
         <button
           onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.currentTimeframe) }>
           Create Habit
@@ -86,3 +93,12 @@ class EventCreator extends React.Component{
 }
 
 export default EventCreator;
+
+        // <form name="eventCreation" className="creator">
+        //   <label>Event Name:</label>
+        //   <input type="text" onChange={this.eventChange} placeholder="Event Name" />
+        //   <label>Event's Units:</label>
+        //   <input type="text" onChange={this.unitsChange} placeholder="Units" />
+        //   <label>Goal/Limit for Event</label>
+        //   <input type="number" onChange={this.limitChange} placeholder="Goal/Limit" />
+        // </form>
