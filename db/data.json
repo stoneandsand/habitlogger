@@ -1,145 +1,19 @@
 [
-   {
-      "username":"Bowser",
-      "password":"PW1",
-      "habitList":[
-         "Smoking"
-      ],
-      "habits":[
-         {
-            "habit":"Smoking",
-            "unit":"Packs",
-            "timeframe":"Week",
-            "occurrences":[
-               {
-                  "timestamp":"2017 Nov 2",
-                  "value":3
-               },
-               {
-                  "timestamp":"2017 Nov 3",
-                  "value":2
-               },
-               {
-                  "timestamp":"2017 Nov 7",
-                  "value":5
-               }
-            ]
-         }
-      ]
-   },
-   {
-      "username":"Mario",
-      "password":"PW2",
-      "habitList":[
-         "Video Games",
-         "Eating"
-      ],
-      "habits":[
-         {
-            "habit":"Video Games",
-            "unit":"Hours",
-            "timeframe":"Week",
-            "occurrences":[
-               {
-                  "timestamp":"2017 Nov 15",
-                  "value":3
-               },
-               {
-                  "timestamp":"2017 Nov 17",
-                  "value":2
-               },
-               {
-                  "timestamp":"2017 Nov 19",
-                  "value":5
-               }
-            ]
-         },
-         {
-            "habit":"Eating",
-            "unit":"Calories",
-            "timeframe":"Week",
-            "occurrences":[
-               {
-                  "timestamp":"2017 Oct 15",
-                  "value":6000
-               },
-               {
-                  "timestamp":"2017 Oct 17",
-                  "value":5000
-               },
-               {
-                  "timestamp":"2017 Oct 19",
-                  "value":9000
-               }
-            ]
-         }
-      ]
-   },
-   {
-      "username":"Luigi",
-      "password":"PWofluigi",
-      "habitList":[
-         "Video Games",
-         "Plumbing"
-      ],
-      "habits":[
-         {
-            "habit":"Video Games",
-            "unit":"Hours",
-            "timeframe":"Month",
-            "occurrences":[
-               {
-                  "timestamp":"2017 April 15",
-                  "value":10
-               },
-               {
-                  "timestamp":"2017 April 17",
-                  "value":3
-               },
-               {
-                  "timestamp":"2017 May 2",
-                  "value":7
-               },
-               {
-                  "timestamp":"2017 May 23",
-                  "value":5
-               },
-               {
-                  "timestamp":"2017 May 30",
-                  "value":1
-               }
-            ]
-         },
-         {
-            "habit":"Plumbing",
-            "unit":"Toilets",
-            "timeframe":"Day",
-            "occurrences":[
-               {
-                  "timestamp":"2017 June 15",
-                  "value":0
-               },
-               {
-                  "timestamp":"2017 June 17",
-                  "value":3
-               },
-               {
-                  "timestamp":"2017 June 24",
-                  "value":2
-               }
-            ]
-         }
-      ]
-   },
-   {
-      "username":"Smithers",
-      "password":"favpw1"
-   },
-   {
-      "username":"Fred",
-      "password":"favpw1",
-      "habitList":[
-         "Worms"
-      ]
-   }
+  {
+    "username":"Stone",
+    "password":"sandstone",
+    "habitList":["rolling"],
+    "habits":[
+      {
+        "habit":"rolling",
+        "limit":5,
+        "unit":"rolls",
+        "timeframe":"day",
+        "occurrences":[{
+          "timestamp":"2017-11-22T14:34:15.075Z",
+          "value":"1"
+        }]
+      }
+    ]
+  }
 ]
