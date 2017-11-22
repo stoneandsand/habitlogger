@@ -67,8 +67,6 @@ class EventCreator extends React.Component{
         <TextField hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
         <Divider />
       </Paper>
-        <label>Select Timeframe: </label>
-        <br />
         <SelectField
           floatingLabelText="Choose Timeframe"
           value={this.state.value}
