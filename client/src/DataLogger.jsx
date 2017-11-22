@@ -23,13 +23,13 @@ class DataLogger extends React.Component {
       quantity: '',
     };
     this.logChange = this.logChange.bind(this);
-    // this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     // this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
-  logChange(e) {
+  logChange(e, index, value) {
     this.setState({
-      currentEvent: `${e.label}`
+      currentEvent: e
     });
   }
 
@@ -39,11 +39,11 @@ class DataLogger extends React.Component {
     this.setState({eventTime: momentDate});
   }
 
-  // handleQuantityChange(e) {
-  //   this.setState({
-  //     quantity: e.target.value,
-  //   });
-  // }
+  handleQuantityChange(e) {
+    this.setState({
+      quantity: e.target.value,
+    });
+  }
 
   // handleSubmit(e) {
   // e.preventDefault();
