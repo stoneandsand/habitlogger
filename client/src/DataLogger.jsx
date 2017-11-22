@@ -16,7 +16,6 @@ class DataLogger extends React.Component {
     super(props);
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      habitList: ['butterfly','coke', 'pegions'],
       currentHabit: 'N/A',
       currentUser: 'placeholder',
       eventTime: '',
@@ -30,7 +29,7 @@ class DataLogger extends React.Component {
 
   logChange(e, index) {
     this.setState({
-      currentHabit: this.state.habitList[index],
+      currentHabit: this.props.habits[index],
       value: index
     });
   }
@@ -56,7 +55,7 @@ class DataLogger extends React.Component {
           value={this.state.value}
           onChange={this.logChange}
         >
-          {this.state.habitList.map((event, index)=>{
+          {this.props.habits.map((event, index)=>{
             return <MenuItem key={index} value={index} primaryText={event} />
           })}
         </SelectField>
