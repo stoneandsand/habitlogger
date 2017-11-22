@@ -21,15 +21,17 @@ class DataLogger extends React.Component {
       currentUser: 'placeholder',
       eventTime: '',
       quantity: '',
+      value:0
     };
     this.logChange = this.logChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
-  logChange(e, index, value) {
+  logChange(e, index) {
     this.setState({
-      currentEvent: this.state.habitList[value]
+      currentHabit: this.state.habitList[index],
+      value: index
     });
   }
 
@@ -51,11 +53,11 @@ class DataLogger extends React.Component {
       <h4>Data Logger</h4>
         <SelectField
           floatingLabelText="Select Habit"
-          value={0}
+          value={this.state.value}
           onChange={this.logChange}
         >
           {this.state.habitList.map((event, index)=>{
-            return <MenuItem value={index} primaryText={event} />
+            return <MenuItem key={index} value={index} primaryText={event} />
           })}
         </SelectField>
         <label>Select Date: </label>
