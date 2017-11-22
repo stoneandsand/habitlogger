@@ -1,23 +1,30 @@
 import React from 'react';
-import Select from 'react-select';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import moment from 'moment';
+
+const styles = {
+  customWidth: {
+    width: 150,
+  },
+};
 
 class DataLogger extends React.Component {
   constructor(props) {
     super(props);
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      eventList: [{ label: 'butterfly' }, { label: 'coke' }, { label: 'pegions' }],
+      eventList: ['butterfly','coke', 'pegions'],
       currentEvent: 'N/A',
       currentUser: 'placeholder',
       eventTime: '',
       quantity: '',
     };
     this.logChange = this.logChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    // this.handleDateChange = this.handleDateChange.bind(this);
+    // this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   logChange(e) {
@@ -32,11 +39,11 @@ class DataLogger extends React.Component {
     this.setState({eventTime: momentDate});
   }
 
-  handleQuantityChange(e) {
-    this.setState({
-      quantity: e.target.value,
-    });
-  }
+  // handleQuantityChange(e) {
+  //   this.setState({
+  //     quantity: e.target.value,
+  //   });
+  // }
 
   // handleSubmit(e) {
   // e.preventDefault();
@@ -55,18 +62,19 @@ class DataLogger extends React.Component {
     return (
       <div>
       <h4>Data Logger</h4>
-        <label>Select Event:</label>
-        <Select
-          value={this.state.currentEvent}
-          options={this.state.eventList}
+        <SelectField
+          floatingLabelText="Select Event"
+          value=0
           onChange={this.logChange}
-          className="dropdown"
-        />
-
+        >
+          {this.state.eventList.map((event, index)=>{
+            return <MenuItem value={index} primaryText=event />
+          })}
+        </SelectField>
         <label>Select Date: </label>
-        <MuiThemeProvider>
+
         <DatePicker hintText="Enter day of Event" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
-        </MuiThemeProvider>
+
         <p>
           Selected Event: {this.state.currentEvent}<br/>
           Selected Date: {this.state.eventTime}
