@@ -14,7 +14,6 @@ const styles = {
 class DataLogger extends React.Component {
   constructor(props) {
     super(props);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       currentHabit: 'N/A',
       currentUser: 'placeholder',
