@@ -61,8 +61,8 @@ class EventCreator extends React.Component{
         />
         <p>Select timeframe of data logging</p>
         <button
-          onClick={this.props.createEvent.bind(this, this.state.event, this.state.units, this.state.limit, this.state.selectedTimeframe) }>
-          Create Event
+          onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.selectedTimeframe) }>
+          Create Habit
         </button>
         <hr />
       </div>
