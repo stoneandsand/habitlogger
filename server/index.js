@@ -125,6 +125,10 @@ app.listen(PORT, () => {
 // Function to check whether a user is logged-in.
 // Use as middleware.
 function checkLogin(req, res, next) {
-
-//  next();
+  let isLoggedIn = req.session ? !!req.session.user : false;
+  if(isLoggedIn) {
+    next();
+  } else {
+    res.send('User not logged in');
+  }
 }
