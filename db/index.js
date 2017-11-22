@@ -77,12 +77,18 @@ const getHabitData = (user, habit, cb) => {
   });
 };
 
-const createHabit = (user, habit, cb) => {
-  User.findOne({username: user.username}, (err, userEntry) => {
+const createHabit = (habitData, cb) => {
+  User.findOne({username: habitData.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}.`);
     }  else {
-      userEntry.habitList.push(habit);
+      userEntry.habitList.push(habitData.habit);
+      userEntry.habits.push({
+        habit: habitData.habit,
+        limit: habitData.limit,
+        unit: habitData.unit,
+        timeframe: habitData.timeframe,
+      });
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
           console.error(`Error getting ${user}'s habits.`);
@@ -93,19 +99,23 @@ const createHabit = (user, habit, cb) => {
   });
 };
 
-const logOccurrence = (user, habit, occurrence, cb) => {
-  User.findOne({username: user.username}, (err, userEntry) => {
+const logOccurrence = (logData, cb) => {
+  User.findOne({username: logData.username}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}.`);
     }  else {
-      userEntry.habits[habit].occurrences.push(occurrence);
-      userEntry.save((err, updatedUserEntry) => {
-        if (err) {
-          console.error(`Error getting ${user}.`);
+      userEntry.habits.forEach(habitEntry => {
+        if (logData.habit === habitEntry.habit) {
+          habitEntry.occurrences.push(logData.occurrence);
+          userEntry.save((err, updatedUserEntry) => {
+            if (err) {
+              console.error(`Error getting ${user}.`);
+            }
+            // Return the inputted occurence.
+            // It is now the last item in its habit's occurrences array.
+            cb(logData.occurrence); // TODO: Return the actual last occurrence from the userEntry.
+          });
         }
-        // Return the inputted occurence.
-        // It is now the last item in its habit's occurrences array.
-        cb(updatedUserEntry.habits[habit].occurrences.slice(-1)[0]); 
       });
     }
   });
