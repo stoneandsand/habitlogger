@@ -15,9 +15,9 @@ class DataLogger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentHabit: 'N/A',
+      currentHabit: this.props.habits[0],
       currentUser: 'placeholder',
-      eventTime: '',
+      habitTime: new Date(),
       quantity: '',
       value:0
     };
@@ -35,8 +35,8 @@ class DataLogger extends React.Component {
 
   handleDateChange(e, date) {
     console.log('date changed to ' + date)
-    let momentDate = moment(date).format('MMM Do YYYY');
-    this.setState({habitTime: momentDate});
+    // let momentDate = moment(date).format('MMM Do YYYY');
+    this.setState({habitTime: date});
   }
 
   handleQuantityChange(e) {
@@ -44,13 +44,13 @@ class DataLogger extends React.Component {
       quantity: e.target.value,
     });
   }
-
+.logHabit.bind
   render() {
     return (
       <div>
       <h4>Data Logger</h4>
         <SelectField
-          floatingLabelText="Select Habit"
+          floatingLabelText="Select Habit".logHabit.bind
           value={this.state.value}
           onChange={this.logChange}
         >
