@@ -32,11 +32,11 @@ class App extends React.Component {
     axios.post('/login', {username: 'Stone', password: 'sandstone'})
       .then((res) => {
         console.log(res);
+        this.getUserData();
       })
       .catch((err) => {
         console.log(err);
       })
-    this.getUserData();
   }
 
   getUserData() {
