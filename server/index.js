@@ -106,7 +106,6 @@ app.post('/api/:username/log', checkLogin, (req, res) => {
     res.send(occurrence);
   });
   console.log(`Received POST at /api/${req.params.username}/log`);
-  res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
 
 app.listen(PORT, () => {
