@@ -64,7 +64,7 @@ class EventCreator extends React.Component{
         <Divider />
         <TextField hintText="Event units" style={style} underlineShow={false} onChange={this.unitsChange} />
         <Divider />
-        <TextField hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
+        <TextField type="number" hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
         <Divider />
       </Paper>
         <SelectField
@@ -74,7 +74,7 @@ class EventCreator extends React.Component{
         >
         {this.state.timeframes.map((timeframe, index) =>
 
-          <MenuItem value={index} primaryText={timeframe} />
+          <MenuItem key={index} value={index} primaryText={timeframe} />
         )}
 
         </SelectField>
