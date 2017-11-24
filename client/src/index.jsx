@@ -79,8 +79,10 @@ class App extends React.Component {
     let occurrence = {
       username: this.state.username,
       habit: event,
-      timestamp: time,
-      value: quantity,
+      occurrence: {
+        timestamp: time,
+        value: quantity,
+      },
     };
     console.log(occurrence);
     axios.post(`/api/${this.state.username}/log`, occurrence)
@@ -130,7 +132,6 @@ class App extends React.Component {
         <MuiThemeProvider>
           <TopBar />
         </MuiThemeProvider>
-
         <div className="main">
           <MuiThemeProvider>
             <EventCreator createHabit={this.createHabit} />
