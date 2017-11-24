@@ -82,7 +82,7 @@ app.get('/:username', checkLogin, (req, res) => {
 // This is used to populate the user's page with data
 app.get('/api/:username/:habit', checkLogin, (req, res) => {
   console.log(`Received GET at /api/${req.params.username}`);
-  db.getHabitData(req.params.username, req.params.habit, (habitData) => {
+  db.getHabitData(req.session.user, req.params.habit, (habitData) => {
     console.log(habitData);
     res.send(habitData);
   });
@@ -105,7 +105,7 @@ app.post('/api/:username/log', checkLogin, (req, res) => {
   db.logOccurrence(req.body, (occurrence) => {
     res.send(occurrence);
   });
-  console.log(`Received GET at /api/${req.params.username}/log`);
+  console.log(`Received POST at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
 });
 
