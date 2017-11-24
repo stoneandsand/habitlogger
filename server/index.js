@@ -67,14 +67,11 @@ app.post('/signup', checkLogin, (req, res) => {
 // GET the user's landing page after they login
 // This is the main page the user will be interacting with.
 app.get('/:username', checkLogin, (req, res) => {
-  // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received GET at ${req.params.username}`);
-    console.log(`${req.session.user} accessed their page`);
-    db.getUserHabits(req.params.username, (habitList) => {
-      // res.send(habitList);
-      let testHabitList = ['smoking', 'video-games', 'running'];
-      res.send(testHabitList);
-    });
+  console.log(`${req.session.user} accessed their page.`);
+  db.getUserHabits(req.params.username, (habitList) => {
+    res.send(habitList);
+  });
 });
 
 // GET the user's occurrences for the requested habit.
@@ -83,19 +80,10 @@ app.get('/:username', checkLogin, (req, res) => {
 // Eg, {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
 // This is used to populate the user's page with data
 app.get('/api/:username/:habit', checkLogin, (req, res) => {
-  // TODO: Need to use session here eventually, for security / privacy.
-  db.getHabitData(req.params.username, req.params.habit, (habitData) => {
-    // res.send(habitData);
-    console.log('success');
-    let testHabitData = {
-      unit: 'packs',
-      limit: 2,
-      timeframe: 'day',
-      occurrences: [{ timestamp: new Date(), value: 1}]
-    };
-    res.send(testHabitData);
-  });
   console.log(`Received GET at /api/${req.params.username}`);
+  db.getHabitData(req.params.username, req.params.habit, (habitData) => {
+    res.send(habitData);
+  });
 });
 
 // POST by user to create a habit
@@ -104,7 +92,7 @@ app.post('/api/:username/habit', checkLogin, (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received POST at /api/${req.params.username}/habit`);
   db.createHabit(req.body, (updatedHabitList) => {
-      res.send(updatedHabitList);
+    res.send(updatedHabitList);
   });
 });
 
@@ -112,9 +100,8 @@ app.post('/api/:username/habit', checkLogin, (req, res) => {
 // {timestamp: '2017116 2350', habit:'running', unit:'1'}
 // Add the occurrence object to the occurrences array for that habit
 app.post('/api/:username/log', checkLogin, (req, res) => {
-  // TODO: Need to use session here eventually, for security / privacy.
   db.logOccurrence(req.body, (occurrence) => {
-      res.send(occurrence);
+    res.send(occurrence);
   });
   console.log(`Received GET at /api/${req.params.username}/log`);
   res.send(`LOGGING OCCURRENCE FOR ${req.params.username}`);
