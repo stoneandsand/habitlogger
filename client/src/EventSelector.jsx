@@ -22,7 +22,8 @@ class EventSelector extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="viewHabitData">
+      <h1>Select Chart</h1>
         <SelectField
           floatingLabelText="View Habit Data"
           value={this.state.value}

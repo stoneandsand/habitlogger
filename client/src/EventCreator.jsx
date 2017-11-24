@@ -57,8 +57,8 @@ class EventCreator extends React.Component{
       marginLeft: 20,
     };
     return (
-      <div>
-      <h4>Event Creator</h4>
+      <div className="eventCreator">
+      <h1>Event Creator</h1>
       <Paper zDepth={1} style={{width: '50%'}}>
         <TextField hintText="Event name" style={style} underlineShow={false} onChange={this.eventChange} />
         <Divider />

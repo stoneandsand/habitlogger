@@ -17,7 +17,7 @@ class MuiTable extends React.Component {
   render() {
     console.log('props: ',this.props);
     return (
-      <div>
+      <div className="table">
         <h1 className="tableName">{this.props.habit}</h1>
         <h2 className="limitInfo">You set your limit to {this.props.limit} {this.props.unit}/{this.props.timeframe}</h2>
           <Table>
