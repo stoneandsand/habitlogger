@@ -37,7 +37,6 @@ class App extends React.Component {
         console.log(err);
       })
     this.getUserData();
-    //this.getHabitsInfo();
   }
 
   getUserData() {
@@ -56,7 +55,7 @@ class App extends React.Component {
 
   getHabitsInfo(habit) { //run this function when a habit is selected
     let username = 'Stone';
-    let selected = 'rolling'; //using running as this is test data's habit
+    let selected = habit || 'rolling'; //using running as this is test data's habit
     this.setState({
       selectedHabit: selected,
     })
@@ -135,7 +134,7 @@ class App extends React.Component {
         <div className="main">
           <MuiThemeProvider>
             <EventCreator createHabit={this.createHabit} />
-          </MuiThemeProvider>
+          </MuiThemeProvider>hrome
           <MuiThemeProvider>
             <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
           </MuiThemeProvider>
