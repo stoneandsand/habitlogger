@@ -14,45 +14,6 @@
   - Chart.js
   - Calendaring API
 
-* Project Tracking
-
-** Backlog
-
-*** Plan features and priorities.
-# MVP FEATURES
-+ [ ] Create Sessions
-+ [ ] Log Event
-+ [ ] Create Event
-+ [ ] Display Event / Tables
-+ [ ] Charts
-
-# STRETCH GOALS
-+ [ ] Authentication
-+ [ ] Date Range
-+ [ ] Calendar
-  - [ ] Planning Events
-
-*** Project Setup
-+ [X] Setup Initial Documentation
-  - [X] Setup README.md / Press-Release
-  - [X] Setup scoping document.
-
-+ [ ] Setup eslint style guide.
-  - [ ] Setup STYLE-GUIDE.md
-+ [X] Setup github project.
-  - [X] Decide on rebase vs merge workflow
-    - [X] Setup CONTRIBUTING.md
-+ [X] Setup basic server.
-+ [X] Deploy server.
-
-** In-Progress
-+ [ ] Get webpack working.
-+ [ ] Get database up.
-
-** Pull Request / Ready-for-Review
-
-** Ready
-
 * API Endpoints
 |---------+---------------------------+------------------------------------+--------------------|
 | METHOD  | URL                       | REQUEST                            | RESPONSE           |
