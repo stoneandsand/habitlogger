@@ -15,15 +15,18 @@ class DataLogger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentHabit: this.props.habits[0],
-      currentUser: 'placeholder',
+      currentHabit: '',
       habitTime: new Date(),
       quantity: '',
-      value:0
+      value: 0,
     };
     this.logChange = this.logChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.logChange();
   }
 
   logChange(e, index) {
@@ -58,14 +61,11 @@ class DataLogger extends React.Component {
             return <MenuItem key={index} value={index} primaryText={event} />
           })}
         </SelectField>
+        <br />
         <label>Select Date: </label>
 
-        <DatePicker hintText="Enter day of Habit" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
+        <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
 
-        <p>
-          Selected Habit: {this.state.currentHabit}<br/>
-          Selected Date: {this.state.eventTime}
-        </p>
           <input type="number" onChange={this.handleQuantityChange} />
           <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
         <hr />

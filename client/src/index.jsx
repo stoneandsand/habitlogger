@@ -55,7 +55,7 @@ class App extends React.Component {
 
   getHabitsInfo(habit) { //run this function when a habit is selected
     let username = 'Stone';
-    let selected = habit || 'rolling'; //using running as this is test data's habit
+    let selected = habit; //using running as this is test data's habit
     this.setState({
       selectedHabit: selected,
     })
@@ -87,7 +87,8 @@ class App extends React.Component {
     console.log(occurrence);
     axios.post(`/api/${this.state.username}/log`, occurrence)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
+      this.selectHabit(event);  // can re-factor to use occurrence object returned by the request
     })
     .catch((err) => {
       console.log(err);
@@ -139,12 +140,9 @@ class App extends React.Component {
           <MuiThemeProvider>
             <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
           </MuiThemeProvider>
-
           <MuiThemeProvider>
             <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
           </MuiThemeProvider>
-          {this.state.viewData ? `show charts for ${this.state.viewHabit}` : null}
-
           <MuiThemeProvider>
           {this.state.viewData ?
             <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
