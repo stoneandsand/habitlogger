@@ -19,12 +19,12 @@ app.get('/', (req, res) => {
   res.send('ROOT');
 });
 
-// GET the login page for the user.
-// Not sure if we will need to use this.
-// app.get('/login', (req, res) => {
-//   console.log('Received GET at /login');
-//   res.send('LOGIN PAGE');
-// });
+app.get('/logout', checkLogin, (req, res) => {
+  console.log('Received GET at /logout');
+  req.session.destroy(() => {
+    req.redirect('/');
+  });
+});
 
 // POST login data from the username
 // {username:'stone', password:'sand'}
