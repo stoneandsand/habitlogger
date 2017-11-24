@@ -48,7 +48,6 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
 
                 db.logOccurrence(logData, (confirmOccur) => {
                   console.log(`Last occurrence is now ${JSON.stringify(confirmOccur)}`);
-                  process.exit();
                 });
             });
           });
@@ -57,3 +56,4 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
     });
   }
 });
+// process.exit();
