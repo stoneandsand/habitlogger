@@ -10,7 +10,7 @@ class EventCreator extends React.Component{
     super(props)
     this.state = {
       timeframes: ['Day', 'Week', 'Month'],
-      currentTimeframe : '',
+      currentTimeframe : 'Day',
       event: '',
       units: '',
       limit: '',
