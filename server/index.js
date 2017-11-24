@@ -70,6 +70,7 @@ app.get('/:username', checkLogin, (req, res) => {
   console.log(`Received GET at ${req.params.username}`);
   console.log(`${req.session.user} accessed their page.`);
   db.getUserHabits(req.params.username, (habitList) => {
+    console.log(habitList);
     res.send(habitList);
   });
 });
@@ -82,6 +83,7 @@ app.get('/:username', checkLogin, (req, res) => {
 app.get('/api/:username/:habit', checkLogin, (req, res) => {
   console.log(`Received GET at /api/${req.params.username}`);
   db.getHabitData(req.params.username, req.params.habit, (habitData) => {
+    console.log(habitData);
     res.send(habitData);
   });
 });
@@ -91,7 +93,7 @@ app.get('/api/:username/:habit', checkLogin, (req, res) => {
 app.post('/api/:username/habit', checkLogin, (req, res) => {
   // TODO: Need to use session here eventually, for security / privacy.
   console.log(`Received POST at /api/${req.params.username}/habit`);
-  db.createHabit(req.body, (updatedHabitList) => {
+  db.createHabit(req.session.user, (updatedHabitList) => {
     res.send(updatedHabitList);
   });
 });

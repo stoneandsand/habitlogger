@@ -50,7 +50,7 @@ const checkLogin = (user, cb) => {
 };
 
 const getUserHabits = (user, cb) => {
-  User.findOne({username: user.username}, (err, userEntry) => {
+  User.findOne({username: user}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     } else if (!userEntry) {
