@@ -7,6 +7,7 @@ import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
 import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
+import Login from './Login.jsx';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
 
@@ -20,6 +21,8 @@ class App extends React.Component {
       viewData: false,
       viewHabit: '',
     }
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
     this.getUserData = this.getUserData.bind(this);
     this.getHabitsInfo = this.getHabitsInfo.bind(this);
     this.logHabit = this.logHabit.bind(this);
@@ -27,6 +30,13 @@ class App extends React.Component {
     this.selectHabit = this.selectHabit.bind(this);
   }
 
+  login(username, password) {
+    console.log(`${username} and ${password} login`);
+  }
+
+  signup(username, password) {
+    console.log(`${username} and ${password} signup`);
+  }
 
   componentDidMount() {
     axios.post('/login', {username: 'Stone', password: 'sandstone'})
@@ -134,6 +144,7 @@ class App extends React.Component {
           <TopBar />
         </MuiThemeProvider>
         <div className="main">
+        <Login login={this.login} signup={this.signup} />
           <div className="row rowA">
             <MuiThemeProvider>
               <EventCreator createHabit={this.createHabit} />
