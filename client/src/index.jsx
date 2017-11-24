@@ -134,7 +134,7 @@ class App extends React.Component {
         <div className="main">
           <MuiThemeProvider>
             <EventCreator createHabit={this.createHabit} />
-          </MuiThemeProvider>hrome
+          </MuiThemeProvider>
           <MuiThemeProvider>
             <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
           </MuiThemeProvider>
