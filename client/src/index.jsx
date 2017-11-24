@@ -134,21 +134,27 @@ class App extends React.Component {
           <TopBar />
         </MuiThemeProvider>
         <div className="main">
-          <MuiThemeProvider>
-            <EventCreator createHabit={this.createHabit} />
-          </MuiThemeProvider>
-          <MuiThemeProvider>
-            <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-          </MuiThemeProvider>
-          <MuiThemeProvider>
-            <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-          </MuiThemeProvider>
-          <MuiThemeProvider>
-          {this.state.viewData ?
-            <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-          </MuiThemeProvider>
-          {this.state.viewData ?
-            <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+          <div className="row rowA">
+            <MuiThemeProvider>
+              <EventCreator createHabit={this.createHabit} />
+            </MuiThemeProvider>
+            <MuiThemeProvider>
+              <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+            </MuiThemeProvider>
+            <MuiThemeProvider>
+              <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+            </MuiThemeProvider>
+          </div>
+          <div className="row rowB">
+            <MuiThemeProvider>
+            {this.state.viewData ?
+              <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+            </MuiThemeProvider>
+          </div>
+          <div className="row rowC">
+            {this.state.viewData ?
+              <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+          </div>
         </div>
       </div>
     )

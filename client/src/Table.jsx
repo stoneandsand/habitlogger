@@ -19,7 +19,7 @@ class MuiTable extends React.Component {
     return (
       <div className="table">
         <h1 className="tableName">{this.props.habit}</h1>
-        <h2 className="limitInfo">You set your limit to {this.props.limit} {this.props.unit}/{this.props.timeframe}</h2>
+        <h2 className="limitInfo">You set your goal/limit to {this.props.limit} {this.props.unit}/{this.props.timeframe}</h2>
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>

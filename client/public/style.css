@@ -5,7 +5,7 @@ body {
 .eventCreator {
   border: solid;
   float: left;
-  margin-left: 20px;
+  margin-left: 35px;
   margin-right: 40px;
   padding: 30px;
 }
@@ -23,10 +23,26 @@ body {
   padding: 30px;
 }
 
+.rowA {
+  margin-bottom: 40px;
+}
+
+.rowB {
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table {
+  border: solid;
+  clear: both;
+  padding: 30px;
+}
+
 #chart {
   border: solid;
-  clear: left;
-  width: 75%;
+  margin: 0 auto;
+  padding: 30px;
 }
 
 .main {
