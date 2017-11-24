@@ -44,13 +44,13 @@ class DataLogger extends React.Component {
       quantity: e.target.value,
     });
   }
-.logHabit.bind
+
   render() {
     return (
       <div>
       <h4>Data Logger</h4>
         <SelectField
-          floatingLabelText="Select Habit".logHabit.bind
+          floatingLabelText="Select Habit"
           value={this.state.value}
           onChange={this.logChange}
         >
