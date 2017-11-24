@@ -50,8 +50,8 @@ class DataLogger extends React.Component {
 
   render() {
     return (
-      <div>
-      <h4>Data Logger</h4>
+      <div className="dataLogger">
+      <h1>Data Logger</h1>
         <SelectField
           floatingLabelText="Select Habit"
           value={this.state.value}

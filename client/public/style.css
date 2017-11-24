@@ -2,8 +2,31 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.eventCreator {
+  border: solid;
+  float: left;
+  margin-left: 20px;
+  margin-right: 40px;
+  padding: 30px;
+}
+
+.dataLogger {
+  border: solid;
+  float: left;
+  margin-right: 40px;
+  padding: 30px;
+}
+
+.viewHabitData {
+  border: solid;
+  float: left;
+  padding: 30px;
+}
+
 #chart {
-  width: 75%
+  border: solid;
+  clear: left;
+  width: 75%;
 }
 
 .main {
