@@ -20,9 +20,11 @@ class App extends React.Component {
       username: 'Stone',
       viewData: false,
       viewHabit: '',
+      loggedIn: false,
     }
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.logout = this.logout.bind(this);
     this.getUserData = this.getUserData.bind(this);
     this.getHabitsInfo = this.getHabitsInfo.bind(this);
     this.logHabit = this.logHabit.bind(this);
@@ -32,16 +34,51 @@ class App extends React.Component {
 
   login(username, password) {
     console.log(`${username} and ${password} login`);
+    axios.post('/login', {username: username, password: password})
+      .then((res) => {
+        this.setState({
+          loggedIn: true,
+        })
+        this.getUserData();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   signup(username, password) {
     console.log(`${username} and ${password} signup`);
+    axios.post('/signup', {username: username, password: password})
+      .then((res) => {
+        this.getUserData();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  logout() {
+    console.log('logout button triggered');
+    axios.get('/logout')
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          loggedIn: false,
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   componentDidMount() {
+    //Take out this code eventually as it's for keeping a user logged in for testing purposes
     axios.post('/login', {username: 'Stone', password: 'sandstone'})
       .then((res) => {
         console.log(res);
+        this.setState({
+          loggedIn: true,
+        })
         this.getUserData();
       })
       .catch((err) => {
@@ -141,32 +178,35 @@ class App extends React.Component {
     return (
       <div className="container">
         <MuiThemeProvider>
-          <TopBar />
+          <TopBar logout={this.logout} loggedIn={this.state.loggedIn} />
         </MuiThemeProvider>
-        <div className="main">
         <Login login={this.login} signup={this.signup} />
-          <div className="row rowA">
-            <MuiThemeProvider>
-              <EventCreator createHabit={this.createHabit} />
-            </MuiThemeProvider>
-            <MuiThemeProvider>
-              <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-            </MuiThemeProvider>
-            <MuiThemeProvider>
-              <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-            </MuiThemeProvider>
+        {this.state.loggedIn ?
+          <div className="main">
+
+            <div className="row rowA">
+              <MuiThemeProvider>
+                <EventCreator createHabit={this.createHabit} />
+              </MuiThemeProvider>
+              <MuiThemeProvider>
+                <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+              </MuiThemeProvider>
+              <MuiThemeProvider>
+                <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+              </MuiThemeProvider>
+            </div>
+            <div className="row rowB">
+              <MuiThemeProvider>
+              {this.state.viewData ?
+                <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+              </MuiThemeProvider>
+            </div>
+            <div className="row rowC">
+              {this.state.viewData ?
+                <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+            </div>
           </div>
-          <div className="row rowB">
-            <MuiThemeProvider>
-            {this.state.viewData ?
-              <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-            </MuiThemeProvider>
-          </div>
-          <div className="row rowC">
-            {this.state.viewData ?
-              <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-          </div>
-        </div>
+          : null}
       </div>
     )
   }
