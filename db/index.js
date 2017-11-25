@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('./schemas.js');
@@ -20,17 +21,19 @@ const signup = (user, cb) => {
     if (err) {
       console.error(err);
     } else if (!userEntry) { // The user does not exist in the database.
-      
-      let newUser = new User({
-        username: user.username,
-        password: user.password,
-      });
-      newUser.save((err, newUserEntry) => {
-        if (err) {
-          console.error(`Error saving user to database: ${err}`);
-        }
-        console.log(`${newUserEntry.username} saved to database.`);
-        cb(newUserEntry.username);
+      bcrypt.hash(user.password, saltRounds, (err, hash) => {
+        console.log(hash);
+        let newUser = new User({
+          username: user.username,
+          password: hash,
+        });
+        newUser.save((err, newUserEntry) => {
+          if (err) {
+            console.error(`Error saving user to database: ${err}`);
+          }
+          console.log(`${newUserEntry.username} saved to database.`);
+          cb(newUserEntry.username);
+        });
       });
     } else { // The user already exists in the database.
       cb(false);
