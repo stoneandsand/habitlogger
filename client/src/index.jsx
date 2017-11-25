@@ -58,7 +58,9 @@ class App extends React.Component {
           if (res.data) {
             this.setState({
               username: res.data,
-            })
+            });
+          } else {
+            alert('Failed to sign up. Username possibly taken.');
           }
         })
         .catch((err) => {
