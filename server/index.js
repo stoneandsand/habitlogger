@@ -39,8 +39,6 @@ app.post('/login', (req, res) => {
         req.session.user = req.body.username;
         res.send(req.session.user); 
       } else {
-        // TODO: May have to destroy session?
-        // TODO: May have to send some sort of response to client?
         console.log(`${req.body.username} failed to log in.`);
         res.send(null); 
       }
