@@ -52,10 +52,14 @@ class App extends React.Component {
     if (username.length < 4 || password.length < 4) {
       alert('Username and password must be at least 4 characters.');
     } else {
-      console.log('hello');
       axios.post('/signup', {username: username, password: password})
         .then((res) => {
           console.log(res.data);
+          if (res.data) {
+            this.setState({
+              username: res.data,
+            })
+          }
         })
         .catch((err) => {
           console.error(err);
