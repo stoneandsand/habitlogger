@@ -31,16 +31,22 @@ app.get('/logout', checkLogin, (req, res) => {
 // Not sure if we will need to use this.
 app.post('/login', (req, res) => {
   console.log('Received POST at /login');
-  // CONNECTION TO DATABASE HERE
-  // db.checkLogin(req.body, (loginCheckData) => {});
-  // Does the username exists?
-  // Is the password correct?
-  // If both are true, redirect to userpage.
-  // Otherwise, redirect to login.
-  // Inform the user why their attempt failed.
-  req.session.user = req.body.username;
-  console.log('req.session: ',req.session);
-  res.send(`${req.session.user} TRIED TO LOG IN`);
+  let isLoggedIn = req.session ? !!req.session.user : false;
+  if (!isLoggedIn) {
+    db.checkLogin(req.body, (correctCredentials) => {
+      if (correctCredentials) {
+        console.log(`${req.body.username} logged in succesfully.`);
+        req.session.user = req.body.username;
+      } else {
+        // TODO: May have to destroy session?
+        // TODO: May have to send some sort of response to client?
+        console.log(`${req.body.username} failed to log in.`);
+        res.redirect('/'); 
+      }
+    });
+  } else { // The user is already logged in.
+    res.redirect('/');
+  }
 });
 
 // GET the signup page for the user.
