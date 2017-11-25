@@ -64,7 +64,7 @@ class DataLogger extends React.Component {
         <br />
         <label>Select Date: </label>
 
-        <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" onChange={(x, day) => this.handleDateChange(x,day)} />
+        <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" value={this.state.habitTime} onChange={(x, day) => this.handleDateChange(x,day)} />
 
           <input type="number" onChange={this.handleQuantityChange} />
           <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
