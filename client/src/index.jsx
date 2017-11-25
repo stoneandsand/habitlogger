@@ -17,7 +17,7 @@ class App extends React.Component {
 
     this.state = {
       habits: [],
-      username: 'Stone',
+      username: null,
       viewData: false,
       viewHabit: '',
       loggedIn: false,
@@ -36,14 +36,14 @@ class App extends React.Component {
     console.log(`${username} and ${password} login`);
     axios.post('/login', {username: username, password: password})
       .then((res) => {
-        this.setState({
-          loggedIn: true,
-        })
-        this.getUserData();
+        if (res.data) {
+          this.setState({username: res.data});
+          this.getUserData();
+        }
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
 
   signup(username, password) {
@@ -63,7 +63,7 @@ class App extends React.Component {
       .then((res) => {
         console.log(res);
         this.setState({
-          loggedIn: false,
+          username: null,
         })
       })
       .catch((err) => {
@@ -73,17 +73,17 @@ class App extends React.Component {
 
   componentDidMount() {
     //Take out this code eventually as it's for keeping a user logged in for testing purposes
-    axios.post('/login', {username: 'Stone', password: 'sandstone'})
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          loggedIn: true,
-        })
-        this.getUserData();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    // axios.post('/login', {username: 'Stone', password: 'sandstone'})
+    //   .then((res) => {
+    //     console.log(res);
+    //     this.setState({
+    //       loggedIn: true,
+    //     })
+    //     this.getUserData();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
   }
 
   getUserData() {
@@ -178,10 +178,10 @@ class App extends React.Component {
     return (
       <div className="container">
         <MuiThemeProvider>
-          <TopBar logout={this.logout} loggedIn={this.state.loggedIn} />
+          <TopBar logout={this.logout} loggedIn={this.state.username} />
         </MuiThemeProvider>
         <Login login={this.login} signup={this.signup} />
-        {this.state.loggedIn ?
+        {this.state.username ?
           <div className="main">
 
             <div className="row rowA">
