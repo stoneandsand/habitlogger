@@ -37,14 +37,15 @@ const signup = (user, cb) => {
 };
 
 const checkLogin = (user, cb) => {
-  // TODO: Check if the user is logged in / has a session.
-  // If they exist, cb(true);
-  // If not, cb(false);
   User.findOne({
     username: user.username
-  }).exec((err, user) => {
+  }, (err, userEntry) => {
     if (err) {
       console.error(err);
+    } else if (user.password === userEntry.password) {
+      cb(true);
+    } else {
+      cb(false);
     }
   });
 };
