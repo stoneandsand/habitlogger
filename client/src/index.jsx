@@ -33,38 +33,37 @@ class App extends React.Component {
   }
 
   login(username, password) {
-    console.log(`${username} and ${password} login`);
     axios.post('/login', {username: username, password: password})
       .then((res) => {
+        console.log(res.data);
         if (res.data) {
           this.setState({username: res.data});
           this.getUserData();
+        } else {
+          alert('Incorrect Credentials');
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 
   signup(username, password) {
-    console.log(`${username} and ${password} signup`);
     axios.post('/signup', {username: username, password: password})
       .then((res) => {
         this.getUserData();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
   }
 
   logout() {
-    console.log('logout button triggered');
     axios.get('/logout')
       .then((res) => {
-        console.log(res);
         this.setState({
           username: null,
-        })
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -90,7 +89,6 @@ class App extends React.Component {
     let username = this.state.username;
     axios.get(`/${username}`)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           habits: res.data,
         })
@@ -101,14 +99,13 @@ class App extends React.Component {
   }
 
   getHabitsInfo(habit) { //run this function when a habit is selected
-    let username = 'Stone';
+    let username = this.state.username;
     let selected = habit; //using running as this is test data's habit
     this.setState({
       selectedHabit: selected,
     })
     axios.get(`/api/${username}/${selected}`)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           timeframe: res.data.timeframe,
           unit: res.data.unit,
@@ -131,10 +128,8 @@ class App extends React.Component {
         value: quantity,
       },
     };
-    console.log(occurrence);
     axios.post(`/api/${this.state.username}/log`, occurrence)
     .then((res) => {
-      console.log(res.data);
       this.selectHabit(event);  // can re-factor to use occurrence object returned by the request
     })
     .catch((err) => {
@@ -150,7 +145,6 @@ class App extends React.Component {
       unit: unit,
       timeframe: timeframe,
     };
-    console.log(habit);
     axios.post(`/api/${this.state.username}/habit`, habit)
     .then((res) => {
       console.log(res);
@@ -162,7 +156,6 @@ class App extends React.Component {
   }
 
   selectHabit(name) {
-    console.log(name);
     this.setState({
       viewHabit: name,
     });
@@ -180,7 +173,9 @@ class App extends React.Component {
         <MuiThemeProvider>
           <TopBar logout={this.logout} loggedIn={this.state.username} />
         </MuiThemeProvider>
+        {!this.state.username ?
         <Login login={this.login} signup={this.signup} />
+        : null}
         {this.state.username ?
           <div className="main">
 
