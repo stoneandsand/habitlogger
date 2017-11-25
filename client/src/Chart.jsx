@@ -99,7 +99,7 @@ class Chart extends React.Component {
     return (
       <div id="chart">
         <h3>{this.props.viewHabit} over the past 40 {this.props.timeframe}</h3>
-        <Line data={this.state.data} options={this._options} redraw/>
+        <Line data={this.state.data} options={this._options}/>
       </div>
     )
   }
