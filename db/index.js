@@ -22,7 +22,6 @@ const signup = (user, cb) => {
       console.error(err);
     } else if (!userEntry) { // The user does not exist in the database.
       bcrypt.hash(user.password, saltRounds, (err, hash) => {
-        console.log(hash);
         let newUser = new User({
           username: user.username,
           password: hash,
@@ -47,10 +46,14 @@ const checkLogin = (user, cb) => {
   }, (err, userEntry) => {
     if (err) {
       console.error(err);
-    } else if (userEntry && user.password === userEntry.password) {
-      cb(true);
     } else {
-      cb(false);
+      bcrypt.compare(user.password, userEntry.password, function(err, match) {
+        if (match) {
+          cb(true);
+        } else {
+          cb(false);
+        }
+      });
     }
   });
 };
