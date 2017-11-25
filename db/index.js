@@ -42,7 +42,7 @@ const checkLogin = (user, cb) => {
   }, (err, userEntry) => {
     if (err) {
       console.error(err);
-    } else if (user.password === userEntry.password) {
+    } else if (userEntry && user.password === userEntry.password) {
       cb(true);
     } else {
       cb(false);
