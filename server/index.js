@@ -52,11 +52,9 @@ app.post('/login', (req, res) => {
 // {username:'stone', password:'sand', email: 'stone@sandstone.com'}
 // Not sure if we will need to use this.
 app.post('/signup', (req, res) => {
-  console.log('Received POST at /signup');
-  db.signup(req.body, (createdNewUser) => {
-    console.log(createdNewUser);
-    if (createdNewUser){ // User signed up.
-      res.redirect(`/${createdNewUser.username}`);
+  db.signup(req.body, (username) => {
+    if (username){ // User signed up.
+      res.send(username);
     } else { // User already exists, redirect to login.
       res.send(null);
     }
@@ -69,7 +67,6 @@ app.get('/:username', checkLogin, (req, res) => {
   console.log(`Received GET at ${req.params.username}`);
   console.log(`${req.session.user} accessed their page.`);
   db.getUserHabits(req.params.username, (habitList) => {
-    console.log(habitList);
     res.send(habitList);
   });
 });
@@ -82,7 +79,6 @@ app.get('/:username', checkLogin, (req, res) => {
 app.get('/api/:username/:habit', checkLogin, (req, res) => {
   console.log(`Received GET at /api/${req.params.username}`);
   db.getHabitData(req.session.user, req.params.habit, (habitData) => {
-    console.log(habitData);
     res.send(habitData);
   });
 });
