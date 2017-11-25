@@ -8,21 +8,14 @@ import FlatButton from 'material-ui/FlatButton';
 class TopBar extends React.Component {
   constructor(props) {
     super(props);
-    this.testToggle = this.testToggle.bind(this);
   }
 
-  testToggle() {
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    });
-  }
   render() {
     return (
       <div>
-        <button onClick={this.testToggle}>Test Toggle</button>
         <AppBar
           title="Habit Logger"
-          iconElementRight={this.props.loggedIn ? <DefaultMenu logout={this.props.logout} /> : <LoginMenu />}
+          iconElementRight={this.props.loggedIn ? <DefaultMenu logout={this.props.logout} /> : null} //LoginMenu was here - not used for now
           showMenuIconButton={false}
         />
       </div>
@@ -43,20 +36,20 @@ class DefaultMenu extends React.Component {
 }
 
 
-class LoginMenu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+// class LoginMenu extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
 
-  render() {
-    return (
-      <div>
-        <FlatButton style={{color: 'white'}} label="Sign Up" />
-        <FlatButton style={{color: 'white'}} label="Login" />
-      </div>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <div>
+//         <FlatButton style={{color: 'white'}} label="Sign Up" />
+//         <FlatButton style={{color: 'white'}} label="Login" />
+//       </div>
+//     );
+//   }
+// }
 
 
 export default TopBar;
