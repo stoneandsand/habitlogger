@@ -20,7 +20,6 @@ class App extends React.Component {
       username: null,
       viewData: false,
       viewHabit: '',
-      loggedIn: false,
     }
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -74,7 +73,10 @@ class App extends React.Component {
     axios.get('/logout')
       .then((res) => {
         this.setState({
+          habits: [],
           username: null,
+          viewData: false,
+          viewHabit: '',
         });
       })
       .catch((err) => {
