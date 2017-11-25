@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('./schemas.js');
@@ -19,6 +20,7 @@ const signup = (user, cb) => {
     if (err) {
       console.error(err);
     } else if (!userEntry) { // The user does not exist in the database.
+      
       let newUser = new User({
         username: user.username,
         password: user.password,
