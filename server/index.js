@@ -37,11 +37,12 @@ app.post('/login', (req, res) => {
       if (correctCredentials) {
         console.log(`${req.body.username} logged in succesfully.`);
         req.session.user = req.body.username;
+        res.send(req.session.user); 
       } else {
         // TODO: May have to destroy session?
         // TODO: May have to send some sort of response to client?
         console.log(`${req.body.username} failed to log in.`);
-        res.redirect('/'); 
+        res.send(null); 
       }
     });
   } else { // The user is already logged in.
