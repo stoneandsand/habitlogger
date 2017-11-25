@@ -49,6 +49,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   db.signup(req.body, (username) => {
     if (username){ // User signed up.
+      req.session.user = username;
       res.send(username);
     } else { // User already exists, redirect to login.
       res.send(null);
