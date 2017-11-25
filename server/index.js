@@ -19,10 +19,10 @@ app.get('/', (req, res) => {
   res.send('ROOT');
 });
 
-app.get('/logout', checkLogin, (req, res) => {
+app.get('/logout', (req, res) => {
   console.log('Received GET at /logout');
   req.session.destroy(() => {
-    req.redirect('/');
+    res.redirect('/');
   });
 });
 
