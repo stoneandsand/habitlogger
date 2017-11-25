@@ -87,7 +87,7 @@ class App extends React.Component {
   }
 
   getUserData() {
-    let username = 'Stone';
+    let username = this.state.username;
     axios.get(`/${username}`)
       .then((res) => {
         console.log(res.data);
