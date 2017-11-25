@@ -58,11 +58,11 @@ class EventCreator extends React.Component{
     };
     return (
       <div className="eventCreator">
-      <h1>Event Creator</h1>
+      <h1>Habit Creator</h1>
       <Paper zDepth={1} style={{width: '50%'}}>
-        <TextField hintText="Event name" style={style} underlineShow={false} onChange={this.eventChange} />
+        <TextField hintText="Habit name" style={style} underlineShow={false} onChange={this.eventChange} />
         <Divider />
-        <TextField hintText="Event units" style={style} underlineShow={false} onChange={this.unitsChange} />
+        <TextField hintText="Habit units" style={style} underlineShow={false} onChange={this.unitsChange} />
         <Divider />
         <TextField type="number" hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
         <Divider />
