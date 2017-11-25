@@ -228,7 +228,7 @@ class App extends React.Component {
             </div>
             <div className="row rowC">
               {this.state.viewData ?
-                <Chart timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+                <Chart habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
             </div>
           </div>
           : null}

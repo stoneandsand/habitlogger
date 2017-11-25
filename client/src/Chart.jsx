@@ -1,5 +1,6 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
+import moment from 'moment';
 
 class Chart extends React.Component {
   constructor(props) {
@@ -13,13 +14,64 @@ class Chart extends React.Component {
         }]
       }
     }
+
+
+    this.compileEntryLabels = this.compileEntryLabels.bind(this)
+    this.compileEntryValues = this.compileEntryValues.bind(this)
+    this.setData = this.setData.bind(this)
+    this.sortDates = this.sortDates.bind(this)
+
     this.state = {
-      data:
-        {
-          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels : this.compileEntryLabels(this.sortDates()),
+      data : this.compileEntryValues(this.sortDates()),
+      unit : this.props.unit,
+    }
+  }
+
+  componentWillMount() {
+    this.setData(this.state.labels,this.state.data,this.state.unit);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      labels : this.compileEntryLabels(this.sortDates()),
+      data : this.compileEntryValues(this.sortDates()),
+    })
+    this.setData(this.state.labels,this.state.data,this.state.unit);
+  }
+  //uses the sorted and filtered occurrence array that contains timestamp and value
+  compileEntryLabels (entries) {
+    entries.length > 40 ? entries = entries.slice(entries.length - 40) : entries;
+
+    return entries.map((entry) => {
+      return this.props.timeframe + " of " + moment(entry.timestamp).format('MMM Do YYYY')
+    })
+  }
+
+  compileEntryValues (entries) {
+    entries.length > 40 ? entries = entries.slice(entries.length - 40) : entries;
+
+
+    let arr = entries.map((entry) => {
+      return entry.value
+    })
+    console.log(arr);
+    return arr;
+  }
+
+  sortDates () {
+    return this.props.occurrences.sort((a,b)=>{
+      return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    })
+  }
+
+  setData (lab,dat,uni) {
+    this.setState(  {data:
+      {
+        labels: lab,
           datasets: [
             {
-              label: 'Hours Played',
+              label: uni,
               fill: false,
               lineTension: 0.1,
               backgroundColor: 'rgba(75,192,192,0.4)',
@@ -37,21 +89,22 @@ class Chart extends React.Component {
               pointHoverBorderWidth: 2,
               pointRadius: 1,
               pointHitRadius: 10,
-              data: [4, 8, 2, 6, 7, 1, 3]
+              data: dat,
             }
           ]
-        },
-    }
+      } })
   }
 
   render() {
     return (
       <div id="chart">
-        <h3>Video Games Past Week</h3>
-        <Line data={this.state.data} options={this._options} />
+        <h3>{this.props.viewHabit} over the past 40 {this.props.timeframe}</h3>
+        <Line data={this.state.data} options={this._options} redraw/>
       </div>
     )
   }
 }
 
 export default Chart;
+
+habit={this.state.viewHabit}
