@@ -62,7 +62,7 @@ class DataLogger extends React.Component {
           })}
         </SelectField>
         <br />
-        <label>Select Date: </label>
+        <label>Click Date to Select Different Date: </label>
 
         <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" value={this.state.habitTime} onChange={(x, day) => this.handleDateChange(x,day)} />
 

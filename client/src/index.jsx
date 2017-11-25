@@ -30,6 +30,7 @@ class App extends React.Component {
     this.logHabit = this.logHabit.bind(this);
     this.createHabit = this.createHabit.bind(this);
     this.selectHabit = this.selectHabit.bind(this);
+    this.checkFields = this.checkFields.bind(this);
   }
 
   login(username, password) {
@@ -131,21 +132,37 @@ class App extends React.Component {
   }
 
   logHabit(event, time, quantity) {
-    let occurrence = {
-      username: this.state.username,
-      habit: event,
-      occurrence: {
-        timestamp: time,
-        value: quantity,
-      },
-    };
-    axios.post(`/api/${this.state.username}/log`, occurrence)
-    .then((res) => {
-      this.selectHabit(event);  // can re-factor to use occurrence object returned by the request
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    let fieldsFilled = this.checkFields(event, time, quantity);
+    if(fieldsFilled) {
+      let occurrence = {
+        username: this.state.username,
+        habit: event,
+        occurrence: {
+          timestamp: time,
+          value: quantity,
+        },
+      };
+      axios.post(`/api/${this.state.username}/log`, occurrence)
+      .then((res) => {
+        this.selectHabit(event);  // can re-factor to use occurrence object returned by the request
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    } else {
+      alert('Please fill all fields when logging an event.')
+    }
+  }
+
+  checkFields(event, time, quantity) {
+    console.log('event: ', event);
+    console.log('time: ', time);
+    console.log('quantity: ', quantity);
+    if(event &&
+       quantity.length > 0) {
+      return true;
+    }
+    return false;
   }
 
   createHabit(name, unit, limit, timeframe) {
