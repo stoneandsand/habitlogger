@@ -14,11 +14,6 @@ app.use(session({
   resave: false,
 }));
 
-app.get('/', (req, res) => {
-  console.log('Received GET at /');
-  res.send('ROOT');
-});
-
 app.get('/logout', (req, res) => {
   console.log('Received GET at /logout');
   req.session.destroy(() => {
