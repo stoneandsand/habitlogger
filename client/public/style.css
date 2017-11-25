@@ -2,8 +2,28 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.loginSignup {
+  border: solid;
+  margin-bottom: 40px;
+  padding: 30px;
+  text-align: center;
+}
+
+.login {
+  margin-left: 130px;
+  padding: 10px;
+  text-align: left;
+}
+
+.signup {
+  margin-right: 100px;
+  padding: 10px;
+  text-align: left;
+}
+
 .eventCreator {
   border: solid;
+  clear: both;
   float: left;
   margin-left: 35px;
   margin-right: 40px;
