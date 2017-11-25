@@ -45,27 +45,28 @@ class Login extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <div className="login">
+        <div className="row loginSignup">
+          <h1>Login or Signup to start logging</h1>
+          <div className="login col-md-3">
             <h4>Log In</h4>
             <TextField
               hintText="Enter Username"
               floatingLabelText="Username"
               onChange={this.handleLoginUser}
              />
-            <br />
+             <br />
             <TextField
               type="password"
               hintText="Enter Password"
               floatingLabelText="Password"
               onChange={this.handleLoginPassword}
              />
-            <br />
+             <br />
             <RaisedButton label="LOGIN" primary={true} onClick={this.props.login.bind(this, this.state.loginUsername, this.state.loginPassword)} />
-            <br />
-            Sign up to begin logging.
           </div>
-          <div className="signup">
+          <div className="col-md-3">
+          </div>
+          <div className="signup col-md-3">
             <h4>Sign Up</h4>
             <TextField
               hintText="Enter Username"
