@@ -95,8 +95,10 @@ const createHabit = (habitData, cb) => {
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
           console.error(`Error getting ${habitData.username}'s habits.`);
+          cb([]);
+        } else {
+          cb(updatedUserEntry.habitList);
         }
-        cb(updatedUserEntry.habitList);
       });
     }
   });
