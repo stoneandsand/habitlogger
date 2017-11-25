@@ -48,23 +48,17 @@ app.post('/login', (req, res) => {
   }
 });
 
-// GET the signup page for the user.
-// Not sure if we will need to use this.
-app.get('/signup', (req, res) => {
-  console.log('Received GET at /signup');
-  res.send('SIGNUP PAGE');
-});
-
 // POST the signup information for the user.
 // {username:'stone', password:'sand', email: 'stone@sandstone.com'}
 // Not sure if we will need to use this.
-app.post('/signup', checkLogin, (req, res) => {
+app.post('/signup', (req, res) => {
   console.log('Received POST at /signup');
-  db.signup(req.body, (newUser) => {
-    if (newUser){ // User signed up.
-      res.redirect(`/${newUser.username}`);
+  db.signup(req.body, (createdNewUser) => {
+    console.log(createdNewUser);
+    if (createdNewUser){ // User signed up.
+      res.redirect(`/${createdNewUser.username}`);
     } else { // User already exists, redirect to login.
-      res.redirect('/');
+      res.send(null);
     }
   });
 });
