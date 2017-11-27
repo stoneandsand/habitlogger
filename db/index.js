@@ -3,7 +3,7 @@ const saltRounds = 10;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('./schemas.js');
-const DB_URI = `${process.env.MONGODB_URI}/stoneandsand` || 'mongodb://localhost/stoneandsand';
+const DB_URI = process.env.MONGODB_URI ? `${process.env.MONGODB_URI}/stoneandsand` : 'mongodb://localhost/stoneandsand';
 
 mongoose.Promise = require('bluebird');
 mongoose.connect(DB_URI);
