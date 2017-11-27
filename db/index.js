@@ -14,6 +14,17 @@ database.once('open', () => {
   console.log('Successfully connected to database.');
 });
 
+// HELPERS
+const sortByDate = (a, b) => {
+  if (a.timestamp > b.timestamp) {
+    return -1;
+  } else if (a.timestamp < b.timestamp) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
 // METHODS
 const signup = (user, cb) => {
   // Check if the user exists in the database.
@@ -78,14 +89,15 @@ const getUserHabits = (user, cb) => {
   });
 };
 
-const getHabitData = (user, habit, cb) => {
+const getHabitData = (user, habit, cb) => {  
   User.findOne({username: user}, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
     // Iterate over the user's habits and return the target habit.
     let targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
-
+    targetHabit.occurrences.sort(sortByDate);
+    
     if (targetHabit) {
       cb(targetHabit);
     } else {
