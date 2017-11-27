@@ -41,21 +41,29 @@ const signup = (user, cb) => {
 };
 
 const checkLogin = (user, cb) => {
-  User.findOne({
-    username: user.username
-  }, (err, userEntry) => {
-    if (err) {
-      console.error(err);
-    } else {
-      bcrypt.compare(user.password, userEntry.password, function(err, match) {
-        if (match) {
-          cb(true);
+  if (user.username && user.password) {
+    User.findOne({
+      username: user.username
+    }, (err, userEntry) => {
+      if (err) {
+        console.error(err);
+      } else {
+        if (userEntry && userEntry.password) {
+          bcrypt.compare(user.password, userEntry.password, function(err, match) {
+            if (match) {
+              cb(true);
+            } else {
+              cb(false);
+            }
+          });
         } else {
           cb(false);
         }
-      });
-    }
-  });
+      }
+    });
+  } else {
+    cb(false);
+  }
 };
 
 const getUserHabits = (user, cb) => {
