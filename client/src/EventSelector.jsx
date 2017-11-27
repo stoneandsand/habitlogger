@@ -33,7 +33,7 @@ class EventSelector extends React.Component {
               <MenuItem key={index} value={index} primaryText={habit} />
             )}
         </SelectField>
-        <p>Habit: {this.state.currentHabit}</p>
+        <p>Current Habit Data: {this.state.currentHabit ? this.state.currentHabit : 'None'}</p>
       </div>
     )
   }
