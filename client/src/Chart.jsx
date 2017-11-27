@@ -37,7 +37,7 @@ class Chart extends React.Component {
     this.setData(this.state.labels, this.state.data, this.state.unit);
   }
 
-  getLastXOccurrences(x = 15, entries) {
+  getLastXOccurrences(entries, x = 15) {
     if (entries.length > x) {
       return entries.slice(entries.length - x);
     } else {
