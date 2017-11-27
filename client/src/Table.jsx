@@ -15,7 +15,14 @@ class MuiTable extends React.Component {
   }
 
   render() {
-    console.log('props: ',this.props);
+    const limit = [];
+    for(var i = 0; i < 15; i++) {
+      if(this.props.occurrences[i]) {
+        limit.push(this.props.occurrences[i]);
+      } else {
+        break;
+      }
+    }
     return (
       <div className="table">
         <h1 className="tableName">{this.props.habit}</h1>
@@ -29,7 +36,7 @@ class MuiTable extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {
-                this.props.occurrences.map((occurence, index) => {
+                limit.map((occurence, index) => {
                   let momentDate = moment(occurence.timestamp).format('MMM Do YYYY');
                   return (
                     <TableRow key={occurence._id}>
@@ -37,7 +44,6 @@ class MuiTable extends React.Component {
                       <TableRowColumn>{occurence.value}</TableRowColumn>
                     </TableRow>
                   )
-                  counter++;
                 })
               }
             </TableBody>
