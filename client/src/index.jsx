@@ -84,21 +84,6 @@ class App extends React.Component {
       });
   }
 
-  componentDidMount() {
-    //Take out this code eventually as it's for keeping a user logged in for testing purposes
-    // axios.post('/login', {username: 'Stone', password: 'sandstone'})
-    //   .then((res) => {
-    //     console.log(res);
-    //     this.setState({
-    //       loggedIn: true,
-    //     })
-    //     this.getUserData();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-  }
-
   getUserData() {
     let username = this.state.username;
     axios.get(`/${username}`)
