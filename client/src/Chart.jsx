@@ -37,9 +37,9 @@ class Chart extends React.Component {
     this.setData(this.state.labels, this.state.data, this.state.unit);
   }
 
-  getLastFiftyOccurrences(entries) {
-    if (entries.length > 50) {
-      return entries.slice(entries.length - 50);
+  getLastXOccurrences(x = 15, entries) {
+    if (entries.length > x) {
+      return entries.slice(entries.length - x);
     } else {
       return entries;
     }
@@ -103,7 +103,7 @@ class Chart extends React.Component {
   render() {
     return (
       <div id="chart">
-        <h3>{this.props.viewHabit} over the past 40 {this.props.timeframe}</h3>
+        <h3>{this.props.viewHabit} over the past 15 {this.props.timeframe}</h3>
         <Line data={this.state.data} options={this._options}/>
       </div>
     );
