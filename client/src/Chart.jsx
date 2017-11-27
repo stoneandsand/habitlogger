@@ -25,15 +25,7 @@ class Chart extends React.Component {
     this.sortDates = this.sortDates.bind(this);
   }
 
-  componentWillMount() {
-    this.setData(this.state.labels, this.state.data, this.state.unit);
-  }
-
-  componentWillReceiveProps() {
-    this.setState({
-      labels : this.compileEntryLabels(this.sortDates()),
-      data : this.compileEntryValues(this.sortDates()),
-    });
+  componentDidMount() {
     this.setData(this.state.labels, this.state.data, this.state.unit);
   }
 
@@ -44,11 +36,11 @@ class Chart extends React.Component {
       return entries;
     }
   }
-  
+
   //Uses the sorted and filtered occurrence array that contains timestamp and value
   compileEntryLabels(entries) {
     entries = this.getLastXOccurrences(entries);
-    
+
     return entries.map((entry) => {
       return this.props.timeframe + " of " + moment(entry.timestamp).format('MMM Do YYYY');
     });
