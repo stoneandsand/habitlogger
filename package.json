@@ -8,7 +8,7 @@
     "lint": "./node_modules/.bin/eslint --fix .",
     "react-dev": "webpack -d --watch",
     "server-dev": "webpack -d --watch",
-    "start": "node ./db/seed.js && ./node_modules/.bin/webpack --config ./webpack.config.js && nodemon server/index.js",
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
