@@ -47,7 +47,7 @@ class Chart extends React.Component {
   
   //Uses the sorted and filtered occurrence array that contains timestamp and value
   compileEntryLabels(entries) {
-    entries = this.getLastFiftyOccurrences(entries);
+    entries = this.getLastXOccurrences(entries);
     
     return entries.map((entry) => {
       return this.props.timeframe + " of " + moment(entry.timestamp).format('MMM Do YYYY');
@@ -55,7 +55,7 @@ class Chart extends React.Component {
   }
 
   compileEntryValues(entries) {
-    entries = this.getLastFiftyOccurrences(entries);
+    entries = this.getLastXOccurrences(entries);
 
     let arr = entries.map((entry) => {
       return entry.value;
