@@ -5,30 +5,28 @@ import moment from 'moment';
 class Chart extends React.Component {
   constructor(props) {
     super(props);
-    this._options = {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    };
-
-    this.compileEntryLabels = this.compileEntryLabels.bind(this);
-    this.compileEntryValues = this.compileEntryValues.bind(this);
-    this.setData = this.setData.bind(this);
-    this.sortDates = this.sortDates.bind(this);
-
     this.state = {
       labels : this.compileEntryLabels(this.sortDates()),
       data : this.compileEntryValues(this.sortDates()),
       unit : this.props.unit,
     };
+    this._options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          }
+        }]
+      }
+    };
+    this.compileEntryLabels = this.compileEntryLabels.bind(this);
+    this.compileEntryValues = this.compileEntryValues.bind(this);
+    this.setData = this.setData.bind(this);
+    this.sortDates = this.sortDates.bind(this);
   }
 
   componentWillMount() {
-    this.setData(this.state.labels,this.state.data,this.state.unit);
+    this.setData(this.state.labels, this.state.data, this.state.unit);
   }
 
   componentWillReceiveProps() {
@@ -36,22 +34,28 @@ class Chart extends React.Component {
       labels : this.compileEntryLabels(this.sortDates()),
       data : this.compileEntryValues(this.sortDates()),
     });
-    this.setData(this.state.labels,this.state.data,this.state.unit);
+    this.setData(this.state.labels, this.state.data, this.state.unit);
   }
-  //uses the sorted and filtered occurrence array that contains timestamp and value
-  compileEntryLabels (entries) {
-    if (entries.length > 40) {
-      entries = entries.slice(entries.length - 40);
-    }
 
+  getLastFiftyOccurrences(entries) {
+    if (entries.length > 50) {
+      return entries.slice(entries.length - 50);
+    } else {
+      return entries;
+    }
+  }
+  
+  //Uses the sorted and filtered occurrence array that contains timestamp and value
+  compileEntryLabels(entries) {
+    entries = this.getLastFiftyOccurrences(entries);
+    
     return entries.map((entry) => {
       return this.props.timeframe + " of " + moment(entry.timestamp).format('MMM Do YYYY');
     });
   }
 
-  compileEntryValues (entries) {
-    entries.length > 40 ? entries = entries.slice(entries.length - 40) : entries;;
-
+  compileEntryValues(entries) {
+    entries = this.getLastFiftyOccurrences(entries);
 
     let arr = entries.map((entry) => {
       return entry.value;
