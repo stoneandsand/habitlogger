@@ -1,5 +1,6 @@
 * Stone and Sand
-/Daily life event tracker with data visualization./
+/Daily life event tracker with data visualization.  On the client side, 'event' references 'habit'./
+/To run the app, install dependencies with npm install.  Run these scripts: 'npm run react-dev', 'npm run server-dev', 'npm run db/seed.js', then open the app at localhost:3000./
 
 ** Tech Stack
 + Tech Stack:
