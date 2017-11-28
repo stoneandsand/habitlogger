@@ -1,7 +1,7 @@
 {
   "name": "stoneandsand",
   "version": "1.0.0",
-  "description": "Hello, world.",
+  "description": "Daily event/habit tracker & visualizer.",
   "engine": "node 6.11.5",
   "main": "index.js",
   "scripts": {
