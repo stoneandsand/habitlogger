@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 // It should simplify querying.
 // However, it may be worth considering using references instead,
 // especially for the users<-->habit relationship.
-// As it is, habits is an array, which complicates lookup.
+// As is, habits is an array, which complicates lookup.
 
 const occurrenceSchema = new Schema({
   timestamp: Date,
@@ -21,7 +21,7 @@ const habitSchema = new Schema({
   limit: Number, // e.g., 5 (per timeframe)
   unit: String, // e.g., cigars
   timeframe: String, // e.g., day / week / month
-  occurrences: [occurrenceSchema], // Emeded subdocument.
+  occurrences: [occurrenceSchema], // Embeded subdocument.
 });
 
 // Schema for users.
