@@ -14,100 +14,13 @@ app.use(session({
   resave: false,
 }));
 
-app.get('/logout', (req, res) => {
-  console.log('Received GET at /logout');
-  req.session.destroy(() => {
-    res.redirect('/');
-  });
-});
-
-// POST login data from the username
-// {username:'stone', password:'sand'}
-// Not sure if we will need to use this.
-app.post('/login', (req, res) => {
-  console.log('Received POST at /login');
-  let isLoggedIn = req.session ? !!req.session.user : false;
-  if (!isLoggedIn) {
-    db.checkLogin(req.body, (correctCredentials) => {
-      if (correctCredentials) {
-        console.log(`${req.body.username} logged in succesfully.`);
-        req.session.user = req.body.username;
-        res.send(req.session.user); 
-      } else {
-        console.log(`${req.body.username} failed to log in.`);
-        res.send(null); 
-      }
-    });
-  } else { // The user is already logged in.
-    res.redirect('/');
-  }
-});
-
-// POST the signup information for the user.
-// {username:'stone', password:'sand', email: 'stone@sandstone.com'}
-// Not sure if we will need to use this.
-app.post('/signup', (req, res) => {
-  db.signup(req.body, (username) => {
-    if (username){ // User signed up.
-      req.session.user = username;
-      res.send(username);
-    } else { // User already exists, redirect to login.
-      res.send(null);
-    }
-  });
-});
-
-// GET the user's landing page after they login
-// This is the main page the user will be interacting with.
-app.get('/:username', checkLogin, (req, res) => {
-  console.log(`Received GET at ${req.params.username}`);
-  console.log(`${req.session.user} accessed their page.`);
-  db.getUserHabits(req.params.username, (habitList) => {
-    res.send(habitList);
-  });
-});
-
-// GET the user's occurrences for the requested habit.
-// Eg, {habit: 'cigars'}
-// RESPOND a habit object with unit, limit, timeframe, occurrences.
-// Eg, {habit: 'running', timeframeStart: 'date', timeframeEnd:'date'}
-// This is used to populate the user's page with data
-app.get('/api/:username/:habit', checkLogin, (req, res) => {
-  console.log(`Received GET at /api/${req.params.username}`);
-  db.getHabitData(req.session.user, req.params.habit, (habitData) => {
-    res.send(habitData);
-  });
-});
-
-// POST by user to create a habit
-// {habit:'smoking', unit:'cigars', limit:'5', timeframe: 'week'}
-app.post('/api/:username/habit', checkLogin, (req, res) => {
-  // TODO: Need to use session here eventually, for security / privacy.
-  console.log(`Received POST at /api/${req.params.username}/habit`);
-  db.createHabit(req.body, (updatedHabitList) => {
-    res.send(updatedHabitList);
-  });
-});
-
-// POST by user to log an occurrence
-// {timestamp: '2017116 2350', habit:'running', unit:'1'}
-// Add the occurrence object to the occurrences array for that habit
-app.post('/api/:username/log', checkLogin, (req, res) => {
-  db.logOccurrence(req.body, (occurrence) => {
-    res.send(occurrence);
-  });
-  console.log(`Received POST at /api/${req.params.username}/log`);
-});
-
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
-});
-
 // HELPERS
 
-// Function to check whether a user is logged-in.
-// Use as middleware.
-function checkLogin(req, res, next) {
+// checkLoginAuth:
+// 1. Checks whether a user is already logged-in.
+// 2. Prevents a non-authenticated user to query another user's info.
+// req.session.user is only set after successful login or signup.
+const checkLoginAuthStatus = (req, res, next) => {
   let isLoggedIn = req.session ? !!req.session.user : false;
   let isActualUser = req.session.user === req.params.username;
   if(isLoggedIn && isActualUser) {
@@ -115,4 +28,81 @@ function checkLogin(req, res, next) {
   } else {
     res.redirect('/');
   }
-}
+};
+
+// ROUTING
+
+app.post('/signup', (req, res) => {
+  // Expects a JSON from the client.
+  // {username:'stone', password:'sand'}
+  db.signup(req.body, (username) => {
+    if (username){
+      req.session.user = username;
+      res.send(username);
+    } else { // User already exists.
+      res.send(null);
+    }
+  });
+});
+
+app.post('/login', (req, res) => {
+  // Expects a JSON from the client.
+  // {username:'stone', password:'sand'}
+  let isLoggedIn = req.session ? !!req.session.user : false;
+  if (!isLoggedIn) {
+    db.verifyLogin(req.body, (correctCredentials) => {
+      if (correctCredentials) {
+        req.session.user = req.body.username;
+        res.send(req.session.user); 
+      } else {
+        res.send(null); 
+      }
+    });
+  } else { // User already logged in.
+    res.redirect('/');
+  }
+});
+
+app.get('/:username', checkLoginAuthStatus, (req, res) => {
+  // Get the user's list of habits.
+  // Used to field selectors on client.
+  db.getUserHabits(req.params.username, (habitList) => {
+    res.send(habitList);
+  });
+});
+
+app.get('/api/:username/:habit', checkLoginAuthStatus, (req, res) => {
+  // Get the data for a particular habit.
+  // Used to field the chart and table.
+  db.getHabitData(req.session.user, req.params.habit, (habitData) => {
+    res.send(habitData);
+  });
+});
+
+app.post('/api/:username/habit', checkLoginAuthStatus, (req, res) => {
+  // Create a new habit.
+  // Expects a JSON with username, habit, limit, unit, and timeframe properties.
+  // {habit:'smoking', limit:'5', unit:'cigars', username:'Sand', timeframe: 'week'}
+  db.createHabit(req.body, (updatedHabitList) => {
+    res.send(updatedHabitList);
+  });
+});
+
+app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
+  // Log an occurrence.
+  // Expects a JSON with a timestamp, habit, and value.
+  // {habit:'running', unit:'1', timestamp: '2017-11-28T00:23:28.341Z'}
+  db.logOccurrence(req.body, (occurrence) => {
+    res.send(occurrence);
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  });
+});
