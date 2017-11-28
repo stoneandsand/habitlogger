@@ -148,10 +148,12 @@ const logOccurrence = (logData, cb) => {
           userEntry.save((err, updatedUserEntry) => {
             if (err) {
               console.error(`Error getting ${user}.`);
-            }
+              cb(null);
+            } else {
             // Return the inputted occurence.
             // It is now the last item in its habit's occurrences array.
-            cb(logData.occurrence);
+              cb(logData.occurrence);
+            }
           });
         }
       });
@@ -161,7 +163,7 @@ const logOccurrence = (logData, cb) => {
 
 // EXPORTS
 module.exports.signup = signup;
-module.exports.checkLogin = verifyLogin;
+module.exports.verifyLogin = verifyLogin;
 module.exports.getUserHabits = getUserHabits;
 module.exports.getHabitData = getHabitData;
 module.exports.createHabit = createHabit;
