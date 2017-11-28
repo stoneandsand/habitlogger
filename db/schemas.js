@@ -9,29 +9,26 @@ const Schema = mongoose.Schema;
 // It should simplify querying.
 // However, it may be worth considering using references instead,
 // especially for the users<-->habit relationship.
-// As it is, habits is an array, which may make lookup complicated.
+// As it is, habits is an array, which complicates lookup.
+
 const occurrenceSchema = new Schema({
   timestamp: Date,
   value: Number, // Number of units, e.g., 3 cigars.
 });
 
 const habitSchema = new Schema({
-  // Is unique habit going to be a problem?
-  // If it is a problem, consider using the habitList array.
-  // If the habit exists in the habitList array,
-  // don't allow the user to create a new habit.
   habit: {type: String}, // e.g., smoking.
-  limit: Number,
-  unit: String, // e.g., cigars.
+  limit: Number, // e.g., 5 (per timeframe)
+  unit: String, // e.g., cigars
   timeframe: String, // e.g., day / week / month
   occurrences: [occurrenceSchema], // Emeded subdocument.
 });
 
-// Schema for a users.
+// Schema for users.
 const userSchema = new Schema({
   username: {type: String, unique: true},
   password: String,
-  habitList: Array, // Array of strings, e.g., ['smoking', 'running']
+  habitList: Array, // Used to populate dropdowns, e.g., ['smoking', 'running']
   habits: [habitSchema],  // Embeded subdocument.
 });
 
