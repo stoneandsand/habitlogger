@@ -13,7 +13,7 @@ class TopBar extends React.Component {
   render() {
     return (
       <div>
-        <AppBar
+        <AppBar className="appBar"
           title="Habit Logger"
           iconElementRight={this.props.loggedIn ? <DefaultMenu logout={this.props.logout} /> : null}
           //LoginMenu was here in place of null - not used for now

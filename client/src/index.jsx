@@ -177,7 +177,7 @@ class App extends React.Component {
   // all MUI components must be wrapped by MuiThemeProvider
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <MuiThemeProvider>
           <TopBar logout={this.logout} loggedIn={this.state.username} />
         </MuiThemeProvider>
