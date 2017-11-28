@@ -4,11 +4,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('./schemas.js');
 const DB_URI = process.env.MONGODB_URI ? `${process.env.MONGODB_URI}/stoneandsand` : 'mongodb://localhost/stoneandsand';
-
 mongoose.Promise = require('bluebird');
 mongoose.connect(DB_URI);
 
-// Monitor the connection.
+// Monitor the db connection.
 const database = mongoose.connection;
 database.on('error', console.error.bind(console, 'Connection error: '));
 database.once('open', () => {
@@ -17,6 +16,7 @@ database.once('open', () => {
 
 // HELPERS
 const sortByDate = (a, b) => {
+  // Refer to docs for Array.prototype.sort.
   if (a.timestamp > b.timestamp) {
     return -1;
   } else if (a.timestamp < b.timestamp) {
@@ -28,7 +28,6 @@ const sortByDate = (a, b) => {
 
 // METHODS
 const signup = (user, cb) => {
-  // Check if the user exists in the database.
   User.findOne({username: user.username}, (err, userEntry) => {
     if (err) {
       console.error(err);
@@ -41,9 +40,11 @@ const signup = (user, cb) => {
         newUser.save((err, newUserEntry) => {
           if (err) {
             console.error(`Error saving user to database: ${err}`);
+            cb(false);
+          } else {
+            console.log(`${newUserEntry.username} saved to database.`);
+            cb(newUserEntry.username);
           }
-          console.log(`${newUserEntry.username} saved to database.`);
-          cb(newUserEntry.username);
         });
       });
     } else { // The user already exists in the database.
@@ -52,8 +53,10 @@ const signup = (user, cb) => {
   });
 };
 
-const checkLogin = (user, cb) => {
+const verifyLogin = (user, cb) => {
+  // Only return true if both the username and hash match.
   if (user.username && user.password) {
+    // ^TODO: Move JSON property checking to router-side.
     User.findOne({
       username: user.username
     }, (err, userEntry) => {
@@ -61,19 +64,19 @@ const checkLogin = (user, cb) => {
         console.error(err);
       } else {
         if (userEntry && userEntry.password) {
-          bcrypt.compare(user.password, userEntry.password, function(err, match) {
-            if (match) {
+          bcrypt.compare(user.password, userEntry.password, function(err, hashMatches) {
+            if (hashMatches) {
               cb(true);
-            } else {
+            } else { // Hashes don't match.
               cb(false);
             }
           });
-        } else {
+        } else { // No userEntry or password exists.
           cb(false);
         }
       }
     });
-  } else {
+  } else { // Client did not submit a username or password.
     cb(false);
   }
 };
@@ -83,7 +86,7 @@ const getUserHabits = (user, cb) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     } else if (!userEntry) {
-      cb([]); // If no user habits found, return empty array.
+      cb([]); // If no user habits found, return empty array, to prevent errors on client.
     } else {
       cb(userEntry.habitList);
     }
@@ -97,7 +100,7 @@ const getHabitData = (user, habit, cb) => {
     }
     // Iterate over the user's habits and return the target habit.
     let targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
-    targetHabit.occurrences.sort(sortByDate);
+    targetHabit.occurrences.sort(sortByDate); // The client expects sorted occurrences.
     
     if (targetHabit) {
       cb(targetHabit);
@@ -112,8 +115,8 @@ const createHabit = (habitData, cb) => {
     if (err) {
       console.error(`Error getting ${habitData.username}.`);
     }  else {
-      userEntry.habitList.push(habitData.habit);
-      userEntry.habits.push({
+      userEntry.habitList.push(habitData.habit); 
+      userEntry.habits.push({ 
         habit: habitData.habit,
         limit: habitData.limit,
         unit: habitData.unit,
@@ -122,7 +125,7 @@ const createHabit = (habitData, cb) => {
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
           console.error(`Error getting ${habitData.username}'s habits.`);
-          cb([]);
+          cb([]); // In case of an error, send to prevent client from crashing.
         } else {
           cb(updatedUserEntry.habitList);
         }
@@ -136,6 +139,9 @@ const logOccurrence = (logData, cb) => {
     if (err) {
       console.error(`Error getting ${user}.`);
     }  else {
+      // habits is an array of habits, not an object reference.
+      // We have to iterate over each habit in this array to find the target habit.
+      // Once found, we log the occurrence to that habit.
       userEntry.habits.forEach(habitEntry => {
         if (logData.habit === habitEntry.habit) {
           habitEntry.occurrences.push(logData.occurrence);
@@ -145,7 +151,7 @@ const logOccurrence = (logData, cb) => {
             }
             // Return the inputted occurence.
             // It is now the last item in its habit's occurrences array.
-            cb(logData.occurrence); // TODO: Return the actual last occurrence from the userEntry.
+            cb(logData.occurrence);
           });
         }
       });
@@ -155,7 +161,7 @@ const logOccurrence = (logData, cb) => {
 
 // EXPORTS
 module.exports.signup = signup;
-module.exports.checkLogin = checkLogin;
+module.exports.checkLogin = verifyLogin;
 module.exports.getUserHabits = getUserHabits;
 module.exports.getHabitData = getHabitData;
 module.exports.createHabit = createHabit;
