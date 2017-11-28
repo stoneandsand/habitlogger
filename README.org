@@ -1,5 +1,5 @@
 * Stone and Sand
-/Daily life event tracker with data visualization./
+/Daily life event tracker with data visualization.  On the client side, the term 'event' references habit./
 
 ** Tech Stack
 + Tech Stack:
