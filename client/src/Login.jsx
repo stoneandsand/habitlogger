@@ -48,7 +48,7 @@ class Login extends React.Component {
         <div>
           <div className="row loginSignup">
             <h1>Login or Signup to start logging</h1>
-            <div className="login col-md-3">
+            <div className="login col-md-4">
               <h4>Log In</h4>
               <TextField
                 hintText="Enter Username"
@@ -65,9 +65,10 @@ class Login extends React.Component {
                <br />
               <RaisedButton label="LOGIN" primary={true} onClick={this.props.login.bind(this, this.state.loginUsername, this.state.loginPassword)} />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4 icon">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Social_Network_Analysis_Visualization.png" />
             </div>
-            <div className="signup col-md-3">
+            <div className="signup col-md-4">
               <h4>Sign Up</h4>
               <TextField
                 hintText="Enter Username"
@@ -89,6 +90,17 @@ class Login extends React.Component {
             <h1>"He who controls others may be powerful, but he who has mastered himself is mightier still."</h1>
             <br />
             <h3>-Lao Tzu</h3>
+          </div>
+          <div className="row highlights">
+            <div className="col-md-4 use">
+              <h2>Improve Yourself</h2>
+            </div>
+            <div className="col-md-4 icon">
+
+            </div>
+            <div className="col-md-4 features">
+              <h2>Features</h2>
+            </div>
           </div>
         </div>
       </MuiThemeProvider>

@@ -37,17 +37,33 @@ body {
   padding: 30px;
 }
 
+.features {
+  text-align: center;
+}
+
+.highlights {
+  padding: 30px;
+}
+
+.icon img {
+  height: 100%;
+  width: 100%;
+}
+
 .login {
-  margin-left: 200px;
   margin-top: 50px;
   padding: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 .loginSignup {
   margin-bottom: 40px;
   padding: 30px;
   text-align: center;
+}
+
+.loginSignup h1 {
+  margin-bottom: 30px;
 }
 
 .main {
@@ -67,7 +83,7 @@ body {
 .signup {
   margin-top: 50px;
   padding: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 .table {
@@ -86,5 +102,9 @@ body {
   background-color: #f8f8f8;
   color: #404040;
   padding: 30px;
+  text-align: center;
+}
+
+.use {
   text-align: center;
 }
