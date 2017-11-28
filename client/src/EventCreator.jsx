@@ -45,6 +45,7 @@ class EventCreator extends React.Component{
     });
   }
 
+  // for SelectField drop down change and select handling
   handleChange(e, index) {
     this.setState({
       value: index,
@@ -73,7 +74,6 @@ class EventCreator extends React.Component{
           onChange={this.handleChange}
         >
         {this.state.timeframes.map((timeframe, index) =>
-
           <MenuItem key={index} value={index} primaryText={timeframe} />
         )}
 
@@ -91,12 +91,3 @@ class EventCreator extends React.Component{
 }
 
 export default EventCreator;
-
-        // <form name="eventCreation" className="creator">
-        //   <label>Event Name:</label>
-        //   <input type="text" onChange={this.eventChange} placeholder="Event Name" />
-        //   <label>Event's Units:</label>
-        //   <input type="text" onChange={this.unitsChange} placeholder="Units" />
-        //   <label>Goal/Limit for Event</label>
-        //   <input type="number" onChange={this.limitChange} placeholder="Goal/Limit" />
-        // </form>
