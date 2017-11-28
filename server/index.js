@@ -97,12 +97,12 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
-});
-
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
   });
+});
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
 });
