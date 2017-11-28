@@ -94,12 +94,17 @@ class Login extends React.Component {
           <div className="row highlights">
             <div className="col-md-4 use">
               <h2>Improve Yourself</h2>
+                <p>Set goals and limits for yourself</p>
+                <p>Improve your habits</p>
+                <p>Track your success</p>
             </div>
             <div className="col-md-4 icon">
-
+              <img src="https://www.analyticsinsight.net/wp-content/uploads/2017/09/data-visualization-tools-concept.png" />
             </div>
             <div className="col-md-4 features">
               <h2>Features</h2>
+              <p>Track habits by date</p>
+              <p>Easily visualize your habits</p>
             </div>
           </div>
         </div>
