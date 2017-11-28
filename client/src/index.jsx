@@ -54,7 +54,6 @@ class App extends React.Component {
     } else {
       axios.post('/signup', {username: username, password: password})
         .then((res) => {
-          console.log(res.data);
           if (res.data) {
             this.setState({
               username: res.data,
@@ -84,6 +83,7 @@ class App extends React.Component {
       });
   }
 
+  // retrieve user's habits and set as state for other components
   getUserData() {
     let username = this.state.username;
     axios.get(`/${username}`)
@@ -97,13 +97,13 @@ class App extends React.Component {
       });
   }
 
-  getHabitsInfo(habit) { //run this function when a habit is selected
+  // retrieve occurrences information for specific habit of user
+  getHabitsInfo(habit) {
     let username = this.state.username;
-    let selected = habit; //using running as this is test data's habit
     this.setState({
-      selectedHabit: selected,
-    })
-    axios.get(`/api/${username}/${selected}`)
+      selectedHabit: habit,
+    });
+    axios.get(`/api/${username}/${habit}`)
       .then((res) => {
         this.setState({
           timeframe: res.data.timeframe,
@@ -118,8 +118,9 @@ class App extends React.Component {
       });
   }
 
+  // used in dataLogger to record occurrence in database (POST)
   logHabit(event, time, quantity) {
-    let fieldsFilled = this.checkFields(event, time, quantity);
+    let fieldsFilled = this.checkFields(event, quantity);
     if(fieldsFilled) {
       let occurrence = {
         username: this.state.username,
@@ -131,27 +132,23 @@ class App extends React.Component {
       };
       axios.post(`/api/${this.state.username}/log`, occurrence)
       .then((res) => {
-        this.selectHabit(event);  // can re-factor to use occurrence object returned by the request
+        this.selectHabit(event);
+        // can re-factor to use occurrence object returned by the request
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
     } else {
       alert('Please fill all fields when logging an event.')
     }
   }
 
-  checkFields(event, time, quantity) {
-    console.log('event: ', event);
-    console.log('time: ', time);
-    console.log('quantity: ', quantity);
-    if(event &&
-       quantity.length > 0) {
-      return true;
-    }
-    return false;
+  // used to ensure input fields are filled in for data logger
+  checkFields(event, quantity) {
+    return event && quantity.length > 0;
   }
 
+  //used by EventCreator to add habits to user's list of habits in database
   createHabit(name, unit, limit, timeframe) {
     let habit = {
       username: this.state.username,
@@ -162,26 +159,22 @@ class App extends React.Component {
     };
     axios.post(`/api/${this.state.username}/habit`, habit)
     .then((res) => {
-      console.log(res);
       this.getUserData();
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   }
 
-  selectHabit(name) {
+  // select habit to be displayed in chart and table
+  selectHabit(habitName) {
     this.setState({
-      viewHabit: name,
+      viewHabit: habitName,
     });
-    this.getHabitsInfo(name);
+    this.getHabitsInfo(habitName);
   }
 
-  // componentWillMount() {
-  //   this.lock = new Auth0Lock('9M0Ml5ere2b9X6ZybTl2XUQl5T4RHVS4', 'stoneandsand.auth0.com');
-  // <Auth lock={this.lock} />
-  // }
-
+  // all MUI components must be wrapped by MuiThemeProvider
   render() {
     return (
       <div className="container">
@@ -193,7 +186,6 @@ class App extends React.Component {
         : null}
         {this.state.username ?
           <div className="main">
-
             <div className="row rowA">
               <MuiThemeProvider>
                 <EventCreator createHabit={this.createHabit} />

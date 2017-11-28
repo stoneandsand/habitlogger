@@ -5,12 +5,6 @@ import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import moment from 'moment';
 
-const styles = {
-  customWidth: {
-    width: 150,
-  },
-};
-
 class DataLogger extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +19,7 @@ class DataLogger extends React.Component {
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
+  // used to have 'Select Habit' placeholder text in drop down menu on mount
   componentWillMount() {
     this.logChange();
   }
@@ -32,13 +27,11 @@ class DataLogger extends React.Component {
   logChange(e, index) {
     this.setState({
       currentHabit: this.props.habits[index],
-      value: index
+      value: index,
     });
   }
 
   handleDateChange(e, date) {
-    console.log('date changed to ' + date)
-    // let momentDate = moment(date).format('MMM Do YYYY');
     this.setState({habitTime: date});
   }
 
@@ -63,9 +56,7 @@ class DataLogger extends React.Component {
         </SelectField>
         <br />
         <label>Click Date to Select Different Date: </label>
-
         <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" value={this.state.habitTime} onChange={(x, day) => this.handleDateChange(x,day)} />
-
           <input type="number" onChange={this.handleQuantityChange} />
           <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
         <hr />

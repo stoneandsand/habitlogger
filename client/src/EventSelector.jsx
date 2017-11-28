@@ -20,6 +20,7 @@ class EventSelector extends React.Component {
     this.props.selectHabit(this.props.habits[index]);
   }
 
+  // bug on line 37: displayed data changes when data is logged but displayed habit data does not update
   render() {
     return (
       <div className="viewHabitData">
@@ -33,11 +34,10 @@ class EventSelector extends React.Component {
               <MenuItem key={index} value={index} primaryText={habit} />
             )}
         </SelectField>
-        <p>Current Habit Data: {this.state.currentHabit ? this.state.currentHabit : 'None'}</p>
+        <p>Displayed Habit Data: {this.props.currentHabit ? this.state.currentHabit : 'None'}</p>
       </div>
     )
   }
-
 }
 
 export default EventSelector;

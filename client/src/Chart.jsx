@@ -29,6 +29,7 @@ class Chart extends React.Component {
     this.setData(this.state.labels, this.state.data, this.state.unit);
   }
 
+  // set entries of chart data - currently set to 15 entries
   getLastXOccurrences(entries, x = 15) {
     if (entries.length > x) {
       return entries.slice(entries.length - x);
@@ -37,7 +38,7 @@ class Chart extends React.Component {
     }
   }
 
-  //Uses the sorted and filtered occurrence array that contains timestamp and value
+  //Uses the sorted and filtered occurrence array that contains timestamp and value (X Axis)
   compileEntryLabels(entries) {
     entries = this.getLastXOccurrences(entries);
 
@@ -46,6 +47,7 @@ class Chart extends React.Component {
     });
   }
 
+  // getting data to be displayed on chart (Y Axis)
   compileEntryValues(entries) {
     entries = this.getLastXOccurrences(entries);
 
@@ -56,12 +58,14 @@ class Chart extends React.Component {
     return arr;
   }
 
+  // should be unnecessary as occurrences data is sorted by database/server now - need to refactor out
   sortDates () {
     return this.props.occurrences.sort((a,b)=>{
       return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
     });
   }
 
+  // need to re-factor to get table to update/render properly
   setData (lab,dat,uni) {
     this.setState(  {data:
                      {

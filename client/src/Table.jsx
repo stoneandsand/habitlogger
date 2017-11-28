@@ -15,14 +15,15 @@ class MuiTable extends React.Component {
   }
 
   render() {
-    const limit = [];
-    for(var i = 0; i < 15; i++) {
-      if(this.props.occurrences[i]) {
-        limit.push(this.props.occurrences[i]);
-      } else {
-        break;
-      }
-    }
+    // this was for setting maximum displayed table entries to 15 but throwing errors on certain cases
+    // const limit = [];
+    // for(var i = 0; i < 15; i++) {
+    //   if(this.props.occurrences[i]) {
+    //     limit.push(this.props.occurrences[i]);
+    //   } else {
+    //     break;
+    //   }
+    // }
     return (
       <div className="table">
         <h1 className="tableName">{this.props.habit}</h1>
@@ -36,7 +37,7 @@ class MuiTable extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {
-                limit.map((occurence, index) => {
+                this.props.occurrences.map((occurence, index) => {
                   let momentDate = moment(occurence.timestamp).format('MMM Do YYYY');
                   return (
                     <TableRow key={occurence._id}>
@@ -54,14 +55,3 @@ class MuiTable extends React.Component {
 };
 
 export default MuiTable;
-
-
-/*
-  {this.props.events.map((event, index) =>
-    <tr key={event._id}>
-      <td>{event.time}</td>
-      <td>{event.name}</td>
-      <td>{event.quantity} {event.unit}</td>
-    </tr>
-  )}
-*/
