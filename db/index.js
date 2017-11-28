@@ -42,7 +42,6 @@ const signup = (user, cb) => {
             console.error(`Error saving user to database: ${err}`);
             cb(false);
           } else {
-            console.log(`${newUserEntry.username} saved to database.`);
             cb(newUserEntry.username);
           }
         });
