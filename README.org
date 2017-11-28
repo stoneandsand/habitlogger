@@ -3,74 +3,45 @@
 
 ** Tech Stack
 + Tech Stack:
-  - MongoDB + Mongoose
+  - MongoDB
   - Express
-  - React + Axios
+  - React
   - Node
 
 + Additional technologies:
-  - Webpack
-  - Redux
+  - Axios
   - Chart.js
-  - Calendaring API
+  - Mongoose
+  - Webpack
 
-* API Endpoints
-|---------+---------------------------+------------------------------------+--------------------|
-| METHOD  | URL                       | REQUEST                            | RESPONSE           |
-|---------+---------------------------+------------------------------------+--------------------|
-| GET     | /                         |                                    | html               |
-| GET (?) | /login                    |                                    | html               |
-| POST    | /login                    | JSON (user, pass)                  | redirect           |
-| GET     | /signup                   |                                    | html               |
-| POST    | /signup                   | JSON (user, pass, email?)          | redirect           |
-| GET     | /username                 |                                    | html               |
-| GET     | /api/username/occurrences | JSON (array of objects)            | (array of objects) |
-| POST    | /api/username/log         | JSON (occurrence object)           | string             |
-| POST    | /api/username/habit       | JSON (habit, unit, limit, t-frame) | string             |
-|---------+---------------------------+------------------------------------+--------------------|
+* Server Endpoints
+** REQUEST
+|--------+---------------------+--------------+--------------------------------------------------------------------|
+| METHOD | URL                 | REQUEST.BODY | EXAMPLE                                                            |
+|--------+---------------------+--------------+--------------------------------------------------------------------|
+| GET    | /                   |              |                                                                    |
+| POST   | /signup             | JSON         | {username: 'Stone', password:'sandstone'}                          |
+| POST   | /login              | JSON         | {username: 'Stone', password:'sandstone'}                          |
+| GET    | /username           |              |                                                                    |
+| GET    | /api/username/habit |              |                                                                    |
+| POST   | /api/username/habit | JSON         | {habit:'smoking', limit:'5', unit:'cigars', username:'Stone',      |
+|        |                     |              | timeframe: 'week'}                                                 |
+| POST   | /api/username/log   | JSON         | {habit:'running', unit:'1', timestamp: '2017-11-28T00:23:28.341Z'} |
+|--------+---------------------+--------------+--------------------------------------------------------------------|
 
-* DB Methods
-Functions server will need from database:
 
-** login / db.checkLogin(req.body)
-   - Check if the username exists
-   - Check if the password is correct.
-   - Return an object to the router with the status of these operations
-     - e.g., {username: true, password: false}
-
-** signup / db.checkSignup(req.body)
-   - Check if the username exists
-   - If it does, router should redirect to login
-   - If it does not, save the userdata in database
-   - Return an object to the router with status of these operations
-     - e.g., {savedNew: true, alreadyExists: false}
-
-** get user's data 
-*** getUserHabits / db.getUserHabits(username)
-  - When the user logs in, we need to present their data
-  - called by the client automatically on load
-  - used to populate the dropdown
-  - returns an array of habit names (strings)
-
-*** getHabitData / db.getHabitData(habit)
-  - used by default for the first habit on first load, request by client
-  - used whenever the client selects a habit from the dropdown
-  - used to populate the table and chart
-   - The database will have to return user data to the router, which will then send it to the client
-   - Returns an object with all the data needed for client to render
-     - e.g. {smoking: {limit: 5, occurrences: []}
-
-** occurence logged by user / db.logOccurrence(occurrence)
-   - When the user logs an occurrence, we need to save that occurrence to the database
-   - The database should let the router know if the operation was successful or if it failed
-   - The router will pass this status onto the client
-
-** habit created by user / db.createHabit(habit)
-   - When the user logs an occurrence, we need to save that occurrence to the database
-   - The database should let the router know if the operation was successful or if it failed
-   - The router will pass this status onto the client
-
-* DB Schema
+** RESPONSE
+|--------+---------------------+--------------+--------------------+-----------+--------------|
+| METHOD | URL                 | SUCCESS TYPE | SUCCESS CONTENT    | FAIL TYPE | FAIL CONTENT |
+|--------+---------------------+--------------+--------------------+-----------+--------------|
+| GET    | /                   | index.html   |                    |           |              |
+| POST   | /signup             | string       | username           | null      | null         |
+| POST   | /login              | string       | username           | null      | null         |
+| GET    | /username           | array        | habit list         | array     | empty        |
+| GET    | /api/username/habit | object       | habit data         | null      | null         |
+| POST   | /api/username/habit | array        | updated habit list | array     | empty        |
+| POST   | /api/username/log   | object       | occurrence         | null      | null         |
+|--------+---------------------+--------------+--------------------+-----------+--------------|
 
 * Directory Structure
 + client/
@@ -79,13 +50,28 @@ Functions server will need from database:
     - index.html
     - style.css
   - src/
-    - index.jsx
+    + Auth
+      - Auth.jsx
+    + Chart.jsx
+    + DataLogger.jsx
+    + EventCreator.jsx
+    + EventSelector.jsx
+    + index.jsx
+    + Login.jsx
+    + Table.jsx
+    + TopBar.jsx
++ CONTRIBUTING.org
 + db/
   - data/
   - index.js
+  - schemas.js
+  - seed.js
 + .eslintrc
++ .gitignore
++ node_modules/
 + package.json
++ package-lock.json
++ README.org
 + server/
   - index.js
-+ webpack.config
-
++ webpack.config.js
