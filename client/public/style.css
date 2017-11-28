@@ -3,20 +3,20 @@ body {
 }
 
 .loginSignup {
-  border: solid;
   margin-bottom: 40px;
   padding: 30px;
   text-align: center;
 }
 
 .login {
-  margin-left: 130px;
+  margin-left: 200px;
+  margin-top: 50px;
   padding: 10px;
   text-align: left;
 }
 
 .signup {
-  margin-right: 100px;
+  margin-top: 50px;
   padding: 10px;
   text-align: left;
 }
@@ -75,4 +75,16 @@ body {
 
 .creator input {
   margin: 10px 20px 10px 0px;
+}
+
+.quote {
+  background-color: #f8f8f8;
+  color: #404040;
+  padding: 30px;
+  text-align: center;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
 }
