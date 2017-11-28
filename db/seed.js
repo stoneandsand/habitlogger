@@ -1,5 +1,3 @@
-// TODO: Use promises.
-// TODO: Create a separate file to test getUserHabits and getHabitData.
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
@@ -56,4 +54,3 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
     });
   }
 });
-// process.exit();
