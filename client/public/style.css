@@ -2,23 +2,30 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.loginSignup {
-  margin-bottom: 40px;
+#chart {
+  border: solid;
+  margin: 0 auto;
   padding: 30px;
-  text-align: center;
 }
 
-.login {
-  margin-left: 200px;
-  margin-top: 50px;
-  padding: 10px;
-  text-align: left;
+.container-fluid {
+  margin: 0;
+  padding: 0;
 }
 
-.signup {
-  margin-top: 50px;
-  padding: 10px;
-  text-align: left;
+.creator input {
+  margin: 10px 20px 10px 0px;
+}
+
+.dataLogger {
+  border: solid;
+  float: left;
+  margin-right: 40px;
+  padding: 30px;
+}
+
+.dropdown {
+  width: 50%
 }
 
 .eventCreator {
@@ -30,17 +37,21 @@ body {
   padding: 30px;
 }
 
-.dataLogger {
-  border: solid;
-  float: left;
-  margin-right: 40px;
-  padding: 30px;
+.login {
+  margin-left: 200px;
+  margin-top: 50px;
+  padding: 10px;
+  text-align: left;
 }
 
-.viewHabitData {
-  border: solid;
-  float: left;
+.loginSignup {
+  margin-bottom: 40px;
   padding: 30px;
+  text-align: center;
+}
+
+.main {
+  padding: 20px 20px 20px 20px;
 }
 
 .rowA {
@@ -53,28 +64,22 @@ body {
   margin-right: auto;
 }
 
+.signup {
+  margin-top: 50px;
+  padding: 10px;
+  text-align: left;
+}
+
 .table {
   border: solid;
   clear: both;
   padding: 30px;
 }
 
-#chart {
+.viewHabitData {
   border: solid;
-  margin: 0 auto;
+  float: left;
   padding: 30px;
-}
-
-.main {
-  padding: 20px 20px 20px 20px;
-}
-
-.dropdown {
-  width: 50%
-}
-
-.creator input {
-  margin: 10px 20px 10px 0px;
 }
 
 .quote {
@@ -82,9 +87,4 @@ body {
   color: #404040;
   padding: 30px;
   text-align: center;
-}
-
-.container-fluid {
-  margin: 0;
-  padding: 0;
 }
