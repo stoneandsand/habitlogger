@@ -49,6 +49,8 @@ app.post('/login', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
   let isLoggedIn = req.session ? !!req.session.user : false;
+  console.log(isLoggedIn);
+  console.log(req.session.user);
   if (!isLoggedIn) {
     db.verifyLogin(req.body, (correctCredentials) => {
       if (correctCredentials) {
@@ -61,6 +63,13 @@ app.post('/login', (req, res) => {
   } else { // User already logged in.
     res.redirect('/');
   }
+});
+
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    res.redirect('/');
+  });
 });
 
 app.get('/:username', checkLoginAuthStatus, (req, res) => {
@@ -94,12 +103,6 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
   // {habit:'running', unit:'1', timestamp: '2017-11-28T00:23:28.341Z'}
   db.logOccurrence(req.body, (occurrence) => {
     res.send(occurrence);
-  });
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
   });
 });
 
