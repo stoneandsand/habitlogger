@@ -20,7 +20,7 @@ class App extends React.Component {
       username: null,
       viewData: false,
       viewHabit: '',
-    }
+    };
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
     this.logout = this.logout.bind(this);
@@ -86,11 +86,11 @@ class App extends React.Component {
   // retrieve user's habits and set as state for other components
   getUserData() {
     let username = this.state.username;
-    axios.get(`/${username}`)
+    axios.get(`/api/${username}`)
       .then((res) => {
         this.setState({
           habits: res.data,
-        })
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -139,7 +139,7 @@ class App extends React.Component {
         console.error(err);
       });
     } else {
-      alert('Please fill all fields when logging an event.')
+      alert('Please fill all fields when logging an event.');
     }
   }
 
