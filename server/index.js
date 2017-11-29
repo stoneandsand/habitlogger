@@ -72,7 +72,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/:username', checkLoginAuthStatus, (req, res) => {
+app.get('/api/:username', checkLoginAuthStatus, (req, res) => {
   // Get the user's list of habits.
   // Used to field selectors on client.
   db.getUserHabits(req.params.username, (habitList) => {
