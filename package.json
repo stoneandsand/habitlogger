@@ -5,8 +5,8 @@
   "engine": "node 6.11.5",
   "main": "index.js",
   "scripts": {
-    "festart": "webpack -d --watch",
-    "bestart": "nodemon --inspect server/index.js",
+    "webpack": "webpack -d --watch",
+    "dev-start": "nodemon --inspect server/index.js",
     "seed": "node db/seed.js",
     "test": "jest",
     "test:watch": "jest --watch",
