@@ -1,11 +1,12 @@
 const express = require('express');
-
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
+const session = require('express-session');
 
 
 const PORT = process.env.PORT || 3000;
+
 const session = require('express-session');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
