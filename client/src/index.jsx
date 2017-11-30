@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TopBar from './TopBar.jsx';
-import MuiTable from './Table.jsx';
-import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
-import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
 import Login from './Login.jsx';
 import EventCreator from './EventCreator.jsx';
@@ -197,16 +194,6 @@ class App extends React.Component {
                 <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
               </MuiThemeProvider>
             </div>
-            <div className="row rowB">
-              <MuiThemeProvider>
-              {this.state.viewData ?
-                <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-              </MuiThemeProvider>
-            </div>
-            <div className="row rowC">
-              {this.state.viewData ?
-                <Chart habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-            </div>
           </div>
           : null}
       </div>
@@ -216,3 +203,17 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+// FORMER CHART DATA COMPONENTS
+
+// <div className="row rowB">
+//   <MuiThemeProvider>
+//   {this.state.viewData ?
+//     <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+//   </MuiThemeProvider>
+// </div>
+// <div className="row rowC">
+//   {this.state.viewData ?
+//     <Chart habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+// </div>

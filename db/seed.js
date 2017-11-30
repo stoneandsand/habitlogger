@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./index.js');
 
-mongoose.connect('mongodb://localhost/stoneandsand', {useMongoClient: true}, () => {
+mongoose.connect('mongodb://localhost/stoneandsand', { useMongoClient: true }, () => {
   mongoose.connection.db.dropDatabase();
 });
 
@@ -13,8 +13,8 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
   } else {
     data = JSON.parse(data);
 
-    data.forEach(dummyUser => {
-      let userData = {
+    data.forEach((dummyUser) => {
+      const userData = {
         username: dummyUser.username,
         password: dummyUser.password,
       };
@@ -24,8 +24,8 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
         console.log(`${confirmUser} was signed up.`);
 
         console.log('TESTING CREATE HABIT.');
-        dummyUser.habits.forEach(dummyHabit => {
-          let habitData = {
+        dummyUser.habits.forEach((dummyHabit) => {
+          const habitData = {
             username: dummyUser.username,
             habit: dummyHabit.habit,
             limit: dummyHabit.limit,
@@ -33,20 +33,20 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
             timeframe: dummyHabit.timeframe,
           };
 
-          db.createHabit(habitData, (confirmList)=> {
+          db.createHabit(habitData, (confirmList) => {
             console.log(`${confirmUser}'s habit list is now ${confirmList}.`);
 
             console.log('TESTING LOG OCCURRENCE.');
-            dummyHabit.occurrences.forEach(occurrence => {
-              let logData = {
+            dummyHabit.occurrences.forEach((occurrence) => {
+              const logData = {
                 username: dummyUser.username,
                 habit: dummyHabit.habit,
-                occurrence: occurrence,
+                occurrence,
               };
 
-                db.logOccurrence(logData, (confirmOccur) => {
-                  console.log(`Last occurrence is now ${JSON.stringify(confirmOccur)}`);
-                });
+              db.logOccurrence(logData, (confirmOccur) => {
+                console.log(`Last occurrence is now ${JSON.stringify(confirmOccur)}`);
+              });
             });
           });
         });

@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
-const PORT = process.env.PORT || 3000;
 const session = require('express-session');
 
+const PORT = process.env.PORT || 3000;
+
 app.use(express.static(`${__dirname}/../client/public/`));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
   secret: 'lss*739md9d@#ksz0)',
@@ -21,9 +22,9 @@ app.use(session({
 // 2. Prevents a non-authenticated user to query another user's info.
 // req.session.user is only set after successful login or signup.
 const checkLoginAuthStatus = (req, res, next) => {
-  let isLoggedIn = req.session ? !!req.session.user : false;
-  let isActualUser = req.session.user === req.params.username;
-  if(isLoggedIn && isActualUser) {
+  const isLoggedIn = req.session ? !!req.session.user : false;
+  const isActualUser = req.session.user === req.params.username;
+  if (isLoggedIn && isActualUser) {
     next();
   } else {
     res.redirect('/');
@@ -36,7 +37,7 @@ app.post('/signup', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
   db.signup(req.body, (username) => {
-    if (username){
+    if (username) {
       req.session.user = username;
       res.send(username);
     } else { // User already exists.
@@ -48,16 +49,14 @@ app.post('/signup', (req, res) => {
 app.post('/login', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
-  let isLoggedIn = req.session ? !!req.session.user : false;
-  console.log(isLoggedIn);
-  console.log(req.session.user);
+  const isLoggedIn = req.session ? !!req.session.user : false;
   if (!isLoggedIn) {
     db.verifyLogin(req.body, (correctCredentials) => {
       if (correctCredentials) {
         req.session.user = req.body.username;
-        res.send(req.session.user); 
+        res.send(req.session.user);
       } else {
-        res.send(null); 
+        res.send(null);
       }
     });
   } else { // User already logged in.
