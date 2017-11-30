@@ -5,7 +5,7 @@
   "engine": "node 6.11.5",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --content-base ./client/public --inline --hot",
+    "start": "webpack -d --watch",
     "dev-start": "nodemon --inspect server/index.js",
     "seed": "node db/seed.js",
     "test": "jest",
