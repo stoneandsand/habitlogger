@@ -72,6 +72,14 @@ app.post('/signup', (req, res) => {
   });
 });
 
+// GET FAUX DATA
+
+app.get('/faux', (req, res) => {
+
+})
+
+
+
 app.post('/login', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
