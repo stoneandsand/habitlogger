@@ -177,25 +177,19 @@ class App extends React.Component {
       <div className="container-fluid">
         <MuiThemeProvider>
           <TopBar logout={this.logout} loggedIn={this.state.username} />
-        </MuiThemeProvider>
         {!this.state.username ?
         <Login login={this.login} signup={this.signup} />
         : null}
         {this.state.username ?
           <div className="main">
             <div className="row rowA">
-              <MuiThemeProvider>
                 <EventCreator createHabit={this.createHabit} />
-              </MuiThemeProvider>
-              <MuiThemeProvider>
                 <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-              </MuiThemeProvider>
-              <MuiThemeProvider>
                 <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-              </MuiThemeProvider>
             </div>
           </div>
           : null}
+        </MuiThemeProvider>
       </div>
     )
   }
