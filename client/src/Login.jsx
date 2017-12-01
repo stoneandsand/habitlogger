@@ -91,7 +91,7 @@ class Login extends React.Component {
             <br />
             <h3>
               <em>-Lao Tzu</em>
-            </h3>=======
+            </h3>
           </div>
           <div className="row highlights">
             <div className="col-md-4 use">
