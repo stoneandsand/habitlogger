@@ -4,3 +4,4 @@
 /client/public/bundle.js
 *.tern-port
 .travis.yml
+.DS_Store
