@@ -8,7 +8,7 @@ const divNode = ReactFauxDOM.createElement('div');
 
 class Chart extends React.Component {
   constructor(props) {
-  	super(props);
+		super(props);
 
 
   }
@@ -37,4 +37,3 @@ const height = 400 - margin.top - margin.bottom;
     <g transform={"translate(" + margin.left + "," + margin.top + ")"}></g>
   </svg>
 </div>
-
