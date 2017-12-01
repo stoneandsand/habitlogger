@@ -4,9 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 
-
-// the port
-
 const PORT = process.env.PORT || 3000;
 const session = require('express-session');
 const webpack = require('webpack');
@@ -14,8 +11,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('../webpack.config');
 
-
-// compiler
 const compiler = webpack(config);
 const sendMessageCron = require('./cronMessage.js').sendMessageCron;
 
