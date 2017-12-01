@@ -17,6 +17,7 @@ class App extends React.Component {
       username: null,
       viewData: false,
       viewHabit: '',
+      loggedIn: false
     };
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -27,6 +28,19 @@ class App extends React.Component {
     this.createHabit = this.createHabit.bind(this);
     this.selectHabit = this.selectHabit.bind(this);
     this.checkFields = this.checkFields.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get('/check')
+      .then((res) => {
+        this.setState({
+          username: res.data.user
+        })
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   login(username, password) {
@@ -73,6 +87,7 @@ class App extends React.Component {
           username: null,
           viewData: false,
           viewHabit: '',
+          loggedIn: false
         });
       })
       .catch((err) => {
@@ -176,19 +191,21 @@ class App extends React.Component {
     return (
       <div className="container-fluid">
         <MuiThemeProvider>
-          <TopBar logout={this.logout} loggedIn={this.state.username} />
-        {!this.state.username ?
-        <Login login={this.login} signup={this.signup} />
-        : null}
-        {this.state.username ?
-          <div className="main">
-            <div className="row rowA">
-                <EventCreator createHabit={this.createHabit} />
-                <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-                <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-            </div>
-          </div>
+          <div>
+            <TopBar logout={this.logout} loggedIn={this.state.username} />
+          {!this.state.username ?
+          <Login login={this.login} signup={this.signup} />
           : null}
+          {this.state.username ?
+            <div className="main">
+              <div className="row rowA">
+                  <EventCreator createHabit={this.createHabit} />
+                  <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+                  <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+              </div>
+            </div>
+            : null}
+          </div>
         </MuiThemeProvider>
       </div>
     )

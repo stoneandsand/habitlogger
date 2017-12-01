@@ -32,6 +32,7 @@ app.use(
     secret: 'lss*739md9d@#ksz0)',
     saveUninitialized: true,
     resave: false,
+    cookie: { secure: false }
   })
 );
 
@@ -58,6 +59,7 @@ app.post('/signup', (req, res) => {
   // {username:'stone', password:'sand'}
   db.signup(req.body, username => {
     if (username) {
+      console.log('inside signup', req.session);
       req.session.user = username;
       res.send(username);
     } else {
@@ -76,6 +78,7 @@ app.post('/login', (req, res) => {
       if (correctCredentials) {
         req.session.user = req.body.username;
         res.send(req.session.user);
+        console.log('inside /login', req.session);
       } else {
         res.send(null);
       }
@@ -125,6 +128,10 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
     res.send(occurrence);
   });
 });
+
+app.get('/check', (req, res) => {
+  res.send(req.session);
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
