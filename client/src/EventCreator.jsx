@@ -1,93 +1,85 @@
 import React from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
-class EventCreator extends React.Component{
-  constructor(props){
-    super(props)
+const style = {
+  marginLeft: 20,
+};
+
+export default class EventCreator extends React.Component {
+  constructor(props) {
+    super(props);
+
     this.state = {
-      timeframes: ['Day', 'Week', 'Month'],
-      currentTimeframe : 'Day',
       event: '',
       units: '',
       limit: '',
-      value: 0,
-    }
-    this.timeFrameChange = this.timeFrameChange.bind(this);
-    this.eventChange = this.eventChange.bind(this);
-    this.unitsChange = this.unitsChange.bind(this);
-    this.limitChange = this.limitChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    };
+
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  timeFrameChange(e) {
-    this.setState({ currentEvent: `${e.label}` });
+  handleTextFieldChange(e) {
+    const target = e.target;
+    const name = target.name;
+
+    this.setState({ [name]: target.value });
   }
 
-  eventChange(e) {
+  handleSubmit() {
+    this.props.createHabit(this.state.event, this.state.units, this.state.limit);
     this.setState({
-      event: e.target.value,
-    });
-  }
-
-  unitsChange(e) {
-    this.setState({
-      units: e.target.value,
-    });
-  }
-
-  limitChange(e) {
-    this.setState({
-      limit: e.target.value,
-    });
-  }
-
-  // for SelectField drop down change and select handling
-  handleChange(e, index) {
-    this.setState({
-      value: index,
-      currentTimeframe: this.state.timeframes[index],
+      event: '',
+      units: '',
+      limit: '',
     });
   }
 
   render() {
-    const style = {
-      marginLeft: 20,
-    };
     return (
       <div className="eventCreator">
-      <h1>Habit Creator</h1>
-      <Paper zDepth={1} style={{width: '50%'}}>
-        <TextField hintText="Habit name" style={style} underlineShow={false} onChange={this.eventChange} />
-        <Divider />
-        <TextField hintText="Habit units" style={style} underlineShow={false} onChange={this.unitsChange} />
-        <Divider />
-        <TextField type="number" hintText="Goal/Limit" style={style} underlineShow={false} onChange={this.limitChange}/>
-        <Divider />
-      </Paper>
-        <SelectField
-          floatingLabelText="Choose Timeframe"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-        {this.state.timeframes.map((timeframe, index) =>
-          <MenuItem key={index} value={index} primaryText={timeframe} />
-        )}
-
-        </SelectField>
+        <h1>Habit Creator</h1>
+        <Paper zDepth={1} style={{ width: '50%' }}>
+          <TextField
+            name="event"
+            value={this.state.event}
+            hintText="Habit name"
+            style={style}
+            underlineShow={false}
+            onChange={this.handleTextFieldChange}
+          />
+          <Divider />
+          <TextField
+            name="units"
+            hintText="Habit units"
+            style={style}
+            underlineShow={false}
+            onChange={this.handleTextFieldChange}
+            value={this.state.units}
+          />
+          <Divider />
+          <TextField
+            name="limit"
+            value={this.state.limit}
+            type="number"
+            hintText="Goal/Limit"
+            style={style}
+            underlineShow={false}
+            onChange={this.handleTextFieldChange}
+          />
+          <Divider />
+        </Paper>
         <br />
+        <button onClick={this.handleSubmit}>Create Habit</button>
         <br />
-        <button
-          onClick={this.props.createHabit.bind(this, this.state.event, this.state.units, this.state.limit, this.state.currentTimeframe) }>
-          Create Habit
-        </button>
-        <hr />
       </div>
-    )
+    );
   }
 }
 
-export default EventCreator;
+EventCreator.propTypes = {
+  createHabit: PropTypes.func.isRequired,
+};
