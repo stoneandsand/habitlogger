@@ -5,6 +5,7 @@ import TopBar from './TopBar.jsx';
 import DataLogger from './DataLogger.jsx';
 import axios from 'axios';
 import Login from './Login.jsx';
+import Chart from './Chart.jsx';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
 
