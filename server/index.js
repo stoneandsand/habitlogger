@@ -14,7 +14,6 @@ const config = require('../webpack.config');
 
 
 // compiler
-
 const compiler = webpack(config);
 const sendMessageCron = require('./cronMessage.js').sendMessageCron;
 
