@@ -14,7 +14,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('../webpack.config');
 
-const PORT = process.env.PORT || 3000;
+
 
 const compiler = webpack(config);
 app.use(
