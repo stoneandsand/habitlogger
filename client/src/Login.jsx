@@ -7,39 +7,26 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginUsername: '',
-      loginPassword: '',
-      signupUsername: '',
-      signupPassword: '',
-    };
-    this.handleLoginUser = this.handleLoginUser.bind(this);
-    this.handleLoginPassword = this.handleLoginPassword.bind(this);
-    this.handleSignupUser = this.handleSignupUser.bind(this);
-    this.handleSignupPassword = this.handleSignupPassword.bind(this);
+      userLogin: '',
+      passyLogin: '',
+      userSignUp: '',
+      passySignUp: '',
+    }
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
   }
 
-  handleLoginUser(e) {
+  handleTextFieldChange(e) {
+    let target = e.target;
+    let idx = e.target.id;
     this.setState({
-      loginUsername: e.target.value,
+      [idx]: target.value,
     });
-  }
-
-  handleLoginPassword(e) {
-    this.setState({
-      loginPassword: e.target.value,
-    });
-  }
-
-  handleSignupUser(e) {
-    this.setState({
-      signupUsername: e.target.value,
-    });
-  }
-
-  handleSignupPassword(e) {
-    this.setState({
-      signupPassword: e.target.value,
-    });
+    if ((this.state.passyLogin.length >= 4 && this.state.userLogin.length >= 4) && e.key === 'Enter') {
+      this.props.login(this.state.userLogin, this.state.passyLogin);
+    }
+    if ((this.state.userSignUp.length >= 4 && this.state.passySignUp.length >= 4) && e.key === 'Enter') {
+      this.props.signup(this.state.userSignUp, this.state.passySignUp);
+    }
   }
 
   render() {
@@ -50,39 +37,52 @@ class Login extends React.Component {
             <h1>Login or Signup to start logging</h1>
             <div className="login col-md-4">
               <h4>Log In</h4>
-              <TextField hintText="Enter Username" floatingLabelText="Username" onChange={this.handleLoginUser} />
-              <br />
               <TextField
+                id="userLogin"
+                hintText="Enter Username"
+                floatingLabelText="Username"
+                onKeyUp={this.handleTextFieldChange}
+               />
+               <br />
+              <TextField
+                id="passyLogin"
                 type="password"
                 hintText="Enter Password"
                 floatingLabelText="Password"
-                onChange={this.handleLoginPassword}
+                onKeyUp={this.handleTextFieldChange}
               />
               <br />
               <RaisedButton
                 label="LOGIN"
                 primary={true}
-                onClick={this.props.login.bind(this, this.state.loginUsername, this.state.loginPassword)}
+                onClick={this.props.login.bind(this, this.state.userLogin, this.state.passyLogin)}
               />
+               <br />
             </div>
             <div className="col-md-4 icon">
               <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Social_Network_Analysis_Visualization.png" />
             </div>
             <div className="signup col-md-4">
               <h4>Sign Up</h4>
-              <TextField hintText="Enter Username" floatingLabelText="Username" onChange={this.handleSignupUser} />
+              <TextField
+                id="userSignUp"
+                hintText="Enter Username"
+                floatingLabelText="Username"
+                onKeyUp={this.handleTextFieldChange}
+              />
               <br />
               <TextField
+                id="passySignUp"
                 type="password"
                 hintText="Enter Password"
                 floatingLabelText="Password"
-                onChange={this.handleSignupPassword}
+                onKeyUp={this.handleTextFieldChange}
               />
               <br />
               <RaisedButton
                 label="SIGNUP"
                 primary={true}
-                onClick={this.props.signup.bind(this, this.state.signupUsername, this.state.signupPassword)}
+                onClick={this.props.signup.bind(this, this.state.userSignUp, this.state.passySignUp)}
               />
             </div>
           </div>

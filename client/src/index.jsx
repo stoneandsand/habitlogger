@@ -31,12 +31,11 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('/check')
+    axios.get('/sessionCheck')
       .then((res) => {
         this.setState({
           username: res.data.user
         })
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

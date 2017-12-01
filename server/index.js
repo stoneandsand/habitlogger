@@ -59,7 +59,6 @@ app.post('/signup', (req, res) => {
   // {username:'stone', password:'sand'}
   db.signup(req.body, username => {
     if (username) {
-      console.log('inside signup', req.session);
       req.session.user = username;
       res.send(username);
     } else {
@@ -78,7 +77,6 @@ app.post('/login', (req, res) => {
       if (correctCredentials) {
         req.session.user = req.body.username;
         res.send(req.session.user);
-        console.log('inside /login', req.session);
       } else {
         res.send(null);
       }
@@ -129,7 +127,7 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
   });
 });
 
-app.get('/check', (req, res) => {
+app.get('/sessionCheck', (req, res) => {
   res.send(req.session);
 })
 
