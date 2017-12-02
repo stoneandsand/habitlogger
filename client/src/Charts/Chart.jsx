@@ -14,7 +14,7 @@ class Chart extends React.Component {
 			allHabits: true,
 			selectedHabit: false,
 			width: 500,
-			height: 500,
+			height: 350,
 			data: [
 				{
 					timestamp: "2017-10-22T14:34:15.075Z",
@@ -150,26 +150,6 @@ class Chart extends React.Component {
 						{
 							timestamp: "2017-09-02T13:34:15.075Z",
 							value: "67",
-							notes: "had a great day, sunny outside."
-						},
-						{
-							timestamp: "2017-09-02T13:34:15.075Z",
-							value: "45",
-							notes: "had a great day, sunny outside."
-						},
-						{
-							timestamp: "2015-09-02T13:34:15.075Z",
-							value: "12",
-							notes: "had a great day, sunny outside."
-						},
-						{
-							timestamp: "2014-09-02T13:34:15.075Z",
-							value: "36",
-							notes: "had a great day, sunny outside."
-						},
-						{
-							timestamp: "2012-09-02T13:34:15.075Z",
-							value: "36",
 							notes: "had a great day, sunny outside."
 						}
 					]
