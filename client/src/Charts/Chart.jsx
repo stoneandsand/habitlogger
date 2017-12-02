@@ -120,7 +120,7 @@ class Chart extends React.Component {
 					goal: 25,
 					unit: "hours",
 					timeframe: "week",
-					deadline: "2017-12-31T14:38:15.074Z",
+					deadline: "2017-10-31T14:38:15.074Z",
 					occurrences: [
 						{
 							timestamp: "2017-08-22T11:34:15.075Z",
@@ -128,27 +128,27 @@ class Chart extends React.Component {
 							notes: "Car accident."
 						},
 						{
-							timestamp: "2017-08-24T14:37:15.075Z",
+							timestamp: "2017-09-24T14:37:15.075Z",
 							value: "7",
 							notes: "had a great day, sunny outside."
 						},
 						{
-							timestamp: "2017-08-27T17:42:15.075Z",
+							timestamp: "2017-10-27T17:42:15.075Z",
 							value: "9",
 							notes: "Polar bear crossed road."
 						},
 						{
-							timestamp: "2017-08-30T14:34:15.075Z",
+							timestamp: "2017-10-30T14:34:15.075Z",
 							value: "12",
-							notes: "had a great day, sunny outside."
+							notes: "warm night"
 						},
 						{
-							timestamp: "2017-09-02T13:34:15.075Z",
+							timestamp: "2017-11-02T13:34:15.075Z",
 							value: "4",
 							notes: "had a great day, sunny outside."
 						},
 						{
-							timestamp: "2017-09-02T13:34:15.075Z",
+							timestamp: "2017-11-06T13:34:15.075Z",
 							value: "67",
 							notes: "had a great day, sunny outside."
 						}

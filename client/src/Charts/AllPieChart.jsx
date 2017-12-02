@@ -19,8 +19,8 @@ class AllPieChart extends React.Component {
 
 	  render() {
 	    const div = new ReactFauxDOM.Element("div");
-	    let data = this.props.data;
-	    console.log("DATA >>>>>>>>>", data);
+	    let data = this.props.habits;
+	    console.log("All Habit DATA >>>>>>>>>", data);
 
 	    // Container Sizing
 	    let padding = 25;
@@ -102,14 +102,6 @@ class AllPieChart extends React.Component {
 	    	.attr("dy", ".71em")
 	    	.style("text-anchor", "end")
 	    	.text("Frequency");
-
-	    var circle = svg
-	    	.append("circle")
-	    	.attr("cx", 30)
-	    	.attr("cy", 300)
-	    	.attr("r", 50)
-	    	.style("stroke", "#22BB66")
-	    	.style("fill", "transparent");
 
 	    var rect2 = svg
 	    	.append("rect")
