@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
@@ -12,33 +13,28 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('../webpack.config');
 
 
-
 const compiler = webpack(config);
-app.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    noInfo: true,
-    hot: true,
-    historyApiFallback: true,
-    stats: {
-      colors: true,
-    },
-  })
-);
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  noInfo: true,
+  hot: true,
+  historyApiFallback: true,
+  stats: {
+    colors: true,
+  },
+}));
 app.use(webpackHotMiddleware(compiler));
 
 
 app.use(express.static(`${__dirname}/../client/public/`));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(
-  session({
-    secret: 'lss*739md9d@#ksz0)',
-    saveUninitialized: true,
-    resave: false,
-    cookie: { secure: false }
-  })
-);
+app.use(session({
+  secret: 'lss*739md9d@#ksz0)',
+  saveUninitialized: true,
+  resave: false,
+  cookie: { secure: false },
+}));
 
 // HELPERS
 
@@ -61,7 +57,7 @@ const checkLoginAuthStatus = (req, res, next) => {
 app.post('/signup', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
-  db.signup(req.body, username => {
+  db.signup(req.body, (username) => {
     if (username) {
       req.session.user = username;
       res.send(username);
@@ -76,8 +72,7 @@ app.post('/signup', (req, res) => {
 
 app.get('/faux', (req, res) => {
 
-})
-
+});
 
 
 app.post('/login', (req, res) => {
@@ -85,7 +80,7 @@ app.post('/login', (req, res) => {
   // {username:'stone', password:'sand'}
   const isLoggedIn = req.session ? !!req.session.user : false;
   if (!isLoggedIn) {
-    db.verifyLogin(req.body, correctCredentials => {
+    db.verifyLogin(req.body, (correctCredentials) => {
       if (correctCredentials) {
         req.session.user = req.body.username;
         res.send(req.session.user);
@@ -100,7 +95,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-  req.session.destroy(err => {
+  req.session.destroy((err) => {
     res.redirect('/');
   });
 });
@@ -108,7 +103,7 @@ app.get('/logout', (req, res) => {
 app.get('/api/:username', checkLoginAuthStatus, (req, res) => {
   // Get the user's list of habits.
   // Used to field selectors on client.
-  db.getUserHabits(req.params.username, habitList => {
+  db.getUserHabits(req.params.username, (habitList) => {
     res.send(habitList);
   });
 });
@@ -116,7 +111,7 @@ app.get('/api/:username', checkLoginAuthStatus, (req, res) => {
 app.get('/api/:username/:habit', checkLoginAuthStatus, (req, res) => {
   // Get the data for a particular habit.
   // Used to field the chart and table.
-  db.getHabitData(req.session.user, req.params.habit, habitData => {
+  db.getHabitData(req.session.user, req.params.habit, (habitData) => {
     res.send(habitData);
   });
 });
@@ -125,7 +120,7 @@ app.post('/api/:username/habit', checkLoginAuthStatus, (req, res) => {
   // Create a new habit.
   // Expects a JSON with username, habit, limit, unit, and timeframe properties.
   // {habit:'smoking', limit:'5', unit:'cigars', username:'Sand', timeframe: 'week'}
-  db.createHabit(req.body, updatedHabitList => {
+  db.createHabit(req.body, (updatedHabitList) => {
     res.send(updatedHabitList);
   });
 });
@@ -134,14 +129,14 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
   // Log an occurrence.
   // Expects a JSON with a timestamp, habit, and value.
   // {habit:'running', unit:'1', timestamp: '2017-11-28T00:23:28.341Z'}
-  db.logOccurrence(req.body, occurrence => {
+  db.logOccurrence(req.body, (occurrence) => {
     res.send(occurrence);
   });
 });
 
 app.get('/sessionCheck', (req, res) => {
   res.send(req.session);
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
