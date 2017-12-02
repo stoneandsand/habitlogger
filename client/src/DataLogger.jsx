@@ -2,8 +2,7 @@ import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import moment from 'moment';
+
 
 class DataLogger extends React.Component {
   constructor(props) {
@@ -56,7 +55,13 @@ class DataLogger extends React.Component {
         </SelectField>
         <br />
         <label>Click Date to Select Different Date: </label>
-        <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" value={this.state.habitTime} onChange={(x, day) => this.handleDateChange(x,day)} />
+        <DatePicker
+          autoOk={true}
+          hintText="Enter day of Habit"
+          container="inline"
+          mode="landscape"
+          value={this.state.habitTime}
+          onChange={(x, day) => this.handleDateChange(x,day)} />
           <input type="number" onChange={this.handleQuantityChange} />
           <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
         <hr />

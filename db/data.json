@@ -2,65 +2,78 @@
   {
     "username":"Stone",
     "password":"sandstone",
+    "email": "dummyEmailAddress@gmail.com",
     "habitList":["rolling","smoking","Video Games"],
     "habits":[
       {
         "habit":"rolling",
-        "limit":5,
+        "goal":5,
         "unit":"rolls",
         "timeframe":"day",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":[{
           "timestamp":"2017-11-22T14:34:15.075Z",
-          "value":"1"
+          "value":"1",
+          "notes": "had a great day, sunny outside."
         }]
       },
       {
         "habit":"smoking",
-        "limit":5,
+        "goal":5,
         "unit":"packs",
         "timeframe":"day",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":
         [
           {
             "timestamp":"2017-10-22T14:34:15.075Z",
-            "value":"1"
+            "value":"1",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-11-23T14:34:15.075Z",
-            "value":"3"
+            "value":"3",
+            "notes": "Car accident."
           },
           {
             "timestamp":"2017-12-22T14:34:15.075Z",
-            "value":"4"
+            "value":"4",
+            "notes": "had a great day, sunny outside."
           }
         ]
       },
       {
         "habit":"Video Games",
-        "limit":25,
+        "goal":25,
         "unit":"hours",
         "timeframe":"week",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":
         [
           {
             "timestamp":"2017-08-22T11:34:15.075Z",
-            "value":"6"
+            "value":"6",
+            "notes": "Car accident."
           },
           {
             "timestamp":"2017-08-24T14:37:15.075Z",
-            "value":"7"
+            "value":"7",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-08-27T17:42:15.075Z",
-            "value":"9"
+            "value":"9",
+            "notes": "Polar bear crossed road."
           },
           {
             "timestamp":"2017-08-30T14:34:15.075Z",
-            "value":"12"
+            "value":"12",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-09-02T13:34:15.075Z",
-            "value":"4"
+            "value":"4",
+            "notes": "had a great day, sunny outside."
           }
         ]
       }
@@ -69,69 +82,81 @@
   {
     "username":"Sand",
     "password":"zen",
+    "email": "dummyEmailAddress2@gmail.com",
     "habitList":["zen","studying","reading"],
     "habits":[
       {
         "habit":"zen",
-        "limit":3,
+        "goal":3,
         "unit":"enlightenment",
         "timeframe":"week",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":[{
           "timestamp":"2017-12-31T14:34:15.075Z",
-          "value":"2"
+          "value":"2",
+          "notes": "had a great day, sunny outside."
         }]
       },
       {
         "habit":"studying",
-        "limit":5,
+        "goal":5,
         "unit":"hours",
         "timeframe":"day",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":
         [
           {
             "timestamp":"2017-01-22T14:34:15.075Z",
-            "value":"1"
+            "value":"1",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-01-23T14:34:15.075Z",
-            "value":"3"
+            "value":"3",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-01-22T14:34:15.075Z",
-            "value":"4"
+            "value":"4",
+            "notes": "had a great day, sunny outside."
           }
         ]
       },
       {
         "habit":"reading",
-        "limit":12,
+        "goal":12,
         "unit":"readings",
         "timeframe":"Month",
+        "deadline": "2017-12-31T14:38:15.074Z",
         "occurrences":
         [
           {
             "timestamp":"2017-03-22T11:34:15.075Z",
-            "value":"6"
+            "value":"6",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-06-24T14:37:15.075Z",
-            "value":"7"
+            "value":"7",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-07-12T17:42:15.075Z",
-            "value":"1"
+            "value":"1",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-07-14T14:34:15.075Z",
-            "value":"2"
+            "value":"2",
+            "notes": "had a great day, sunny outside."
           },
           {
             "timestamp":"2017-08-22T13:34:15.075Z",
-            "value":"3"
+            "value":"3",
+            "notes": "had a great day, sunny outside."
           }
         ]
       }
     ]
   }
 ]
-

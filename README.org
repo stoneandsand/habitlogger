@@ -76,3 +76,13 @@
 + server/
   - index.js
 + webpack.config.js
+
+* Jest Setup
++ Guide to Test Driven Development:
+  - Create a test folder (__tests__) on the same path level as your component
+  - One file per component
+  - Follow the Red -> Green -> Refactor workflow
+  - Run your test in watch mode to get the real-time update
+  - Enjoy TDD :joy:
+
+

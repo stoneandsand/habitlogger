@@ -108,3 +108,22 @@ body {
 .use {
   text-align: center;
 }
+
+
+/* Chart Styles */
+.scatter-point {
+  z-index: 9999;
+}
+
+
+.scatter-point:hover {
+  fill: red !important;
+  transition: 1s;
+}
+
+
+.tooltip {
+  color : #333A56;
+  background: #E8E8E8;
+  z-index : 1;
+}

@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TopBar from './TopBar.jsx';
-import MuiTable from './Table.jsx';
-import Chart from './Chart.jsx';
 import DataLogger from './DataLogger.jsx';
-import Auth from './Auth/Auth.jsx';
 import axios from 'axios';
 import Login from './Login.jsx';
+import Chart from './Charts/Chart.jsx';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
 
@@ -20,6 +18,7 @@ class App extends React.Component {
       username: null,
       viewData: false,
       viewHabit: '',
+      loggedIn: false
     };
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -30,6 +29,18 @@ class App extends React.Component {
     this.createHabit = this.createHabit.bind(this);
     this.selectHabit = this.selectHabit.bind(this);
     this.checkFields = this.checkFields.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get('/sessionCheck')
+      .then((res) => {
+        this.setState({
+          username: res.data.user
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   login(username, password) {
@@ -76,6 +87,7 @@ class App extends React.Component {
           username: null,
           viewData: false,
           viewHabit: '',
+          loggedIn: false
         });
       })
       .catch((err) => {
@@ -179,36 +191,27 @@ class App extends React.Component {
     return (
       <div className="container-fluid">
         <MuiThemeProvider>
-          <TopBar logout={this.logout} loggedIn={this.state.username} />
-        </MuiThemeProvider>
-        {!this.state.username ?
-        <Login login={this.login} signup={this.signup} />
-        : null}
-        {this.state.username ?
-          <div className="main">
-            <div className="row rowA">
-              <MuiThemeProvider>
-                <EventCreator createHabit={this.createHabit} />
-              </MuiThemeProvider>
-              <MuiThemeProvider>
-                <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-              </MuiThemeProvider>
-              <MuiThemeProvider>
-                <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-              </MuiThemeProvider>
-            </div>
-            <div className="row rowB">
-              <MuiThemeProvider>
-              {this.state.viewData ?
-                <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-              </MuiThemeProvider>
-            </div>
-            <div className="row rowC">
-              {this.state.viewData ?
-                <Chart habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
-            </div>
-          </div>
+          <div>
+         
+            <TopBar logout={this.logout} loggedIn={this.state.username} />
+          {!this.state.username ?
+          <Login login={this.login} signup={this.signup} />
           : null}
+          {this.state.username ?
+
+            
+            <div className="main">
+
+              <div className="row rowA">
+                  <EventCreator createHabit={this.createHabit} />
+                  <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
+                  <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+                    <Chart />
+              </div>
+            </div>
+            : null}
+          </div>
+        </MuiThemeProvider>
       </div>
     )
   }
@@ -216,3 +219,17 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+// FORMER CHART DATA COMPONENTS
+
+// <div className="row rowB">
+//   <MuiThemeProvider>
+//   {this.state.viewData ?
+//     <MuiTable habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+//   </MuiThemeProvider>
+// </div>
+// <div className="row rowC">
+//   {this.state.viewData ?
+//     <Chart habit={this.state.viewHabit} timeframe={this.state.timeframe} unit={this.state.unit} limit={this.state.limit} occurrences={this.state.occurrences} /> : null}
+// </div>
