@@ -1,0 +1,242 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: auto;
+  /*grid-row-gap: 5em;*/
+}
+
+.app-bar {
+  width: 100%;
+  grid-column: 1/5;
+  grid-row: 1/2;
+}
+
+.main {
+  width: 100%;
+  grid-column: 1/3;
+  grid-row: 2/4;
+}
+
+/*Login.jsx*/
+.login-signup {
+  width: 100%;
+  grid-column: 1/5;
+  grid-row: 2/5;
+}
+
+.login-signup-subgrid {
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-row-gap: 5em;
+}
+
+.title {
+  grid-column: 2/3;
+  text-align: center;
+}
+
+.login-box {
+  text-align: center;
+  grid-column: 1/2;
+  margin: auto;
+}
+
+.signup-box {
+  text-align: center;
+  grid-column: 3/4;
+  margin: auto;
+}
+
+.visualization-logo > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.quote {
+  grid-column: 1/4;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f8;
+}
+
+.improve-yourself {
+  grid-column: 1/2;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.feature-list {
+  grid-column: 3/4;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/*Index JS content*/
+.content {
+  width: 100%;
+  grid-column: 1/5;
+}
+
+.content-subgrid {
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.data-logger {
+  grid-column: 1/2;
+  text-align: center;
+  margin: auto;
+  border-color: #202529;
+}
+
+.app-toolbar {
+  grid-column: 1/5;
+}
+
+/*Calendar Styling*/
+
+div#calendar {
+  position: relative;
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid #5a5a5a;
+  background-color: white;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+table.calendar {
+  border-collapse: collapse;
+}
+
+table.calendar thead {
+  background-color: #5a5a5a;
+  color: white;
+  margin-bottom: 3px;
+  border-bottom: 2px solid white;
+}
+
+table.calendar thead th {
+  font-weight: lighter;
+  padding: 10px 3px;
+}
+
+table.calendar thead th.bolder {
+  font-weight: bold;
+}
+
+table.calendar tbody {
+  font-size: 0.8em;
+}
+
+table.calendar td {
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(185, 185, 185, 0.13);
+  min-width: 15px;
+}
+
+table.calendar tr:last-child td {
+  border-bottom: none;
+}
+
+table.calendar td.month-name {
+  font-weight: bold;
+  text-align: left;
+  cursor: default;
+  border-left: none;
+}
+
+table.calendar td.prev-month,
+table.calendar td.next-month {
+  color: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+table.calendar td.weekend {
+  font-style: italic;
+  font-weight: bold;
+}
+
+table.calendar td.bolder {
+  font-weight: bold;
+}
+
+table.calendar td.selected {
+  background-color: rgba(145, 212, 110, 1);
+  font-weight: bold;
+}
+
+div.calendar-controls {
+  display: block;
+  margin: 5px auto;
+  display: table;
+  font-size: 25px;
+  line-height: 35px;
+}
+
+div.calendar-controls {
+  margin: 5px auto;
+  display: table;
+  font-size: 25px;
+  line-height: 35px;
+}
+
+div.calendar-controls div {
+  display: inline;
+}
+
+div.calendar-controls .current-year {
+  margin: 0 30px;
+}
+
+div.calendar-controls .control {
+  font-weight: bolder;
+  color: #323232;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+div.calendar-controls .today {
+  position: absolute;
+  right: 15px;
+  line-height: 35px;
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
+
+/* Chart Styles */
+.scatter-point {
+  z-index: 9999;
+}
+
+.scatter-point:hover {
+  fill: red !important;
+  transition: 1s;
+}
+
+.tooltip {
+  color: #333a56;
+  background: #e8e8e8;
+  z-index: 1;
+}

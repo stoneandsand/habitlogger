@@ -16,8 +16,8 @@ class TopBar extends React.Component {
       defaultMenu = null;
     }
     return (
-      <div>
-        <AppBar className="appBar" title="Habit Logger" iconElementRight={defaultMenu} showMenuIconButton={false} />
+      <div className="app-bar">
+        <AppBar title="Habit Logger" iconElementRight={defaultMenu} showMenuIconButton={false} />
       </div>
     );
   }
