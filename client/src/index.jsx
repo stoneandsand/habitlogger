@@ -139,7 +139,7 @@ class App extends React.Component {
   }
 
   // used in dataLogger to record occurrence in database (POST)
-  logHabit(event, time, quantity) {
+  logHabit(event, time, quantity, notes) {
     let fieldsFilled = this.checkFields(event, quantity);
     if (fieldsFilled) {
       let occurrence = {
@@ -149,6 +149,7 @@ class App extends React.Component {
           timestamp: time,
           value: quantity,
         },
+        notes: notes,
       };
       axios
         .post(`/api/${this.state.username}/log`, occurrence)
@@ -170,13 +171,14 @@ class App extends React.Component {
   }
 
   //used by EventCreator to add habits to user's list of habits in database
-  createHabit(name, unit, limit, timeframe) {
+  createHabit(name, unit, limit, timeframe, deadline) {
     let habit = {
       username: this.state.username,
       habit: name,
       limit: limit,
       unit: unit,
       timeframe: timeframe,
+      deadline: deadline,
     };
     axios
       .post(`/api/${this.state.username}/habit`, habit)
@@ -197,6 +199,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     let initialPage;
     if (!this.state.username) {
       initialPage = <Login login={this.login} signup={this.signup} />;
@@ -205,16 +208,13 @@ class App extends React.Component {
         <div className="content content-subgrid">
           <Toolbar
             habits={this.state.habits}
-            getHabitsInfo={this.getHabitsInfo.bind(this)}
+            getHabitsInfo={this.getHabitsInfo}
             createHabit={this.createHabit}
+            selectHabit={this.selectHabit}
           />
-          <DataLogger
-            habits={this.state.habits}
-            getHabitsInfo={this.getHabitsInfo.bind(this)}
-            logHabit={this.logHabit}
-          />
-          <EventSelector habits={this.state.habits} selectHabit={this.selectHabit} />
+          <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo} logHabit={this.logHabit} />
           <LoggerCalendar />
+          <Chart />
         </div>
       );
     }

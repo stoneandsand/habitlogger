@@ -34,7 +34,8 @@ const signup = (user, cb) => {
   User.findOne({ username: user.username }, (err, userEntry) => {
     if (err) {
       console.error(err);
-    } else if (!userEntry) { // The user does not exist in the database.
+    } else if (!userEntry) {
+      // The user does not exist in the database.
       bcrypt.hash(user.password, saltRounds, (err, hash) => {
         const newUser = new User({
           username: user.username,
@@ -49,7 +50,8 @@ const signup = (user, cb) => {
           }
         });
       });
-    } else { // The user already exists in the database.
+    } else {
+      // The user already exists in the database.
       cb(false);
     }
   });
@@ -59,24 +61,30 @@ const verifyLogin = (user, cb) => {
   // Only return true if both the username and hash match.
   if (user.username && user.password) {
     // ^TODO: Move JSON property checking to router-side.
-    User.findOne({
-      username: user.username,
-    }, (err, userEntry) => {
-      if (err) {
-        console.error(err);
-      } else if (userEntry && userEntry.password) {
-        bcrypt.compare(user.password, userEntry.password, (err, hashMatches) => {
-          if (hashMatches) {
-            cb(true);
-          } else { // Hashes don't match.
-            cb(false);
-          }
-        });
-      } else { // No userEntry or password exists.
-        cb(false);
+    User.findOne(
+      {
+        username: user.username,
+      },
+      (err, userEntry) => {
+        if (err) {
+          console.error(err);
+        } else if (userEntry && userEntry.password) {
+          bcrypt.compare(user.password, userEntry.password, (err, hashMatches) => {
+            if (hashMatches) {
+              cb(true);
+            } else {
+              // Hashes don't match.
+              cb(false);
+            }
+          });
+        } else {
+          // No userEntry or password exists.
+          cb(false);
+        }
       }
-    });
-  } else { // Client did not submit a username or password.
+    );
+  } else {
+    // Client did not submit a username or password.
     cb(false);
   }
 };
@@ -121,6 +129,7 @@ const createHabit = (habitData, cb) => {
         limit: habitData.limit,
         unit: habitData.unit,
         timeframe: habitData.timeframe,
+        deadline: habitData.deadline,
       });
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
@@ -142,7 +151,7 @@ const logOccurrence = (logData, cb) => {
       // habits is an array of habits, not an object reference.
       // We have to iterate over each habit in this array to find the target habit.
       // Once found, we log the occurrence to that habit.
-      userEntry.habits.forEach((habitEntry) => {
+      userEntry.habits.forEach(habitEntry => {
         if (logData.habit === habitEntry.habit) {
           habitEntry.occurrences.push(logData.occurrence);
           userEntry.save((err, updatedUserEntry) => {
@@ -150,8 +159,8 @@ const logOccurrence = (logData, cb) => {
               console.error(`Error getting ${user}.`);
               cb(null);
             } else {
-            // Return the inputted occurence.
-            // It is now the last item in its habit's occurrences array.
+              // Return the inputted occurence.
+              // It is now the last item in its habit's occurrences array.
               cb(logData.occurrence);
             }
           });

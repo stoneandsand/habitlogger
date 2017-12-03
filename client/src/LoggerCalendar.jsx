@@ -24,3 +24,4 @@ class LoggerCalendar extends React.Component {
 Calendar.propTypes = {};
 
 export default LoggerCalendar;
+
