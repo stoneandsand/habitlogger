@@ -5,6 +5,7 @@ import TopBar from './TopBar.jsx';
 import DataLogger from './DataLogger.jsx';
 import axios from 'axios';
 import Login from './Login.jsx';
+import Chart from './Charts/Chart.jsx';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
 
@@ -191,16 +192,21 @@ class App extends React.Component {
       <div className="container-fluid">
         <MuiThemeProvider>
           <div>
+         
             <TopBar logout={this.logout} loggedIn={this.state.username} />
           {!this.state.username ?
           <Login login={this.login} signup={this.signup} />
           : null}
           {this.state.username ?
+
+            
             <div className="main">
+
               <div className="row rowA">
                   <EventCreator createHabit={this.createHabit} />
                   <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
                   <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
+                    <Chart />
               </div>
             </div>
             : null}

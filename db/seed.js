@@ -17,6 +17,7 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
       const userData = {
         username: dummyUser.username,
         password: dummyUser.password,
+        email: dummyUser.email,
       };
 
       console.log('TESTING SIGNUP.');
@@ -28,9 +29,10 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
           const habitData = {
             username: dummyUser.username,
             habit: dummyHabit.habit,
-            limit: dummyHabit.limit,
+            goal: dummyHabit.goal,
             unit: dummyHabit.unit,
             timeframe: dummyHabit.timeframe,
+            deadline: dummyHabit.deadline,
           };
 
           db.createHabit(habitData, (confirmList) => {
@@ -42,6 +44,7 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
                 username: dummyUser.username,
                 habit: dummyHabit.habit,
                 occurrence,
+                notes: dummyHabit.notes,
               };
 
               db.logOccurrence(logData, (confirmOccur) => {

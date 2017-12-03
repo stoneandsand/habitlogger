@@ -5,3 +5,6 @@
 *.tern-port
 .travis.yml
 .DS_Store
+
+.floo
+.flooignore
