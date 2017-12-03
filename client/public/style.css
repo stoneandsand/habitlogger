@@ -117,7 +117,7 @@ body {
 
 
 .scatter-point:hover {
-  fill: red !important;
+  fill: #00bcd1 !important;
   transition: 1s;
 }
 
@@ -127,3 +127,9 @@ body {
   background: #E8E8E8;
   z-index : 1;
 }
+
+.scatter-bar:hover {
+  fill: #00bcd1 !important;
+  transition: 1s;
+}
+
