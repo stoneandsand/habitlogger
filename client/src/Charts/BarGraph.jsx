@@ -182,3 +182,4 @@ export default BarGraph;
 
 // x.domain(data.map((d) => d.letter));
 // y.domain([0, d3.max(data, (d) => d.frequency)]);
+
