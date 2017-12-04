@@ -5,7 +5,10 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+import Larrow from './LarrowIcon.jsx';
+import Darrow from './DarrowIcon.jsx';
 
+const WAIT_INTERVAL = 1250;
 const style = {
   marginLeft: 20,
 };
@@ -14,26 +17,77 @@ export default class EventCreator extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      event: '',
+      units: '',
+      limit: '',
+      currentFocus: 0
+    };
+
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.handleTimeFrame = this.handleTimeFrame.bind(this);
     this.handleDeadline = this.handleDeadline.bind(this);
   }
 
+  componentDidMount() {
+    this.timer = null;
+  }
+
   handleTextFieldChange(e) {
     this.props.updateHabit(e);
+    let self = this;
+    let picker = {
+      'event': 1,
+      'units': 2,
+      'limit': 3
+    };
+    const target = e.target;
+    const name = target.name;
+
+    this.setState({ [name]: target.value });
+
+    this.timer = setTimeout(function() {
+      self.handleFocus(picker[name])
+    }, WAIT_INTERVAL);
+
+  }
+
+  handleFocus(cV) {
+    this.setState({
+      currentFocus: cV
+    })
+  }
+
+  handleSubmit() {
+    this.props.createHabit(this.state.event, this.state.units, this.state.limit);
+    this.setState({
+      event: '',
+      units: '',
+      limit: '',
+      currentFocus: 6
+    });
   }
 
   handleTimeFrame(e, index) {
     this.props.handleChange(e, index);
+    this.setState({
+      currentFocus: 4
+    });
   }
 
   handleDeadline(e, date) {
     this.props.handleDeadlineChange(e, date);
+    this.setState({
+      currentFocus: 5
+    });
   }
 
   render() {
     return (
       <div className="eventCreator">
+        <Larrow currentFocus={this.state.currentFocus} />
+        <Darrow currentFocus={this.state.currentFocus} />
+        <div>
         <TextField
           name="event"
           value={this.props.event}
@@ -74,6 +128,7 @@ export default class EventCreator extends React.Component {
           disableYearSelection={false}
           onChange={this.handleDeadline}
         />
+        </div>
       </div>
     );
   }

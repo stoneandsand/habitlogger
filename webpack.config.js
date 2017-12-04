@@ -21,6 +21,34 @@ module.exports = {
           presets: ['react', 'es2015'], // This could also be put in a .babelrc file
         },
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          'file-loader', {
+            loader: 'image-webpack-loader',
+            options: {
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // Specifying webp here will create a WEBP version of your JPG/PNG images
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
+      }
     ],
   },
   plugins: [
@@ -29,4 +57,6 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
   ],
 };
+
+
 

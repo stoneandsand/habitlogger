@@ -6,6 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
+import Heart from './HeartIcon.jsx';
+import HeartPulse from './HeartPulseIcon.jsx';
 
 const styles = {
   button: {
@@ -84,7 +86,6 @@ export default class AppToolbar extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const actions = [
       <FlatButton label="Save" primary={true} onClick={this.createHabit} />,
       <FlatButton label="Cancel" secondary={true} onClick={this.toggleDialog} />,
@@ -93,6 +94,8 @@ export default class AppToolbar extends React.Component {
       <div className="app-toolbar">
         <Toolbar>
           <ToolbarGroup firstChild={true}>
+            <Heart />
+            <HeartPulse />
             <RaisedButton  label="Create a new habit" onClick={this.toggleDialog} />
             <Dialog
               title="Create a new habit"
@@ -117,7 +120,7 @@ export default class AppToolbar extends React.Component {
           <ToolbarGroup>
             <RaisedButton label="Delete Habit"  />
           </ToolbarGroup>
-       
+
         </Toolbar>
       </div>
     );

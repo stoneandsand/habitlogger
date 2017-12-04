@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Clock from './ClockIcon.jsx';
 
 class DataLogger extends React.Component {
   constructor(props) {
@@ -50,9 +51,9 @@ class DataLogger extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="data-logger">
+        <Clock />
         <h1>Data Logger</h1>
         <SelectField floatingLabelText="Select Habit" value={this.state.value} onChange={this.logChange}>
           {this.props.habits.map((event, index) => {
