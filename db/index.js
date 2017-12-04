@@ -249,15 +249,6 @@ const getInfo = (cb) => {
 // })
 
 // EXPORTS
-// module.exports.signup = signup;
-// module.exports.verifyLogin = verifyLogin;
-// module.exports.getUserHabits = getUserHabits;
-// module.exports.getHabitData = getHabitData;
-// module.exports.createHabit = createHabit;
-// module.exports.logOccurrence = logOccurrence;
-// module.exports.updateMessage = updateMessage;
-// module.exports.getInfo = getInfo;
-
 module.exports = {
   signup,
   verifyLogin,
