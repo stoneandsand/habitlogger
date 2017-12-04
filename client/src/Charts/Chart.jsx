@@ -114,5 +114,5 @@ class Chart extends React.Component {
 		);
 	}
 }
-// note
+
 export default Chart;
