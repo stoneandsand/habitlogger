@@ -1,16 +1,17 @@
 [
   {
-    "username":"Stone",
-    "password":"sandstone",
-    "email": "dummyEmailAddress@gmail.com",
-    "habitList":["rolling","smoking","Video Games"],
+    "username":"francis",
+    "password":"francis",
+    "phoneNumb": "5103328722",
+    "habitList":["rolling","rock climbing","Video Games"],
     "habits":[
       {
         "habit":"rolling",
-        "goal":5,
+        "limit":5,
         "unit":"rolls",
         "timeframe":"day",
-        "deadline": "2017-12-31T14:38:15.074Z",
+        "deadline": "2017-12-31T07:30:15.074Z",
+        "messageSent": false,
         "occurrences":[{
           "timestamp":"2017-11-22T14:34:15.075Z",
           "value":"1",
@@ -18,11 +19,12 @@
         }]
       },
       {
-        "habit":"smoking",
-        "goal":5,
+        "habit":"rock climbing",
+        "limit":5,
         "unit":"packs",
         "timeframe":"day",
-        "deadline": "2017-12-31T14:38:15.074Z",
+        "deadline": "2017-12-05T07:00:15.074Z",
+        "messageSent": false,
         "occurrences":
         [
           {
@@ -44,10 +46,11 @@
       },
       {
         "habit":"Video Games",
-        "goal":25,
+        "limit":25,
         "unit":"hours",
         "timeframe":"week",
         "deadline": "2017-12-31T14:38:15.074Z",
+        "messageSent": false,
         "occurrences":
         [
           {
@@ -82,15 +85,29 @@
   {
     "username":"Sand",
     "password":"zen",
-    "email": "dummyEmailAddress2@gmail.com",
-    "habitList":["zen","studying","reading"],
+    "phoneNumb": "7033805017",
+    "habitList":["rolling","zen","studying","reading"],
     "habits":[
       {
+        "habit":"rolling",
+        "limit":5,
+        "unit":"rolls",
+        "timeframe":"day",
+        "deadline": "2020-12-04T07:30:15.074Z",
+        "messageSent": false,
+        "occurrences":[{
+          "timestamp":"2017-11-22T14:34:15.075Z",
+          "value":"1",
+          "notes": "had a great day, sunny outside."
+        }]
+      },
+      {
         "habit":"zen",
-        "goal":3,
+        "limit":3,
         "unit":"enlightenment",
         "timeframe":"week",
         "deadline": "2017-12-31T14:38:15.074Z",
+        "messageSent": false,
         "occurrences":[{
           "timestamp":"2017-12-31T14:34:15.075Z",
           "value":"2",
@@ -99,10 +116,11 @@
       },
       {
         "habit":"studying",
-        "goal":5,
+        "limit":5,
         "unit":"hours",
         "timeframe":"day",
         "deadline": "2017-12-31T14:38:15.074Z",
+        "messageSent": false,
         "occurrences":
         [
           {
@@ -124,10 +142,11 @@
       },
       {
         "habit":"reading",
-        "goal":12,
+        "limit":12,
         "unit":"readings",
         "timeframe":"Month",
         "deadline": "2017-12-31T14:38:15.074Z",
+        "messageSent": false,
         "occurrences":
         [
           {

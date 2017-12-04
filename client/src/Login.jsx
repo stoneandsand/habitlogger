@@ -10,7 +10,8 @@ class Login extends React.Component {
       passyLogin: '',
       userSignUp: '',
       passySignUp: '',
-    };
+      phoneNumb: '',
+    }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
   }
 
@@ -23,12 +24,13 @@ class Login extends React.Component {
     if (this.state.passyLogin.length >= 4 && this.state.userLogin.length >= 4 && e.key === 'Enter') {
       this.props.login(this.state.userLogin, this.state.passyLogin);
     }
-    if (this.state.userSignUp.length >= 4 && this.state.passySignUp.length >= 4 && e.key === 'Enter') {
-      this.props.signup(this.state.userSignUp, this.state.passySignUp);
+    if ((this.state.userSignUp.length >= 4 && this.state.passySignUp.length >= 4) && e.key === 'Enter') {
+      this.props.signup(this.state.userSignUp, this.state.passySignUp, this.state.phoneNumb);
     }
   }
 
   render() {
+    console.log('>>>>>>>>>>>>>>>>', this.state)
     return (
       <div className="login-signup login-signup-subgrid">
         <div className="title">
@@ -81,10 +83,17 @@ class Login extends React.Component {
             onKeyUp={this.handleTextFieldChange}
           />
           <br />
+          <TextField
+              id="phoneNumb"
+              hintText="Without spaces e.g. 1234567890"
+              floatingLabelText="Phone Number"
+              onKeyUp={this.handleTextFieldChange}
+            />
+          <br />
           <RaisedButton
             label="SIGNUP"
             primary={true}
-            onClick={this.props.signup.bind(this, this.state.userSignUp, this.state.passySignUp)}
+            onClick={this.props.signup.bind(this, this.state.userSignUp, this.state.passySignUp, this.state.phoneNumb)}
           />
         </div>
 

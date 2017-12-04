@@ -127,6 +127,7 @@ export default class EventCreator extends React.Component {
           defaultDate={new Date()}
           disableYearSelection={false}
           onChange={this.handleDeadline}
+          value={this.props.deadline}
         />
         </div>
       </div>

@@ -40,6 +40,7 @@ const signup = (user, cb) => {
         const newUser = new User({
           username: user.username,
           password: hash,
+          phoneNumb: user.phoneNumb,
         });
         newUser.save((err, newUserEntry) => {
           if (err) {
@@ -136,6 +137,7 @@ const createHabit = (habitData, cb) => {
     if (err) {
       console.error(`Error getting ${habitData.username}.`);
     } else {
+      console.log('userEntry: ', userEntry)
       userEntry.habitList.push(habitData.habit);
       userEntry.habits.push({
         habit: habitData.habit,
@@ -143,6 +145,7 @@ const createHabit = (habitData, cb) => {
         unit: habitData.unit,
         timeframe: habitData.timeframe,
         deadline: habitData.deadline,
+        messageSent: habitData.messageSent,
       });
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
@@ -183,11 +186,86 @@ const logOccurrence = (logData, cb) => {
   });
 };
 
+const updateMessage = (habit, username) => {
+  User.update({'username': username, 'habits.habit': habit}, {'$set': {
+    'habits.$.messageSent': true
+    }
+  }, (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('updated!')
+      User.find({}, (err, userEntry) => {
+        if(err) {
+          console.log(err);
+        } else {
+          // console.log('HERE IS THE userEntry>>>>>>>>>>', userEntry[0].habits)
+        }
+      })
+    };
+  })
+}
+// updateMessage('rolling', 'Sand');
+
+const getInfo = (cb) => {
+  User.find({}, (err, userEntry) => {
+    if(err){
+      console.log(`Error getting ${user}.`);
+    } else {
+      // console.log('userEntry: ', userEntry)
+      let currentUser = [];
+      for(let i = 0; i < userEntry.length; i++){
+        let person = userEntry[i].habits.map(habit => {
+        // console.log('userEntry', userEntry[i].username)
+          // console.log('username: ', userEntry[i].username)
+          // console.log('habit: ', habit.habit)
+          // console.log('phoneNumb: ', userEntry[i].phoneNumb)
+          // console.log('deadline: ', habit.deadline)
+          // console.log('messageSent: ', habit.messageSent)
+          return {
+            username: userEntry[i].username,
+            habit: habit.habit || '',
+            phoneNumb: userEntry[i].phoneNumb,
+            deadline: habit.deadline || '',
+            messageSent: habit.messageSent,
+          }
+        })
+        // console.log('person: ', person)
+        currentUser = currentUser.concat(person);
+      }
+      // console.log('currentUser: ', currentUser)
+      // console.log('entry length: ', userEntry.length)
+      // console.log('user[0]', userEntry[0])
+      // console.log('user[1]', userEntry[1])
+
+      cb(currentUser);
+    }
+  })
+}
+
+// User.find({}, (err, data) => {
+//   if(err) return console.log(err);
+//   console.log('>>>>>>>>', data)
+// })
+
 // EXPORTS
-module.exports.signup = signup;
-module.exports.verifyLogin = verifyLogin;
-module.exports.getUserHabits = getUserHabits;
-module.exports.getHabitData = getHabitData;
-module.exports.createHabit = createHabit;
-module.exports.logOccurrence = logOccurrence;
-module.exports.getGraphData = getGraphData;
+// module.exports.signup = signup;
+// module.exports.verifyLogin = verifyLogin;
+// module.exports.getUserHabits = getUserHabits;
+// module.exports.getHabitData = getHabitData;
+// module.exports.createHabit = createHabit;
+// module.exports.logOccurrence = logOccurrence;
+// module.exports.updateMessage = updateMessage;
+// module.exports.getInfo = getInfo;
+
+module.exports = {
+  signup,
+  verifyLogin,
+  getUserHabits,
+  getHabitData,
+  createHabit,
+  logOccurrence,
+  updateMessage,
+  getGraphData,
+  getInfo,
+}

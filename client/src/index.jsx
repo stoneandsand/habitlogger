@@ -60,6 +60,7 @@ class App extends React.Component {
         if (res.data) {
           this.setState({ username: res.data });
           this.getUserData();
+          console.log('state info: ', this.state)
         } else {
           alert('Incorrect Credentials');
         }
@@ -69,13 +70,14 @@ class App extends React.Component {
       });
   }
 
-  signup(username, password) {
+  signup(username, password, phoneNumb) {
+    console.log('PHONENUMB>>>>>>>>>>>>>>>>>>>', phoneNumb)
+    const phone = JSON.stringify(phoneNumb)
     if (username.length < 4 || password.length < 4) {
       alert('Username and password must be at least 4 characters.');
     } else {
-      axios
-        .post('/signup', { username: username, password: password })
-        .then(res => {
+      axios.post('/signup', {username: username, password: password, phoneNumb: phone})
+        .then((res) => {
           if (res.data) {
             this.setState({
               username: res.data,
@@ -178,7 +180,7 @@ class App extends React.Component {
   }
 
   //used by EventCreator to add habits to user's list of habits in database
-  createHabit(name, unit, limit, timeframe, deadline) {
+  createHabit(name, unit, limit, timeframe, deadline, messageSent) {
     let habit = {
       username: this.state.username,
       habit: name,
@@ -186,6 +188,7 @@ class App extends React.Component {
       unit: unit,
       timeframe: timeframe,
       deadline: deadline,
+      messageSent: messageSent,
     };
     axios
       .post(`/api/${this.state.username}/habit`, habit)
@@ -238,3 +241,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+

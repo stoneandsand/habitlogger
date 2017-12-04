@@ -3,28 +3,27 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
-
 const PORT = process.env.PORT || 3000;
-
 const session = require('express-session');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('../webpack.config');
-
-
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  noInfo: true,
-  hot: true,
-  historyApiFallback: true,
-  stats: {
-    colors: true,
-  },
-}));
-app.use(webpackHotMiddleware(compiler));
+const sendMessageCron = require('./cronMessage.js').sendMessageCron;
 
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    noInfo: true,
+    hot: true,
+    historyApiFallback: true,
+    stats: {
+      colors: true,
+    },
+  })
+);
+app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(`${__dirname}/../client/public/`));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +45,7 @@ const checkLoginAuthStatus = (req, res, next) => {
   const isLoggedIn = req.session ? !!req.session.user : false;
   const isActualUser = req.session.user === req.params.username;
   if (isLoggedIn && isActualUser) {
+    console.log('req.session.user: ', req.session.user)
     next();
   } else {
 
@@ -54,7 +54,6 @@ const checkLoginAuthStatus = (req, res, next) => {
 };
 
 // ROUTING
-
 app.post('/signup', (req, res) => {
   // Expects a JSON from the client.
   // {username:'stone', password:'sand'}
@@ -67,7 +66,14 @@ app.post('/signup', (req, res) => {
       res.send(null);
     }
   });
+
 });
+
+// GET FAUX DATA
+
+app.get('/faux', (req, res) => {
+
+})
 
 app.post('/login', (req, res) => {
   // Expects a JSON from the client.
@@ -139,6 +145,8 @@ app.get('/graphData', (req, res) => {
     res.send(graphData);
   });
 })
+
+sendMessageCron.start();
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);

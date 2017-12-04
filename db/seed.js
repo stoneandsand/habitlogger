@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./index.js');
 
-mongoose.connect('mongodb://localhost/stoneandsand', { useMongoClient: true }, () => {
+mongoose.connect('mongodb://localhost/stoneandsand', {useMongoClient: true}, () => {
   mongoose.connection.db.dropDatabase();
 });
 
@@ -13,11 +13,11 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
   } else {
     data = JSON.parse(data);
 
-    data.forEach((dummyUser) => {
-      const userData = {
+    data.forEach(dummyUser => {
+      let userData = {
         username: dummyUser.username,
         password: dummyUser.password,
-        email: dummyUser.email,
+        phoneNumb: dummyUser.phoneNumb,
       };
 
       console.log('TESTING SIGNUP.');
@@ -25,31 +25,32 @@ fs.readFile(path.join(`${__dirname}/data.json`), 'utf8', (err, data) => {
         console.log(`${confirmUser} was signed up.`);
 
         console.log('TESTING CREATE HABIT.');
-        dummyUser.habits.forEach((dummyHabit) => {
-          const habitData = {
+        dummyUser.habits.forEach(dummyHabit => {
+          let habitData = {
             username: dummyUser.username,
             habit: dummyHabit.habit,
-            goal: dummyHabit.goal,
+            limit: dummyHabit.limit,
             unit: dummyHabit.unit,
             timeframe: dummyHabit.timeframe,
             deadline: dummyHabit.deadline,
+            messageSent: dummyHabit.messageSent,
           };
-
-          db.createHabit(habitData, (confirmList) => {
+          // console.log('habitData: ', habitData)
+          db.createHabit(habitData, (confirmList)=> {
             console.log(`${confirmUser}'s habit list is now ${confirmList}.`);
 
             console.log('TESTING LOG OCCURRENCE.');
-            dummyHabit.occurrences.forEach((occurrence) => {
-              const logData = {
+            dummyHabit.occurrences.forEach(occurrence => {
+              let logData = {
                 username: dummyUser.username,
                 habit: dummyHabit.habit,
-                occurrence,
+                occurrence: occurrence,
                 notes: dummyHabit.notes,
               };
 
-              db.logOccurrence(logData, (confirmOccur) => {
-                console.log(`Last occurrence is now ${JSON.stringify(confirmOccur)}`);
-              });
+                db.logOccurrence(logData, (confirmOccur) => {
+                  console.log(`Last occurrence is now ${JSON.stringify(confirmOccur)}`);
+                });
             });
           });
         });

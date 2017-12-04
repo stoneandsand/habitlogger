@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 // SCHEMAS
@@ -19,20 +18,22 @@ const occurrenceSchema = new Schema({
 });
 
 const habitSchema = new Schema({
-  habit: { type: String, unique: true }, // e.g., smoking.
+  habit: {type: String, unique: true}, // e.g., smoking.
   limit: Number, // e.g., 5 (per timeframe)
   unit: String, // e.g., cigars
   deadline: Date,
+  messageSent: Boolean,
   timeframe: String, // e.g., day / week
   occurrences: [occurrenceSchema], // Embeded subdocument.
 });
 
 // Schema for users.
 const userSchema = new Schema({
-  username: { type: String, unique: true },
+  username: {type: String, unique: true},
   password: String,
+  phoneNumb: String,
   habitList: Array, // Used to populate dropdowns, e.g., ['smoking', 'running']
-  habits: [habitSchema], // Embeded subdocument.
+  habits: [habitSchema],  // Embeded subdocument.
 });
 
 module.exports = mongoose.model('User', userSchema);
