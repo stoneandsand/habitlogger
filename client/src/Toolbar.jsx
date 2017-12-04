@@ -101,7 +101,8 @@ export default class AppToolbar extends React.Component {
             <Heart />
             <HeartPulse />
             <RaisedButton  label="Create a new habit" onClick={this.toggleDialog} />
-            <Dialog
+            <Dialog 
+              className="createHabit__dialog"
               title="Create a new habit"
               actions={actions}
               open={this.state.open}

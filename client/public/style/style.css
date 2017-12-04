@@ -6,7 +6,7 @@ body {
   margin: 0;
   width: 100%;
   background-color: #F7F5E6;
-  background: url('sayagata-400px.png');
+
 }
 
 .wrapper {
@@ -31,29 +31,48 @@ body {
   width: 100%;
   grid-column: 1/5;
   grid-row: 2/5;
+  background-color: #52658F;
 }
 
 .login-signup-subgrid {
   display: grid;
-  grid-template-columns: 33.3% 350px;
+  grid-template-columns: 35% 30% 35%;
   grid-row-gap: 5em;
+}
+
+.login-signup-subgrid img {
+  border: 3px solid #333A56;
+}
+
+.login-signup-subgrid img:hover {
+  transition: 1s;
+  filter: hue-rotate(270deg);
 }
 
 .title {
   grid-column: 2/3;
   text-align: center;
+  color: #F7F5E6;
 }
 
 .login-box {
   text-align: center;
   grid-column: 1/2;
   margin: auto;
+  background: #F7F5E6;
+  padding: 15px;
+  border: 3px solid #333A56;
+  border-radius: 10%;
 }
 
 .signup-box {
   text-align: center;
   grid-column: 3/4;
   margin: auto;
+  background: #F7F5E6;
+  padding: 15px;
+  border: 3px solid #333A56;
+  border-radius: 10%;
 }
 
 .visualization-logo > img {
@@ -69,19 +88,25 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: #F7F5E6;
 }
 
 .improve-yourself {
   grid-column: 1/2;
   margin: 0 auto;
   text-align: center;
+  background: #E8E8E8;
+  padding: 25px;
+  border: 3px solid #333A56;
 }
 
 .feature-list {
   grid-column: 3/4;
   margin: 0 auto;
   text-align: center;
+  background: #E8E8E8;
+  padding: 15px;
+  border: 3px solid #333A56;
 }
 
 /*Index JS content*/
@@ -93,6 +118,7 @@ body {
 .content-subgrid {
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
+  background: url('sayagata-400px.png');
 }
 
 .data-logger {
@@ -262,7 +288,7 @@ div.calendar-controls .today {
   border: 2px solid #333a56;
   background: #f3f4f5;
   box-shadow: 0 5px 10px #343d55;
-
+  z-index: 999;
 }
 
 /* App toolbar */

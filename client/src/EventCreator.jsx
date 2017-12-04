@@ -93,6 +93,7 @@ export default class EventCreator extends React.Component {
           value={this.props.event}
           hintText="Habit name"
           style={style}
+          fullWidth='false'
           underlineShow={false}
           onChange={this.handleTextFieldChange}
         />
