@@ -13,8 +13,8 @@ class BarGraph extends React.Component {
 
     render() {
         const div = new ReactFauxDOM.Element("div");
-        let data = this.props.habits[0];
-        console.log('data', data)
+        let data = this.props.habits[this.props.index];
+        console.log("data", data, "props type", this.props.index);
         // Container Sizing
         let padding = 25;
         let margin = { top: 40, right: 40, bottom: 40, left: 40 },
@@ -30,13 +30,13 @@ class BarGraph extends React.Component {
         // Mapping single instance data to an array of values and dates
 
         // An Array of occurence values in a single habit
-        var valueRange = this.props.habits[0].occurrences.reduce((acc, cur) => {
+        var valueRange = this.props.habits[this.props.index].occurrences.reduce((acc, cur) => {
             acc.push(cur.value);
             return acc;
         }, []);
 
         // An array of dates in the instance
-        var dateRange = this.props.habits[0].occurrences.reduce((acc, cur) => {
+        var dateRange = this.props.habits[this.props.index].occurrences.reduce((acc, cur) => {
             acc.push(cur.timestamp);
             return acc;
         }, []);

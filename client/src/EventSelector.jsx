@@ -19,7 +19,7 @@ export default class EventSelector extends React.Component {
       value: index,
     });
 
-    this.props.selectHabit(this.props.habits[index]);
+    this.props.selectHabit(this.props.habits[index], index);
   }
 
   render() {

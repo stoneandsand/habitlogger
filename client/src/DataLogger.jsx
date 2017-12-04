@@ -20,6 +20,7 @@ class DataLogger extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
+    this.logHelper = this.logHelper.bind(this);
   }
 
   // used to have 'Select Habit' placeholder text in drop down menu on mount
@@ -50,6 +51,15 @@ class DataLogger extends React.Component {
     });
   }
 
+  logHelper(e) {
+   this.props.logHabit(e,
+     this.state.currentHabit,
+     this.state.habitTime,
+     this.state.quantity,
+     this.state.notes
+    )
+  }
+
   render() {
     return (
       <div className="data-logger">
@@ -77,13 +87,7 @@ class DataLogger extends React.Component {
           onChange={this.handleNotesChange}
         />
         <RaisedButton
-          onClick={this.props.logHabit.bind(
-            null,
-            this.state.currentHabit,
-            this.state.habitTime,
-            this.state.quantity,
-            this.state.notes
-          )}
+          onClick={this.logHelper}
           label="Log Habit"
         />
       </div>

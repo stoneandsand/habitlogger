@@ -134,6 +134,7 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
   // Log an occurrence.
   // Expects a JSON with a timestamp, habit, and value.
   // {habit:'running', unit:'1', timestamp: '2017-11-28T00:23:28.341Z'}
+  console.log('it gets here');
   db.logOccurrence(req.body, (occurrence) => {
     res.send(occurrence);
   });

@@ -16,7 +16,8 @@ class AllPieChart extends React.Component {
 		const div = new ReactFauxDOM.Element("div");
 		let data = this.props.habits;
 		console.log("All Habit DATA >>>>>>>>>", data);
-
+		console.log("props type", typeof this.props.index);
+		console.log()
 		// FORMER MAPPING TO SEPERATE OBJECT (MAY NOT BE NEEDED)
 		// let habits = data.reduce((acc, cur) => {
 		// 	acc[cur.habit] = habit;

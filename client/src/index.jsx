@@ -22,6 +22,7 @@ class App extends React.Component {
       viewHabit: '',
       loggedIn: false,
       selectedHabit: '',
+      currentHabit: 0,
     };
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -71,7 +72,7 @@ class App extends React.Component {
   }
 
   signup(username, password, phoneNumb) {
-    console.log('PHONENUMB>>>>>>>>>>>>>>>>>>>', phoneNumb)
+
     const phone = JSON.stringify(phoneNumb)
     if (username.length < 4 || password.length < 4) {
       alert('Username and password must be at least 4 characters.');
@@ -148,7 +149,8 @@ class App extends React.Component {
   }
 
   // used in dataLogger to record occurrence in database (POST)
-  logHabit(event, time, quantity, notes) {
+  logHabit(e, event, time, quantity, notes) {
+  
     let fieldsFilled = this.checkFields(event, quantity);
     if (fieldsFilled) {
       let occurrence = {
@@ -163,6 +165,7 @@ class App extends React.Component {
       axios
         .post(`/api/${this.state.username}/log`, occurrence)
         .then(res => {
+          console.log('prevent form refresh', res.data)
           this.selectHabit(event);
           // can re-factor to use occurrence object returned by the request
         })
@@ -201,15 +204,18 @@ class App extends React.Component {
   }
 
   // select habit to be displayed in chart and table
-  selectHabit(habitName) {
+  selectHabit(habitName, index) {
     this.setState({
       viewHabit: habitName,
+      currentHabit: index
     });
     this.getHabitsInfo(habitName);
   }
 
   render() {
+        console.log(this.state);
     let initialPage;
+
     if (!this.state.username) {
       initialPage = <Login login={this.login} signup={this.signup} />;
     } else {
@@ -225,7 +231,7 @@ class App extends React.Component {
         </div>
         <div className="top-row__container">
           <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo} logHabit={this.logHabit} />
-          <Chart />
+          <Chart currentIndex={this.state.currentHabit}/>
         </div>
       </div>);
     }

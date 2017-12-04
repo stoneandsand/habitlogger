@@ -13,7 +13,7 @@ class OccurenceScatterPlot extends React.Component {
 
     render() {
         const div = new ReactFauxDOM.Element("div");
-        let data = this.props.habits[0];
+        let data = this.props.habits[this.props.index];
 
         // Container Sizing
         let padding = 25;
@@ -36,17 +36,17 @@ class OccurenceScatterPlot extends React.Component {
         // Mapping single instance data to an array of values and dates
 
         // An Array of occurence values in a single habit
-        var valueRange = this.props.habits[0].occurrences.reduce((acc, cur) => {
+        var valueRange = this.props.habits[this.props.index].occurrences.reduce((acc, cur) => {
             acc.push(cur.value);
             return acc;
         }, []);
-        console.log(valueRange);
+        console.log('val range', valueRange);
         // An array of dates in the instance
-        var dateRange = this.props.habits[0].occurrences.reduce((acc, cur) => {
+        var dateRange = this.props.habits[this.props.index].occurrences.reduce((acc, cur) => {
             acc.push(cur.timestamp);
             return acc;
         }, []);
-
+        console.log('date range', valueRange);
         // An array of dates converted into D3 format
         var mappedDates = dateRange.map((e, i) => {
             return d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(e);
@@ -56,7 +56,7 @@ class OccurenceScatterPlot extends React.Component {
         var mappedDeadline = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(
             data.deadline
         );
-
+        console.log('mapped dates',mappedDates, 'mapped deadline', mappedDeadline);
         let x = d3
             .scaleTime() //scaleBand
             .domain([Math.min.apply(null, mappedDates), mappedDeadline])
@@ -135,15 +135,6 @@ class OccurenceScatterPlot extends React.Component {
                         .style("opacity", 0);
                 });
 
-            if (validLine(index, item)) {
-                svg
-                    .append("line")
-                    .style("stroke", "#E8E8E8")
-                    .attr("x1", x(mappedDates[index]))
-                    .attr("x2", x(mappedDates[index + 1]))
-                    .attr("y1", y([item.value]))
-                    .attr("y2", y(validLine(index, item)));
-            }
         });
 
         var goalLegend = d3

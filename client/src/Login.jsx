@@ -30,7 +30,7 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log('>>>>>>>>>>>>>>>>', this.state)
+  
     return (
       <div className="login-signup login-signup-subgrid">
         <div className="title">

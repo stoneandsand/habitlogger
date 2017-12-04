@@ -18,6 +18,7 @@ class Chart extends React.Component {
 			width: 500,
 			height: 400,
 			habits: [],
+			currentIndex: 0,
 		};
 
 		this.showAllHabits = this.showAllHabits.bind(this);
@@ -40,6 +41,12 @@ class Chart extends React.Component {
 		    console.log('error code here', err);
 		  });
 	}
+
+  componentWillReceiveProps(nextProps) {
+  	this.setState({
+  		currentIndex: nextProps.currentIndex
+  	})
+  }
 
 	showAllHabits() {
 		this.setState({
@@ -65,6 +72,7 @@ class Chart extends React.Component {
 	}
 
 	render() {
+	
 		return (
 			<div className="chart-container">
 				<button className="effect--1 graph-button" onClick={this.showAllHabits}>
@@ -85,25 +93,24 @@ class Chart extends React.Component {
 				{this.state.Scatterplot ? (
 					<OccurenceScatterPlot
 						data={this.state.data}
-						habitData={this.state.habitData}
 						habits={this.state.habits}
 						width={this.state.width}
 						height={this.state.height}
+						index={this.state.currentIndex}
 					/>
 				) : null}
 				{this.state.bargraph ? (
 					<BarGraph
 						data={this.state.data}
-						habitData={this.state.habitData}
 						habits={this.state.habits}
 						width={this.state.width}
 						height={this.state.height}
+						index={this.state.currentIndex}
 					/>
 				) : null}
 				{this.state.allHabits ? (
 					<AllPieChart
 						data={this.state.data}
-						habitData={this.state.habitData}
 						habits={this.state.habits}
 						width={this.state.width}
 						height={this.state.height}
