@@ -11,13 +11,13 @@ class TopBar extends React.Component {
   render() {
     let defaultMenu;
     if (this.props.loggedIn) {
-      defaultMenu = <FlatButton style={{ color: 'white' }} label="Signout" onClick={this.props.logout.bind(this)} />;
+      defaultMenu = <FlatButton className='button' style={{ color: 'white' }} label="Signout" onClick={this.props.logout.bind(this)} />;
     } else {
       defaultMenu = null;
     }
     return (
       <div className="app-bar">
-        <AppBar title="Habit Logger" iconElementRight={defaultMenu} showMenuIconButton={false} />
+        <AppBar className="app-bar__habitLogger" title="Habit Logger" iconElementRight={defaultMenu} showMenuIconButton={false} />
       </div>
     );
   }

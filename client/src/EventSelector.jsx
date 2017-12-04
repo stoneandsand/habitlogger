@@ -24,7 +24,7 @@ export default class EventSelector extends React.Component {
 
   render() {
     return (
-      <SelectField floatingLabelText="View Habit Data" value={this.state.value} onChange={this.handleChange}>
+      <SelectField id="select_field" labelStyle={{'color': 'white'}} floatingLabelText="View Habit Data" value={this.state.value} onChange={this.handleChange}>
         {this.props.habits.map((habit, index) => <MenuItem key={index} value={index} primaryText={habit} />)}
       </SelectField>
     );

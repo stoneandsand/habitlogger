@@ -7,6 +7,23 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import EventCreator from './EventCreator.jsx';
 import EventSelector from './EventSelector.jsx';
 
+const styles = {
+  button: {
+    margin: 12,
+    backgroundColor: '#EC407A',
+  },
+  exampleImageInput: {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0,
+  },
+};
+
 export default class AppToolbar extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +93,7 @@ export default class AppToolbar extends React.Component {
       <div className="app-toolbar">
         <Toolbar>
           <ToolbarGroup firstChild={true}>
-            <RaisedButton label="Create a new habit" onClick={this.toggleDialog} />
+            <RaisedButton  label="Create a new habit" onClick={this.toggleDialog} />
             <Dialog
               title="Create a new habit"
               actions={actions}
@@ -97,6 +114,10 @@ export default class AppToolbar extends React.Component {
           <ToolbarGroup>
             <EventSelector habits={this.props.habits} selectHabit={this.props.selectHabit} />
           </ToolbarGroup>
+          <ToolbarGroup>
+            <RaisedButton label="Delete Habit"  />
+          </ToolbarGroup>
+       
         </Toolbar>
       </div>
     );

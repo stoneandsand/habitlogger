@@ -5,13 +5,14 @@ import axios from "axios";
 import $ from "jquery";
 import OccurenceScatterPlot from './OccurenceScatterPlot.jsx';
 import AllPieChart from './AllPieChart.jsx';
+import BarGraph from './BarGraph.jsx';
 
 class Chart extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			allHabits: true,
+			allHabits: false,
 			selectedHabit: false,
 			width: 500,
 			height: 350,
@@ -93,7 +94,7 @@ class Chart extends React.Component {
 				},
 				{
 					habit: "smoking",
-					goal: 25,
+					goal: 12,
 					unit: "packs",
 					timeframe: "day",
 					deadline: "2017-12-31T14:38:15.074Z",
@@ -129,11 +130,12 @@ class Chart extends React.Component {
 						},
 						{
 							timestamp: "2017-09-24T14:37:15.075Z",
-							value: "7",
+							value: "25",
 							notes: "had a great day, sunny outside."
 						},
 						{
-							timestamp: "2017-10-27T17:42:15.075Z",
+
+							timestamp: "2017-08-27T17:42:15.075Z",
 							value: "9",
 							notes: "Polar bear crossed road."
 						},
@@ -174,13 +176,14 @@ class Chart extends React.Component {
 
 
 	render() {
-		return (<div>
-			<button className="effect--1" onClick={this.showAllHabits}>All Habits</button>
-			<button className="effect--2" onClick={this.showIndividualHabit}>Individual Habit</button>
+		return (<div className='chart-container'>
+			<button className="effect--1 graph-button" onClick={this.showAllHabits}>All Habits</button>
+			<button className="effect--2 graph-button" onClick={this.showIndividualHabit}>Bar Graph</button>
+			<button className="effect--3 graph-button" onClick={this.showIndividualHabit}>Scatterplot</button>
 
 			{ this.state.allHabits ? 
 			<OccurenceScatterPlot data={this.state.data} habitData={this.state.habitData} habits={this.state.habits} width={this.state.width} height={this.state.height}/> :
-			<AllPieChart data={this.state.data} habitData={this.state.habitData} habits={this.state.habits} width={this.state.width} height={this.state.height} />
+			<BarGraph data={this.state.data} habitData={this.state.habitData} habits={this.state.habits} width={this.state.width} height={this.state.height} />
 			}
 		</div>)
 	}

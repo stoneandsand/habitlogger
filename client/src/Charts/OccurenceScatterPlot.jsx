@@ -26,6 +26,9 @@ class OccurenceScatterPlot extends React.Component {
     	width = this.props.width - margin.left - margin.right,
     	height = this.props.height - margin.top - margin.bottom;
 
+    var tooltip = d3.select("body").append("div")	
+        .attr("class", "tooltip")				
+        .style("opacity", 0);
 
     var tooltip = d3.select("body").append("div")	
         .attr("class", "tooltip")				
@@ -51,8 +54,12 @@ class OccurenceScatterPlot extends React.Component {
     	// return strictIsoParse(e);
     });
 
+
+
     var mappedDeadline = 
     d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(data.deadline);
+
+
 
 		let x = d3
     	.scaleTime() //scaleBand
@@ -105,9 +112,6 @@ class OccurenceScatterPlot extends React.Component {
     	.attr("dy", ".71em")
     	.style("text-anchor", "end")
     	.text("Frequency");
-
-
-
 
  		function validLine(index, item) {
     	if (data.occurrences[index + 1]) {
@@ -169,8 +173,6 @@ class OccurenceScatterPlot extends React.Component {
     			.attr('x', x(mappedDeadline) / 2)
     			.attr('y', y([data.goal]) - 3)
     			.text('GOAL')
-
-
     return (
     	<div>
     		{div.toReact()}

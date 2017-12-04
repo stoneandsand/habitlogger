@@ -4,13 +4,13 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  width: 100%;
+  background-color: #F7F5E6;
+  background: url('sayagata-400px.png');
 }
 
 .wrapper {
   width: 100%;
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: auto;
   /*grid-row-gap: 5em;*/
 }
 
@@ -35,7 +35,7 @@ body {
 
 .login-signup-subgrid {
   display: grid;
-  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-columns: 33.3% 350px;
   grid-row-gap: 5em;
 }
 
@@ -109,11 +109,17 @@ body {
 /*Calendar Styling*/
 
 div#calendar {
-  position: relative;
-  display: flex;
+  position: absolute;
+  top: 650px;
+  width: 70%;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
   border-radius: 5px;
   border: 1px solid #5a5a5a;
   background-color: white;
+  margin: 0 auto;
   overflow: hidden;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -244,7 +250,53 @@ div.calendar-controls .today {
 /*Data Logger*/
 .data-logger {
   width: 350px;
-  margin: auto;
+  grid-column: 1;
   padding: 10px;
   border: 2px solid #333a56;
+  background: #f3f4f5;
+  box-shadow: 0 5px 10px #343d55;
+
 }
+
+/* App toolbar */
+.app-toolbar {
+  margin-bottom: 35px;
+  box-shadow: 0 5px 10px #343d55;
+}
+
+
+/* Data Charts */
+.chart-container {
+  grid-column: 2/2;
+  justify-self: left;
+}
+
+.chart-container svg{
+  box-shadow: 0 5px 10px #343d55;
+}
+
+.graph-button {
+  box-shadow: 0 3px 3px #343d55;
+  background-color: #EC407A !important;
+  padding: 10px;
+  margin: 5px 5px 20px 5px;
+  color: #F7F5E6;
+}
+
+
+/* Top row grid */
+.top-row__container {
+  display: grid;
+  grid-template-columns: 500px 800px;
+  align-self: center;
+  justify-self: center;
+  justify-items: center;
+  margin-left: 12%;
+}
+
+.button {
+  border-radius: 5px;
+  margin: 5px 5px 20px 5px;
+  background-color: #EC407A !important;
+}
+
