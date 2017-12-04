@@ -232,31 +232,8 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <MuiThemeProvider>
-<<<<<<< HEAD
           <TopBar logout={this.logout} loggedIn={this.state.username} />
           {initialPage}
-=======
-          <div>
-         
-            <TopBar logout={this.logout} loggedIn={this.state.username} />
-          {!this.state.username ?
-          <Login login={this.login} signup={this.signup} />
-          : null}
-          {this.state.username ?
-
-            
-            <div className="main">
-
-              <div className="row rowA">
-                  <EventCreator createHabit={this.createHabit} />
-                  <DataLogger habits={this.state.habits} getHabitsInfo={this.getHabitsInfo.bind(this)} logHabit={this.logHabit} />
-                  <EventSelector habits={this.state.habits} selectHabit={this.selectHabit}/>
-                    <Chart />
-              </div>
-            </div>
-            : null}
-          </div>
->>>>>>> D3 graphs rendering dynamic data, scaled in both axis.
         </MuiThemeProvider>
       </div>
     );
