@@ -101,6 +101,19 @@ const getUserHabits = (user, cb) => {
   });
 };
 
+const getGraphData = (user, cb) => {
+  User.findOne({ username: user }, (err, userEntry) => {
+    if (err) {
+      console.error(`Error getting ${user}'s habits.`);
+    } else if (!userEntry) {
+      cb([]); // If no user habits found, return empty array, to prevent errors on client.
+    } else {
+      cb(userEntry.habits);
+    }
+  });
+};
+
+
 const getHabitData = (user, habit, cb) => {
   User.findOne({ username: user }, (err, userEntry) => {
     if (err) {
@@ -177,3 +190,4 @@ module.exports.getUserHabits = getUserHabits;
 module.exports.getHabitData = getHabitData;
 module.exports.createHabit = createHabit;
 module.exports.logOccurrence = logOccurrence;
+module.exports.getGraphData = getGraphData;

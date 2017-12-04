@@ -111,14 +111,14 @@ body {
 div#calendar {
   position: absolute;
   top: 650px;
-  width: 70%;
+  width: 97%;
   left: 0; 
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
   border-radius: 5px;
   border: 1px solid #5a5a5a;
-  background-color: white;
+  background-color: #F7F5E6;
   margin: 0 auto;
   overflow: hidden;
   -webkit-touch-callout: none;
@@ -131,6 +131,8 @@ div#calendar {
 
 table.calendar {
   border-collapse: collapse;
+  width: 90%;
+  margin: 0 auto;
 }
 
 table.calendar thead {
@@ -241,6 +243,11 @@ div.calendar-controls .today {
   transition: 1s;
 }
 
+.scatter-bar:hover {
+  fill: #00bcd1 !important;
+  transition: 1s;
+}
+
 .tooltip {
   color: #333a56;
   background: #e8e8e8;
@@ -291,7 +298,7 @@ div.calendar-controls .today {
   align-self: center;
   justify-self: center;
   justify-items: center;
-  margin-left: 12%;
+
 }
 
 .button {

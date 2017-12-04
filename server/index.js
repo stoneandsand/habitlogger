@@ -48,6 +48,7 @@ const checkLoginAuthStatus = (req, res, next) => {
   if (isLoggedIn && isActualUser) {
     next();
   } else {
+
     res.redirect('/');
   }
 };
@@ -93,10 +94,12 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/api/:username', checkLoginAuthStatus, (req, res) => {
+app.get('/api/:username', (req, res) => {
   // Get the user's list of habits.
+  console.log('habit list from endpoint', req.params.username);
   // Used to field selectors on client.
   db.getUserHabits(req.params.username, (habitList) => {
+    console.log('true habits', habitList);
     res.send(habitList);
   });
 });
@@ -130,6 +133,12 @@ app.post('/api/:username/log', checkLoginAuthStatus, (req, res) => {
 app.get('/sessionCheck', (req, res) => {
   res.send(req.session);
 });
+
+app.get('/graphData', (req, res) => {
+  db.getGraphData(req.session.user, (graphData) => {
+    res.send(graphData);
+  });
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);

@@ -33,27 +33,27 @@ class AllPieChart extends React.Component {
 
 
 		// Container Sizing
-		let padding = 25;
+
 		let margin = { top: 40, right: 40, bottom: 40, left: 40 },
-			width = 500 + margin.left + margin.right,
-			height = 350 + margin.top + margin.bottom,
-			radius = Math.min(500, 350) / 2;
+			width = 500,
+			height = 400,
+			radius = Math.min(500, 400) / 2;
 
 		var svg = d3.select(div) 
 			.append('svg')
 			.attr('width', width)
 			.attr('height', height)
-			.style('background-color', '#333A56')
-			var g = svg.append("g").attr("transform", "translate(" + (290) + "," + (radius + 40)  + ")");
+			.style('background-color', '#52658F')
+			var g = svg.append("g").attr("transform", "translate(" + (250) + "," + (200)  + ")");
 
-		var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+		var color = d3.scaleOrdinal(["#EC407A", "#333A56", "#00bcd1", "#E8E8E8", "#a05d56", "#d0743c", "#ff8c00"]);
 
 		var pie = d3.pie()
 			.sort(null)
 			.value(function(d) { return d.occurrences.length });
 
 		var path = d3.arc()
-			.outerRadius(radius)
+			.outerRadius(radius - 25)
 			.innerRadius(35)
 
 		var label = d3.arc()
@@ -71,13 +71,17 @@ class AllPieChart extends React.Component {
 
 		arc.append("text")
 		      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+		      .style('font-size', '0.5em')
 		      .attr("dy", "0.35em")
+		      .style('stroke', '#F7F5E6')
 		      .text(function(d) { return "Habit: " + d.data.habit; });
 
 		arc.append("text")
 		      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
 		      .attr("dy", "1em")
 		      .style('z-index', '9999')
+		      .style('font-size', '0.5em')
+		      .style('fill', '#F7F5E6')
 		      .text(function(d) { return "Logs: " + d.data.occurrences.length; });
 
 		return <div>{div.toReact()}</div>;

@@ -21,6 +21,7 @@ class App extends React.Component {
       viewData: false,
       viewHabit: '',
       loggedIn: false,
+      selectedHabit: '',
     };
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -44,13 +45,18 @@ class App extends React.Component {
       .catch(err => {
         console.log(err);
       });
+
+      
+  }
+
+  componentWillMount(){
+    this.getUserData();
   }
 
   login(username, password) {
     axios
       .post('/login', { username: username, password: password })
       .then(res => {
-        console.log(res.data);
         if (res.data) {
           this.setState({ username: res.data });
           this.getUserData();
@@ -107,6 +113,7 @@ class App extends React.Component {
     axios
       .get(`/api/${username}`)
       .then(res => {
+        console.log(this.state.username);
         this.setState({
           habits: res.data,
         });
@@ -148,8 +155,8 @@ class App extends React.Component {
         occurrence: {
           timestamp: time,
           value: quantity,
+          notes: notes
         },
-        notes: notes,
       };
       axios
         .post(`/api/${this.state.username}/log`, occurrence)
@@ -199,7 +206,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     let initialPage;
     if (!this.state.username) {
       initialPage = <Login login={this.login} signup={this.signup} />;
