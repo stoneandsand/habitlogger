@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5567;
 
 const session = require('express-session');
 const webpack = require('webpack');
