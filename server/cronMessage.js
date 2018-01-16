@@ -4,9 +4,9 @@ const sendMessage = require('./sendsms.js').sendMessage;
 
 const compareTimeAndSend = (user, now, cb) => {
   let timeLeft = (user.deadline - now)/(1000 * 60);
-  console.log('before timechecks', 'timeLeft: ', timeLeft)
+  // console.log('before timechecks', 'timeLeft: ', timeLeft)
   if(timeLeft <= 1440 && timeLeft >= 0){ // less than 1 day(minutes) left && not overdue
-    console.log('after time checks')
+    // console.log('after time checks')
     sendMessage(user.phoneNumb, user.habit, timeLeft)
     cb(user.habit, user.username)
   }

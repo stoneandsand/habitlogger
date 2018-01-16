@@ -19,7 +19,7 @@ const occurrenceSchema = new Schema({
 });
 
 const habitSchema = new Schema({
-  habit: {type: String, unique: true}, // e.g., smoking.
+  habit: { type: String }, // e.g., smoking.
   limit: Number, // e.g., 5 (per timeframe)
   unit: String, // e.g., cigars
   deadline: Date,
