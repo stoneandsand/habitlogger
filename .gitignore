@@ -3,3 +3,10 @@
 /package-lock.json
 /client/public/bundle.js
 *.tern-port
+.travis.yml
+.DS_Store
+
+.floo
+.flooignore
+./server/.env
+.env

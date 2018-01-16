@@ -1,10 +1,14 @@
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 const User = require('./schemas.js');
+
 const DB_URI = process.env.MONGODB_URI ? `${process.env.MONGODB_URI}/stoneandsand` : 'mongodb://localhost/stoneandsand';
 mongoose.Promise = require('bluebird');
+
 mongoose.connect(DB_URI);
 
 // Monitor the db connection.
@@ -21,21 +25,22 @@ const sortByDate = (a, b) => {
     return -1;
   } else if (a.timestamp < b.timestamp) {
     return 1;
-  } else {
-    return 0;
   }
+  return 0;
 };
 
 // METHODS
 const signup = (user, cb) => {
-  User.findOne({username: user.username}, (err, userEntry) => {
+  User.findOne({ username: user.username }, (err, userEntry) => {
     if (err) {
       console.error(err);
-    } else if (!userEntry) { // The user does not exist in the database.
+    } else if (!userEntry) {
+      // The user does not exist in the database.
       bcrypt.hash(user.password, saltRounds, (err, hash) => {
-        let newUser = new User({
+        const newUser = new User({
           username: user.username,
           password: hash,
+          phoneNumb: user.phoneNumb,
         });
         newUser.save((err, newUserEntry) => {
           if (err) {
@@ -46,7 +51,8 @@ const signup = (user, cb) => {
           }
         });
       });
-    } else { // The user already exists in the database.
+    } else {
+      // The user already exists in the database.
       cb(false);
     }
   });
@@ -56,32 +62,36 @@ const verifyLogin = (user, cb) => {
   // Only return true if both the username and hash match.
   if (user.username && user.password) {
     // ^TODO: Move JSON property checking to router-side.
-    User.findOne({
-      username: user.username
-    }, (err, userEntry) => {
-      if (err) {
-        console.error(err);
-      } else {
-        if (userEntry && userEntry.password) {
-          bcrypt.compare(user.password, userEntry.password, function(err, hashMatches) {
+    User.findOne(
+      {
+        username: user.username,
+      },
+      (err, userEntry) => {
+        if (err) {
+          console.error(err);
+        } else if (userEntry && userEntry.password) {
+          bcrypt.compare(user.password, userEntry.password, (err, hashMatches) => {
             if (hashMatches) {
               cb(true);
-            } else { // Hashes don't match.
+            } else {
+              // Hashes don't match.
               cb(false);
             }
           });
-        } else { // No userEntry or password exists.
+        } else {
+          // No userEntry or password exists.
           cb(false);
         }
       }
-    });
-  } else { // Client did not submit a username or password.
+    );
+  } else {
+    // Client did not submit a username or password.
     cb(false);
   }
 };
 
 const getUserHabits = (user, cb) => {
-  User.findOne({username: user}, (err, userEntry) => {
+  User.findOne({ username: user }, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     } else if (!userEntry) {
@@ -92,15 +102,28 @@ const getUserHabits = (user, cb) => {
   });
 };
 
-const getHabitData = (user, habit, cb) => {  
-  User.findOne({username: user}, (err, userEntry) => {
+const getGraphData = (user, cb) => {
+  User.findOne({ username: user }, (err, userEntry) => {
+    if (err) {
+      console.error(`Error getting ${user}'s habits.`);
+    } else if (!userEntry) {
+      cb([]); // If no user habits found, return empty array, to prevent errors on client.
+    } else {
+      cb(userEntry.habits);
+    }
+  });
+};
+
+
+const getHabitData = (user, habit, cb) => {
+  User.findOne({ username: user }, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}'s habits.`);
     }
     // Iterate over the user's habits and return the target habit.
-    let targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
+    const targetHabit = userEntry.habits.filter(habitEntry => habitEntry.habit === habit).pop();
     targetHabit.occurrences.sort(sortByDate); // The client expects sorted occurrences.
-    
+
     if (targetHabit) {
       cb(targetHabit);
     } else {
@@ -110,16 +133,19 @@ const getHabitData = (user, habit, cb) => {
 };
 
 const createHabit = (habitData, cb) => {
-  User.findOne({username: habitData.username}, (err, userEntry) => {
+  User.findOne({ username: habitData.username }, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${habitData.username}.`);
-    }  else {
-      userEntry.habitList.push(habitData.habit); 
-      userEntry.habits.push({ 
+    } else {
+      console.log('userEntry: ', userEntry)
+      userEntry.habitList.push(habitData.habit);
+      userEntry.habits.push({
         habit: habitData.habit,
         limit: habitData.limit,
         unit: habitData.unit,
         timeframe: habitData.timeframe,
+        deadline: habitData.deadline,
+        messageSent: habitData.messageSent,
       });
       userEntry.save((err, updatedUserEntry) => {
         if (err) {
@@ -134,10 +160,10 @@ const createHabit = (habitData, cb) => {
 };
 
 const logOccurrence = (logData, cb) => {
-  User.findOne({username: logData.username}, (err, userEntry) => {
+  User.findOne({ username: logData.username }, (err, userEntry) => {
     if (err) {
       console.error(`Error getting ${user}.`);
-    }  else {
+    } else {
       // habits is an array of habits, not an object reference.
       // We have to iterate over each habit in this array to find the target habit.
       // Once found, we log the occurrence to that habit.
@@ -149,8 +175,8 @@ const logOccurrence = (logData, cb) => {
               console.error(`Error getting ${user}.`);
               cb(null);
             } else {
-            // Return the inputted occurence.
-            // It is now the last item in its habit's occurrences array.
+              // Return the inputted occurence.
+              // It is now the last item in its habit's occurrences array.
               cb(logData.occurrence);
             }
           });
@@ -160,10 +186,77 @@ const logOccurrence = (logData, cb) => {
   });
 };
 
+const updateMessage = (habit, username) => {
+  User.update({'username': username, 'habits.habit': habit}, {'$set': {
+    'habits.$.messageSent': true
+    }
+  }, (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('updated!')
+      User.find({}, (err, userEntry) => {
+        if(err) {
+          console.log(err);
+        } else {
+          // console.log('HERE IS THE userEntry>>>>>>>>>>', userEntry[0].habits)
+        }
+      })
+    };
+  })
+}
+// updateMessage('rolling', 'Sand');
+
+const getInfo = (cb) => {
+  User.find({}, (err, userEntry) => {
+    if(err){
+      console.log(`Error getting ${user}.`);
+    } else {
+      // console.log('userEntry: ', userEntry)
+      let currentUser = [];
+      for(let i = 0; i < userEntry.length; i++){
+        let person = userEntry[i].habits.map(habit => {
+        // console.log('userEntry', userEntry[i].username)
+          // console.log('username: ', userEntry[i].username)
+          // console.log('habit: ', habit.habit)
+          // console.log('phoneNumb: ', userEntry[i].phoneNumb)
+          // console.log('deadline: ', habit.deadline)
+          // console.log('messageSent: ', habit.messageSent)
+          return {
+            username: userEntry[i].username,
+            habit: habit.habit || '',
+            phoneNumb: userEntry[i].phoneNumb,
+            deadline: habit.deadline || '',
+            messageSent: habit.messageSent,
+          }
+        })
+        // console.log('person: ', person)
+        currentUser = currentUser.concat(person);
+      }
+      // console.log('currentUser: ', currentUser)
+      // console.log('entry length: ', userEntry.length)
+      // console.log('user[0]', userEntry[0])
+      // console.log('user[1]', userEntry[1])
+
+      cb(currentUser);
+    }
+  })
+}
+
+// User.find({}, (err, data) => {
+//   if(err) return console.log(err);
+//   console.log('>>>>>>>>', data)
+// })
+
 // EXPORTS
-module.exports.signup = signup;
-module.exports.verifyLogin = verifyLogin;
-module.exports.getUserHabits = getUserHabits;
-module.exports.getHabitData = getHabitData;
-module.exports.createHabit = createHabit;
-module.exports.logOccurrence = logOccurrence;
+module.exports = {
+  signup,
+  verifyLogin,
+  getUserHabits,
+  getHabitData,
+  createHabit,
+  logOccurrence,
+  updateMessage,
+  getGraphData,
+  getInfo,
+}

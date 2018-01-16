@@ -2,21 +2,25 @@ import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import moment from 'moment';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Clock from './ClockIcon.jsx';
 
 class DataLogger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentHabit: '',
-      habitTime: new Date(),
+      habitTime: '',
       quantity: '',
       value: 0,
+      notes: '',
     };
     this.logChange = this.logChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.handleNotesChange = this.handleNotesChange.bind(this);
+    this.logHelper = this.logHelper.bind(this);
   }
 
   // used to have 'Select Habit' placeholder text in drop down menu on mount
@@ -32,7 +36,7 @@ class DataLogger extends React.Component {
   }
 
   handleDateChange(e, date) {
-    this.setState({habitTime: date});
+    this.setState({ habitTime: date });
   }
 
   handleQuantityChange(e) {
@@ -41,27 +45,53 @@ class DataLogger extends React.Component {
     });
   }
 
+  handleNotesChange(e) {
+    this.setState({
+      notes: e.target.value,
+    });
+  }
+
+  logHelper(e) {
+   this.props.logHabit(e,
+     this.state.currentHabit,
+     this.state.habitTime,
+     this.state.quantity,
+     this.state.notes
+    )
+  }
+
   render() {
     return (
-      <div className="dataLogger">
-      <h1>Data Logger</h1>
-        <SelectField
-          floatingLabelText="Select Habit"
-          value={this.state.value}
-          onChange={this.logChange}
-        >
-          {this.props.habits.map((event, index)=>{
-            return <MenuItem key={index} value={index} primaryText={event} />
+      <div className="data-logger">
+        <Clock />
+        <h3>Data Logger</h3>
+        <SelectField floatingLabelText="Select Habit" value={this.state.value} onChange={this.logChange}>
+          {this.props.habits.map((event, index) => {
+            return <MenuItem key={index} value={index} primaryText={event} />;
           })}
         </SelectField>
-        <br />
-        <label>Click Date to Select Different Date: </label>
-        <DatePicker autoOk={true} hintText="Enter day of Habit" container="inline" mode="landscape" value={this.state.habitTime} onChange={(x, day) => this.handleDateChange(x,day)} />
-          <input type="number" onChange={this.handleQuantityChange} />
-          <button onClick={this.props.logHabit.bind(this, this.state.currentHabit, this.state.habitTime, this.state.quantity)} >Log Habit</button>
-        <hr />
+        <DatePicker
+          hintText="Enter the date"
+          autoOk={true}
+          container="inline"
+          mode="landscape"
+          value={this.state.habitTime}
+          onChange={(x, day) => this.handleDateChange(x, day)}
+        />
+        <TextField floatingLabelText="Quantity" type="number" onChange={this.handleQuantityChange} />
+        <TextField
+          multiLine={true}
+          rows={4}
+          floatingLabelText="Enter your notes"
+          value={this.state.notes}
+          onChange={this.handleNotesChange}
+        />
+        <RaisedButton
+          onClick={this.logHelper}
+          label="Log Habit"
+        />
       </div>
-    )
+    );
   }
 }
 

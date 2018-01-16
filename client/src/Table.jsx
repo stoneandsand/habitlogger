@@ -15,15 +15,6 @@ class MuiTable extends React.Component {
   }
 
   render() {
-    // this was for setting maximum displayed table entries to 15 but throwing errors on certain cases
-    // const limit = [];
-    // for(var i = 0; i < 15; i++) {
-    //   if(this.props.occurrences[i]) {
-    //     limit.push(this.props.occurrences[i]);
-    //   } else {
-    //     break;
-    //   }
-    // }
     return (
       <div className="table">
         <h1 className="tableName">{this.props.habit}</h1>
